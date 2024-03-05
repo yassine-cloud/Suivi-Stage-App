@@ -1,6 +1,6 @@
-# Nom de votre application
+# Suivi Stage
 
-Bienvenue dans l'application [Nom de votre application] !
+Bienvenue dans l'application Suivi Stage !
 
 ## Technologies utilisées
 
