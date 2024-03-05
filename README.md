@@ -40,4 +40,4 @@ Cette application utilise les technologies suivantes :
 Assurez-vous d'avoir installé Node.js et Angular CLI avant d'exécuter les commandes ci-dessus. Vous devez également avoir un serveur MySQL en cours d'exécution pour que l'application fonctionne correctement.
 
 ---
-Ce fichier README est fourni pour expliquer l'installation et le fonctionnement de l'application. Pour toute question ou assistance supplémentaire, veuillez contacter [votre adresse e-mail ou nom d'utilisateur GitHub].
+Ce fichier README est fourni pour expliquer l'installation et le fonctionnement de l'application. Pour toute question ou assistance supplémentaire, veuillez contacter saadaouiy51@gmail.com.
