@@ -8,12 +8,16 @@ import { FooterComponent } from './shared/footer/footer.component';
 import {HttpClientModule} from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './shared/login/login.component';
+import { SignUpComponent } from './shared/sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
-    FooterComponent
+    FooterComponent,
+    LoginComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,

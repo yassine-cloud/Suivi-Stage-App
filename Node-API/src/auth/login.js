@@ -17,7 +17,8 @@ exports.login = async (req, res) => {
         try {
             const token = jwt.createToken({ name: 'admin', email });
             console.log("Admin Connected");
-            return res.status(200).send(token);
+            // return res.status(200).send(token);
+            return res.header('auth-token', token).json({ token, user: {nom : 'admin' , role: 'admin' , email} });
         } catch (err) {
             console.error(err);
             return res.status(400).send('Invalid email or password');
