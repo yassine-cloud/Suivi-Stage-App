@@ -30,15 +30,18 @@ export class LoginService {
   }
 
   login(email: string, password: string): Observable<boolean > {
-    return this.http.post<{ accessToken: string, user: any }>(`${this.url}/login`, { email, password })
+    console.log("login service");
+    
+    return this.http.post<any>(`${this.url}/login`, { email, password })
       .pipe(
         map( (response) => {
           
   
           // Store login information for successful login
-          sessionStorage.setItem("accessToken", response.accessToken);
-          sessionStorage.setItem("user", JSON.stringify(response.user));
+          // sessionStorage.setItem("accessToken", response.accessToken);
+          // sessionStorage.setItem("user", JSON.stringify(response.user));
   
+          alert("Connexion Reussi \n Bienvenue "+response.user.nom+" "+response.user.prenom);
           return true; // Login successful
         }),
         tap(result => {
@@ -48,6 +51,8 @@ export class LoginService {
         }),
         catchError(error => {
           // console.error(error);
+          console.error('Error:', error);
+          alert("An error occurred during login");
           return of(false); // Return false in case of error
         })
       );

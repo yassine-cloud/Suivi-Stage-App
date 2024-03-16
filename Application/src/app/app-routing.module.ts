@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './shared/login/login.component';
+import { SignUpComponent } from './shared/sign-up/sign-up.component';
 
 const routes: Routes = [
 
@@ -15,6 +17,16 @@ const routes: Routes = [
   // { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
   // { path: 'register', loadChildren: () => import('./register/register.module').then(m => m.RegisterModule) },
   // { path: '404', loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundModule) },
+
+
+  { path: 'entreprise', loadChildren: () => import('./entreprise/entreprise.module').then(m => m.EntrepriseModule) },
+  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
+  { path: 'encadrant', loadChildren: () => import('./encadreur/encadreur.module').then(m => m.EncadreurModule) },
+  { path: 'etudiant', loadChildren: () => import('./etudiant/etudiant.module').then(m => m.EtudiantModule) },
+
+
+  {path : 'register' , component : SignUpComponent},
+  {path : 'login' ,component : LoginComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: '404' }
 

@@ -1,11 +1,13 @@
 const bcrypt = require('bcrypt');
 const jwt = require('./JWTconf');
 const connection = require('../Data/Connection');
+const { log } = require('console');
 
 
 
 exports.login = async (req, res) => {
     // req contains the email and password
+    console.log("Login request");
     let email = req.body.email;
     let password = req.body.password;
 
@@ -33,7 +35,7 @@ exports.login = async (req, res) => {
             if (await bcrypt.compare(password, hashedPassword)) {
                 const token = jwt.createToken({ name: user.data.nom, email });
                 console.log("User Connected");
-                return res.header('auth-token', token).json({ token, user: user });
+                return res.header('auth-token', token).json({ token, user: user.data });
             } else {
                 console.log("Invalid password");
                 return res.status(400).send('Invalid password');
