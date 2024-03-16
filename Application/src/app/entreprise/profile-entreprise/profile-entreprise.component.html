@@ -1,0 +1,37 @@
+<div class="body">
+    <div class="profile">
+      <img src={{societe.logo}} alt="Logo de la société">
+      <h1>{{societe.nom}}</h1>
+      <p>{{societe.email}}</p>
+      <p>Adresse : 123 Rue de la société, Ville, Pays</p>
+      <p>Téléphone : +XX XX XX XX XX</p>
+      <p>Site Web : <a href="http://www.societe.com">www.societe.com</a></p>
+      <p>Réseaux sociaux :
+        <a href="http://www.facebook.com/societe">Facebook</a>,
+        <a href="http://www.twitter.com/societe">Twitter</a>,
+        <a href="http://www.linkedin.com/company/societe">LinkedIn</a>
+        {{societe.prop|json}}
+        
+      </p>
+      <button class="btn btn-primary" (click)="onCommence()">Ajouter une Propostion de Stage</button>
+    </div>
+  </div>
+    <div class="member-form" *ngIf="fc" >
+      <div class="search-bar">
+          <h1>Ajouter une nouvelle proposition :</h1><br>
+          <form #ff="ngForm" (ngForm)="ff">
+              <label for="nom">Sujet:</label><br>
+              <input type="text" id="sujet" name="sujet" class="form-control" ngModel><br>
+  
+              <label for="prenom">Description:</label><br>
+               <textarea name="Description" id="Description" class="form-control" cols="30" rows="5" ngModel></textarea><br>
+  
+              <label for="cin">Nombre d'etudiants:</label><br>
+              <input type="number" id="nbr" name="nbr" class="form-control" ngModel><br>
+  
+              <input type="submit" class="btn btn-success m-3" value="Enregistrer" (click)="onAjout(ff.value)">
+              <input type="submit" class="btn btn-danger" value="Annuler" (click)="onAnnuler()">
+          </form>
+      </div>
+      </div>
+  
