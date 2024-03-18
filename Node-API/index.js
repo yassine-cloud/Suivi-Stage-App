@@ -24,6 +24,7 @@ const sign = require('./src/auth/signup')
 const etudiant = require('./src/Data/etudiant')
 const entreprise = require('./src/Data/entreprise')
 const encadrant = require('./src/Data/encadrant')
+const offre=require('./src/Data/offre')
 ////-----------------------------------------------
 
 
@@ -33,6 +34,7 @@ app.post('/login', auth.login)
 app.get('/etudiants', etudiant.getEtudiants)
 app.get('/encadrants', encadrant.getEncadrants)
 app.get('/entreprises', entreprise.getEntreprises)
+app.get('/offre',offre.getOffres)
 
 app.post('/signup', sign.signup)
 
