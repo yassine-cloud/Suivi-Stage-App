@@ -34,7 +34,7 @@ app.post('/login', auth.login)
 app.get('/etudiants', etudiant.getEtudiants)
 app.get('/encadrants', encadrant.getEncadrants)
 app.get('/entreprises', entreprise.getEntreprises)
-app.get('/offre',offre.getOffres)
+app.get('/offres',offre.getOffres)
 
 app.post('/signup', sign.signup)
 

@@ -10,7 +10,7 @@ export class ListeOffresService {
   private url: string = environment.apiUrl ;
 
   getListe_Offres():Observable<any[]>{
-    return this.http.get<any[]>(this.url+"/offre").pipe(catchError(err=>{
+    return this.http.get<any[]>(this.url+"/offres").pipe(catchError(err=>{
       console.error('Error Connexion:', err);
         return of([]);
     }))

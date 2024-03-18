@@ -20,7 +20,7 @@ Cette application utilise les technologies suivantes :
     ```
 3. Pour lancer le serveur Node.js, exécutez la commande :
     ```
-    node run dev
+    npm run dev
     ```
 
 ### Serveur Angular (Application)
