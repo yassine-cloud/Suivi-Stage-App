@@ -1,0 +1,18 @@
+
+<div class="search-container">
+    <input type="text" placeholder="tags" class="search-input" [(ngModel)]="filtre">
+</div>
+
+<h1>Liste des Offres</h1>
+<div class="container">
+    <div *ngFor="let i of filtredOffres()" class="card">
+        <div class="card-img">
+            <img [src]="i.logo"  class="formation-image">
+        </div>
+        <div class="card-body">
+            <h3 class="formation-name">{{i.titre}}</h3>
+            <p class="formation-date">{{i.description }}</p>
+            <p>{{i.nombre}}</p>
+        </div>
+    </div>
+</div>
