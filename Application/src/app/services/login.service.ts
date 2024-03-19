@@ -61,9 +61,9 @@ export class LoginService {
   register(user: any , pass : string): Observable<boolean> {
     return this.http.post<{ accessToken: string, user: any }>(`${this.url}/register`, {...user , 'password' : pass }).pipe(
       map(
-        (log) =>{
-          let res : boolean = true;          
-          return res;
+        (response) =>{
+          if(response.accessToken && response.user){return true;}
+          else {return false;}
         }
       ),
       catchError(error => {
