@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('./JWTconf');
 const connection = require('../Data/Connection');
-const { log } = require('console');
 
 
 

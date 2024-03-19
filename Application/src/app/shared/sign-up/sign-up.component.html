@@ -1,4 +1,4 @@
-<form [formGroup]="registerForm" (ngSubmit)="registerSubmited "  class="border p-3 rounded-3 m-auto mt-5" >
+<form [formGroup]="registerForm" (ngSubmit)="registerSubmited()"  class="border p-3 rounded-3 m-auto mt-5" >
     <div class="row g-0">
        <div class="col text-center p-2 mb-3 bg-light">
            <span class="fs-3">Register</span>
@@ -38,8 +38,8 @@
     <div class="row">
         <div class="col mb-3">
             <label for="Departement" class="form-label">Departement :</label>
-            <select name="Departement" id="Departement" formControlName="Departement">
-                <option value="" disabled>Select department</option>
+            <select name="Departement" class="form-select" id="Departement" formControlName="Departement">
+                <option value="" selected hidden >Select department</option>
                 <option value="Informatique">Informatique</option>
                 <option value="Gestion">Gestion</option>
                 <option value="Mécanique">Mécanique</option>
@@ -76,13 +76,13 @@
            <div class="col mb-3">
                <label for="pwd" class="form-label">Password</label>
                <input type="password" class="form-control" id="pwd"
-               formControlName="pwd" >
+               formControlName="password" >
                <div class="form-text"></div>
            </div>
            <div class="col mb-3">
                <label for="rpwd" class="form-label">Repeat Password</label>
                <input type="password" class="form-control" id="rpwd" 
-               formControlName="rpwd">
+               formControlName="confirmPassword">
                <div class="form-text"></div>
            </div>
        </div>
@@ -90,7 +90,7 @@
        <div class="row">
            <div class="col-6 offset-3">
                <div class="d-grid">
-   <button type="submit" class="btn btn-primary">Submit</button>
+   <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary">Submit</button>
                </div>
            </div>
        </div>
