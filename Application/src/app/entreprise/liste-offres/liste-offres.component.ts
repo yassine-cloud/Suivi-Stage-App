@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { EntrepriseService } from 'src/app/services/entreprise/entreprise.service';
 
 @Component({
   selector: 'app-liste-offres',
@@ -7,51 +9,28 @@ import { Component } from '@angular/core';
 })
 export class ListeOffresComponent {
 
-  listeSociete=[
-    { nom:"ooredoo",
-      email:"ooredoo@gmail.com",
-      password:"ooredoo123",
-      logo:"https://upload.wikimedia.org/wikipedia/commons/b/b6/Ooredoo.svg",
-      prop:[{
-        sujet:"gestion facture",
-        description:"ccccccccccccc",
-        nbrEtudiant:4 
-      },{
-        sujet:"aaaaaaaaaaaa",
-        description:"wwwwwwwww",
-        nbrEtudiant:2 
-      },{
-        sujet:"bbbbbbbbbb",
-        description:"dddddddddddd",
-        nbrEtudiant: 7
-      },
-    ]
-    },
-      {
-        nom:"orange",
-        email:"orange@gmail.com",
-        password:"orange123",
-        logo:"https://logowik.com/content/uploads/images/650_orange.jpg",
-        prop:[{
-          sujet:"e-commerce",
-          description:"bbbbbb",
-          nbrEtudiant:2  
-        },
-      ]
-      },
-      {
-        nom:"Tunisie Telecom",
-        email:"tt@gmail.com",
-        password:"tt123",
-        logo:"https://upload.wikimedia.org/wikipedia/fr/f/f9/LOGO_TT_.jpg",
-        prop:[{
-          sujet:"e-learning",
-          description:"aaaaaaaaaaaaaa",
-          nbrEtudiant:5  
-        },
-      ]
+  constructor(private entre : EntrepriseService , private router : ActivatedRoute) { }
+
+  offres: any[] =[]
+
+  id_ent : string ='';
+
+  ngOnInit(): void {
+
+    this.id_ent = this.router.snapshot.paramMap.get('id') ?? '';
+    if(this.id_ent == ''){
+      alert("Erreur lors de la recuperation de l'identifiant de la societe");
+      return;
+    }
+
+    this.entre.getListeOffresSociete(this.id_ent).subscribe(
+      (res) => {
+        this.offres = res;
+        // console.log(res);
       }
-  ]
-  societe=this.listeSociete[0];
+    );
+  
+  
+  }
 
 }

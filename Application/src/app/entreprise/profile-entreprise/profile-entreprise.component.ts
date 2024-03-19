@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef, ViewChild, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EntrepriseService } from 'src/app/services/entreprise/entreprise.service';
 
 @Component({
   selector: 'app-profile-entreprise',
@@ -7,61 +11,54 @@ import { Component } from '@angular/core';
 })
 export class ProfileEntrepriseComponent {
 
+  // pop up view
+  private modalService = inject(NgbModal);
 
-  fc:boolean=false;
-  ngOnInit(): void {
-    this.fc=false;
+  @ViewChild('pop') popRef!: TemplateRef<any>;
+
+
+  openPopup() {
+    this.modalService.open(this.popRef, { backdropClass: 'pop-up-backdrop' });
   }
-listeSociete=[
-  { nom:"ooredoo",
-    email:"ooredoo@gmail.com",
-    password:"ooredoo123",
-    logo:"https://upload.wikimedia.org/wikipedia/commons/b/b6/Ooredoo.svg",
-    prop:[{
-      sujet:"gestion facture",
-      description:"ccccccccccccc",
-      nbrEtudiant:4 
-    },
-  ]
-  },
-    {
-      nom:"orange",
-      email:"orange@gmail.com",
-      password:"orange123",
-      logo:"https://logowik.com/content/uploads/images/650_orange.jpg",
-      prop:[{
-        sujet:"e-commerce",
-        description:"bbbbbb",
-        nbrEtudiant:2  
-      },
-    ]
-    },
-    {
-      nom:"Tunisie Telecom",
-      email:"tt@gmail.com",
-      password:"tt123",
-      logo:"https://upload.wikimedia.org/wikipedia/fr/f/f9/LOGO_TT_.jpg",
-      prop:[{
-        sujet:"e-learning",
-        description:"aaaaaaaaaaaaaa",
-        nbrEtudiant:5  
-      },
-    ]
-    }
-]
-societe=this.listeSociete[0];
 
-onAnnuler(){
-  this.fc=false;
-}
-onCommence(){
-  this.fc=true;
-}
-onAjout(ff:any){
-  if(ff.description!="" && ff.sujet!="" && Number(ff.nbr)>0)
-    this.listeSociete[0].prop.push(ff);
-  else
-    alert("les champs doivent etre non vide");
+  constructor(private entre : EntrepriseService , private router : ActivatedRoute , private formbuild : FormBuilder) { }
+
+  entreprise: any;
+  id_ent : string ='';
+
+  popform !: FormGroup;
+
+  ngOnInit(): void {
+    this.id_ent = this.router.snapshot.paramMap.get('id') ?? '';
+
+    
+
+    
+    if(this.id_ent == ''){
+      alert("Erreur lors de la recuperation de l'identifiant de la societe");
+      return;
+    }
+
+    this.entre.getEntreprise(this.id_ent).subscribe(
+      (res) => {
+        this.entreprise = res[0];
+        this.popform = this.formbuild.group({
+          titre: ['' , Validators.required],
+          description: ['' , Validators.required],
+          date_debut: ['' , Validators.required],
+          date_fin: ['' , Validators.required],
+          id_ent: [this.id_ent , Validators.required],
+          nombre : [0 , Validators.required]
+        });
+      }
+    );
+
+  }
+
+onAjout(){
+  alert("Ajout d'offre");
+  console.log(this.popform);
+  
 }
 
 

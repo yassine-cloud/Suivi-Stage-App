@@ -9,6 +9,15 @@ exports.getOffres = async (req, res) => {
     });
 }
 
+exports.getOffresEntreprise = async (req, res) => {
+    connection.query('SELECT o.*,e.* FROM offre_stage o join entreprise e on e.id_ent=o.id_ent where e.id_ent = ?' , [req.body.id_ent], (err, rows) => {
+        if (err) throw err;
+        console.log('Data received from Db:');
+        console.log(rows);
+        res.send(rows);
+    });
+}
+
 exports.getOffre = async (req, res) => {
     connection.query('SELECT * FROM offre_stage WHERE id_os = ?', [req.body.id], (err, rows) => {
         if (err) throw err;

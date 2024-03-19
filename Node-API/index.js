@@ -44,9 +44,10 @@ app.post('/entreprise', entreprise.getEntreprise)
 
 
 ////-----------------------------------------------
+/// Offres 
+app.post('/offresentreprise', offre.getOffresEntreprise)
 
-
-
+/////-------------------------------------------
 // hash code
 const bcrypt = require('bcrypt');
 const saltRounds = 10;

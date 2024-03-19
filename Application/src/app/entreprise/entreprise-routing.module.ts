@@ -7,7 +7,11 @@ import { AjoutOffreComponent } from './ajout-offre/ajout-offre.component';
 const routes: Routes = [
   {path:'profile' , component : ProfileEntrepriseComponent},
   {path:'liste-offre' , component : ListeOffresComponent},
-  {path:'ajout-offre' , component : AjoutOffreComponent}
+  {path:'ajout-offre' , component : AjoutOffreComponent},
+
+  {path:'liste-offre/:id' , component : ListeOffresComponent},
+  {path:'profile/:id' , component : ProfileEntrepriseComponent},
+
 ];
 
 @NgModule({
