@@ -1,6 +1,3 @@
-
-
-
 <form [formGroup]="registerForm" (ngSubmit)="registerSubmited "  class="border p-3 rounded-3 m-auto mt-5" >
     <div class="row g-0">
        <div class="col text-center p-2 mb-3 bg-light">
@@ -13,6 +10,7 @@
        <label for="firstname" class="form-label">First Name</label>
        <input type="text" class="form-control" id="firstname "
        formControlName="firstname">
+       
       </div>
    
       <div class="col mb-3">
@@ -36,10 +34,27 @@
            <input type="text" class="form-control" id="mobile"  formControlName="mobile" >
            <div class="form-text"></div>
        </div>
+
+    <div class="row">
+        <div class="col mb-3">
+            <label for="Departement" class="form-label">Departement :</label>
+            <select name="Departement" id="Departement" formControlName="Departement">
+                <option value="" disabled>Select department</option>
+                <option value="Informatique">Informatique</option>
+                <option value="Gestion">Gestion</option>
+                <option value="Mécanique">Mécanique</option>
+                <option value="Eléctrique">Eléctrique</option>
+                <option value="Civil">Civil</option>
+                
+            </select>
+            <div class="form-text">
+        </div>
+    </div>
+
    
    
    
-       <div class="col ps-3 mb-3">
+       <!--<div class="col ps-3 mb-3">
            <div class="m-1">Gender</div>
            <div class="form-check form-check-inline">
                <input type="radio" class="form-check-input" value="m" id="male"
@@ -53,7 +68,8 @@
                <label class="form-check-label" for="female">female</label>
            </div>
        </div>
-   </div>
+   </div>-->
+
    
    
        <div class="row">
@@ -78,10 +94,5 @@
                </div>
            </div>
        </div>
+     
    
-   
-   
-    
-   
-        
-   </form>
