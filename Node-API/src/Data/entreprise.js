@@ -29,7 +29,7 @@ exports.addEntreprise = async (req, res) => {
 }
 
 exports.updateEntreprise = async (req, res) => {
-    connection.query('UPDATE entreprise SET ? WHERE id = ?', [req.body, req.body.id], (err, rows) => {
+    connection.query('UPDATE entreprise SET ? WHERE id_ent = ?', [req.body, req.body.id_ent], (err, rows) => {
         if (err) throw err;
         console.log('Data received from Db:');
         console.log(rows);
@@ -38,7 +38,7 @@ exports.updateEntreprise = async (req, res) => {
 }
 
 exports.deleteEntreprise = async (req, res) => {
-    connection.query('DELETE FROM entreprise WHERE id = ?', [req.body.id], (err, rows) => {
+    connection.query('DELETE FROM entreprise WHERE id_ent = ?', [req.body.id], (err, rows) => {
         if (err) throw err;
         console.log('Data received from Db:');
         console.log(rows);
