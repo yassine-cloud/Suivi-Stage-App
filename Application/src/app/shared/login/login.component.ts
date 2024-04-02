@@ -17,6 +17,7 @@ export class LoginComponent {
   })
 
   ngOnInit(): void {
+    // this.login.controle();
   }
 
   onSubmit(){

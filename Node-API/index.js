@@ -21,6 +21,7 @@ const port = 3000
 // Routes
 const auth = require('./src/auth/login')
 const sign = require('./src/auth/signup')
+const controle=require('./src/auth/controler')
 const etudiant = require('./src/Data/etudiant')
 const entreprise = require('./src/Data/entreprise')
 const encadrant = require('./src/Data/encadrant')
@@ -30,6 +31,7 @@ const offre=require('./src/Data/offre')
 
 // API request
 app.post('/login', auth.login)
+app.post('/controle', controle.verifyToken)
 
 app.get('/etudiants', etudiant.getEtudiants)
 app.get('/encadrants', encadrant.getEncadrants)

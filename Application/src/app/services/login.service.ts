@@ -10,18 +10,34 @@ export class LoginService {
 
   constructor(private http : HttpClient) { }
   private url: string = environment.apiUrl ;
-  options = {headers : new HttpHeaders(
-    {'content-type' : "application/json"}
-  )}
-
+  options = {headers : new HttpHeaders({
+    'content-type' : "application/json",
+    'authorization' : "Bearer "+sessionStorage.getItem("accessToken")
+  })}
   user : any;
   acessTocken : string='';
   connected : boolean = false;
 
 
 
-  controle(){
-
+  controle()  {
+    this.http.post<any>(`${this.url}/controle`, { accessToken: sessionStorage.getItem("accessToken") }, this.options).subscribe(
+      (response) => {
+        console.log(response);
+        if(response.connected){
+          this.connected = true;
+          this.user = response.user;
+        }
+        else{
+          this.connected = false;
+        }
+      },
+      (error) => {
+        console.error('Error:', error);
+      }
+    );
+  
+    
   }
 
   deconnexion(){
@@ -38,8 +54,8 @@ export class LoginService {
           
   
           // Store login information for successful login
-          // sessionStorage.setItem("accessToken", response.accessToken);
-          // sessionStorage.setItem("user", JSON.stringify(response.user));
+          sessionStorage.setItem("accessToken", response.accessToken);
+          sessionStorage.setItem("user", JSON.stringify(response.user));
   
           alert("Connexion Reussi \n Bienvenue "+response.user.nom+" "+response.user.prenom);
           return true; // Login successful

@@ -16,10 +16,10 @@ exports.login = async (req, res) => {
 
     if (email === 'admin@isetr.tn' && password === 'admin') {
         try {
-            const token = jwt.createToken({ name: 'admin', email });
+            const accessToken = jwt.createToken({ name: 'admin', email });
             console.log("Admin Connected");
             // return res.status(200).send(token);
-            return res.header('auth-token', token).json({ token, user: {nom : 'admin' , role: 'admin' , email} });
+            return res.header('auth-token', accessToken).json({ accessToken, user: {nom : 'admin' , role: 'admin' , email} });
         } catch (err) {
             console.error(err);
             return res.status(400).send('Invalid email or password');
@@ -32,9 +32,9 @@ exports.login = async (req, res) => {
         if (user !== null) {
             const hashedPassword = user.data.password;
             if (await bcrypt.compare(password, hashedPassword)) {
-                const token = jwt.createToken({ name: user.data.nom, email });
+                const accessToken = jwt.createToken({ name: user.data.nom, email });
                 console.log("User Connected");
-                return res.header('auth-token', token).json({ token, user: user.data });
+                return res.header('auth-token', accessToken).json({ accessToken, user: user.data });
             } else {
                 console.log("Invalid password");
                 return res.status(400).send('Invalid password');

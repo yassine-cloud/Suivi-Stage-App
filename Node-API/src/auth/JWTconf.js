@@ -30,3 +30,24 @@ exports.verifyToken = (req, res, next) => {
     next();
   });
 }
+
+
+exports.controllerToken = (token) => {
+  
+  if (!token) {
+    return false;
+  }
+  resultat = false;
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) {
+      console.log(err);
+      resultat = false;
+
+    }
+    console.log("decoded : ");
+    console.log(decoded);
+    resultat = true;
+
+  });
+  return resultat;
+}
