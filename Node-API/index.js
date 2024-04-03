@@ -43,7 +43,7 @@ app.post('/encadrant', encadrant.getEncadrant)
 app.post('/entreprise', entreprise.getEntreprise)
 app.post('/addEntreprise', entreprise.addEntreprise)
 
-app.put('/editEntreprise',entreprise.updateEntreprise);
+app.post('/editEntreprise',entreprise.updateEntreprise);
 
 app.delete('/entreprise',entreprise.deleteEntreprise);
 
