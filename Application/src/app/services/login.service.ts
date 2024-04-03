@@ -19,26 +19,47 @@ export class LoginService {
   connected : boolean = false;
 
 
-
-  controle()  {
-    this.http.post<any>(`${this.url}/controle`, { accessToken: sessionStorage.getItem("accessToken") }, this.options).subscribe(
-      (response) => {
+  controle():Observable<boolean>{
+    if(!sessionStorage.getItem("accessToken") || !sessionStorage.getItem('user')) return of(false);
+    else
+    return this.http.post<any>(`${this.url}/controle`, { accessToken: sessionStorage.getItem("accessToken") }, this.options).pipe(
+      map( (response) => {
         console.log(response);
         if(response.connected){
           this.connected = true;
-          this.user = response.user;
+          this.user = JSON.parse(sessionStorage.getItem("user")!);
+          return true;
         }
         else{
           this.connected = false;
+          return false
         }
-      },
-      (error) => {
+      }),
+      catchError(error => {
         console.error('Error:', error);
-      }
-    );
-  
-    
+        return of(false);
+      })
+    )
   }
+
+  // controle2()  {
+  //   this.http.post<any>(`${this.url}/controle`, { accessToken: sessionStorage.getItem("accessToken") }, this.options).subscribe(
+  //     (response) => {
+  //       console.log(response);
+  //       if(response.connected){
+  //         this.connected = true;
+  //         this.user = response.user;
+  //       }
+  //       else{
+  //         this.connected = false;
+  //       }
+  //     },
+  //     (error) => {
+  //       console.error('Error:', error);
+  //     }
+  //   ); 
+    
+  // }
 
   deconnexion(){
     sessionStorage.clear();
@@ -57,7 +78,7 @@ export class LoginService {
           sessionStorage.setItem("accessToken", response.accessToken);
           sessionStorage.setItem("user", JSON.stringify(response.user));
   
-          alert("Connexion Reussi \n Bienvenue "+response.user.nom+" "+response.user.prenom);
+          // alert("Connexion Reussi \n Bienvenue "+response.user.nom+" "+response.user.prenom);
           return true; // Login successful
         }),
         tap(result => {

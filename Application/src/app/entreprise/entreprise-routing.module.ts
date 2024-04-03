@@ -9,9 +9,6 @@ const routes: Routes = [
   {path:'liste-offre' , component : ListeOffresComponent},
   {path:'ajout-offre' , component : AjoutOffreComponent},
 
-  {path:'liste-offre/:id' , component : ListeOffresComponent},
-  {path:'profile/:id' , component : ProfileEntrepriseComponent},
-
 ];
 
 @NgModule({

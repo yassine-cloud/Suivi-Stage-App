@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EntrepriseService } from 'src/app/services/entreprise/entreprise.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-liste-offres',
@@ -9,7 +10,7 @@ import { EntrepriseService } from 'src/app/services/entreprise/entreprise.servic
 })
 export class ListeOffresComponent {
 
-  constructor(private entre : EntrepriseService , private router : ActivatedRoute) { }
+  constructor(private entre : EntrepriseService , private router : ActivatedRoute, private logU:LoginService) { }
 
   offres: any[] =[]
 
@@ -17,7 +18,8 @@ export class ListeOffresComponent {
 
   ngOnInit(): void {
 
-    this.id_ent = this.router.snapshot.paramMap.get('id') ?? '';
+    // this.id_ent = this.router.snapshot.paramMap.get('id') ?? '';
+    this.id_ent = this.logU.user.id_ent ?? '';
     if(this.id_ent == ''){
       alert("Erreur lors de la recuperation de l'identifiant de la societe");
       return;

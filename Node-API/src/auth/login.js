@@ -16,7 +16,7 @@ exports.login = async (req, res) => {
 
     if (email === 'admin@isetr.tn' && password === 'admin') {
         try {
-            const accessToken = jwt.createToken({ name: 'admin', email });
+            const accessToken = jwt.createToken({ name: 'admin', email , role: 'admin'});
             console.log("Admin Connected");
             // return res.status(200).send(token);
             return res.header('auth-token', accessToken).json({ accessToken, user: {nom : 'admin' , role: 'admin' , email} });
@@ -30,11 +30,11 @@ exports.login = async (req, res) => {
         const user = await searchUser(email);
 
         if (user !== null) {
-            const hashedPassword = user.data.password;
+            const hashedPassword = user.password;
             if (await bcrypt.compare(password, hashedPassword)) {
-                const accessToken = jwt.createToken({ name: user.data.nom, email });
+                const accessToken = jwt.createToken({ name: user.nom, email , role: user.role});
                 console.log("User Connected");
-                return res.header('auth-token', accessToken).json({ accessToken, user: user.data });
+                return res.header('auth-token', accessToken).json({ accessToken, user: user });
             } else {
                 console.log("Invalid password");
                 return res.status(400).send('Invalid password');
@@ -42,7 +42,7 @@ exports.login = async (req, res) => {
         } else {
             return res.status(400).send('Invalid email or password');
         }
-        
+         
     } catch (err) {
         console.error(err);
         return res.status(500).send('Internal Server Error');
@@ -70,7 +70,10 @@ exports.login = async (req, res) => {
                     for (let j = 0; j < rows.length; j++) {
                         if(rows[j].email === email){
                             console.log( "request to connect to "+email);
-                            returned = { data: rows[j], role: role };
+                            let data = rows[j];
+                            // delete data.password;
+                            data.role = role;
+                            returned = data;
                         }
                         // console.log(JSON.stringify(rows[j]) + " " + role + " " + email);
                     }

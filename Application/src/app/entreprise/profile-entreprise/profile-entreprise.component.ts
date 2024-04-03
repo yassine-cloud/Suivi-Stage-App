@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EntrepriseService } from 'src/app/services/entreprise/entreprise.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-profile-entreprise',
@@ -21,7 +22,7 @@ export class ProfileEntrepriseComponent {
     this.modalService.open(this.popRef, { backdropClass: 'pop-up-backdrop' });
   }
 
-  constructor(private entre : EntrepriseService , private router : ActivatedRoute , private formbuild : FormBuilder) { }
+  constructor(private entre : EntrepriseService , private router : ActivatedRoute , private formbuild : FormBuilder,private logU : LoginService) { }
 
   entreprise: any;
   id_ent : string ='';
@@ -29,11 +30,10 @@ export class ProfileEntrepriseComponent {
   popform !: FormGroup;
 
   ngOnInit(): void {
-    this.id_ent = this.router.snapshot.paramMap.get('id') ?? '';
-
+    // this.id_ent = this.router.snapshot.paramMap.get('id') ?? '';
     
 
-    
+    this.id_ent = this.logU.user.id_ent ?? '';
     if(this.id_ent == ''){
       alert("Erreur lors de la recuperation de l'identifiant de la societe");
       return;

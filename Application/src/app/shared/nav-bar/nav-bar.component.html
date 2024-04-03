@@ -6,19 +6,50 @@
         </button>
         <div class="collapse navbar-collapse " id="navbarColor01">
             <ul class="navbar-nav ms-auto">
+
+                <!-- admin -->
+                <ng-container *ngIf="user && user.role =='admin' ">
                 
+                </ng-container>
+
+                <!-- etudiant -->
+                <ng-container *ngIf="user && user.role =='etudiant' ">
+                    <li><a class="nav-link" routerLink="/etudiant/liste_offres" routerLinkActive="actif" >Les Offres Disponibles</a></li>
+                
+                </ng-container>
+
+                <!-- entreprise -->
+                <ng-container *ngIf="user && user.role =='entreprise' ">
+
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/entreprise/profile" routerLinkActive="actif" >Profil</a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/entreprise/liste-offre" routerLinkActive="actif" >Les proposition publiées</a>
                 </li>
-                <li><a class="nav-link" routerLink="/etudiant/liste_offres" routerLinkActive="actif" >Les Offres Disponibles</a></li>
+                </ng-container>
+
+                <!-- encadrant -->
+                <ng-container *ngIf="user && user.role =='encadrant' ">
+                
+                </ng-container>
+                
+                
+                <ng-container *ngIf="!user">
                 <li class="nav-item">
                     <button class="btn btn-success mx-1" routerLink="/login" >Connexion</button>
                     <button class="btn btn-secondary mx-1" routerLink="/register" >Register</button>
                 </li>
-                
+                </ng-container>
+
+                <ng-container *ngIf="user">
+                    <li class="nav-item">
+                        <p style="display: inline-block;color: white;">Bonjour {{user.nom}} {{user.prenom ?? ""}}</p>
+                        <button class="btn btn-secondary mx-2" (click)="logout()" >Deconnexion</button>
+                    </li>
+                    </ng-container>
+
             </ul>
 
         </div>
