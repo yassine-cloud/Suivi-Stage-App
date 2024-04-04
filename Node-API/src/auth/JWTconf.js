@@ -33,20 +33,20 @@ exports.verifyToken = (req, res, next) => {
 
 
 exports.controllerToken = (token) => {
+
+  let resultat = { connected: false , role : ''}
   
   if (!token) {
-    return false;
+    return resultat;
   }
-  resultat = false;
   jwt.verify(token, secretKey, (err, decoded) => {
     if (err) {
       console.log(err);
-      resultat = false;
-
     }
     console.log("decoded : ");
     console.log(decoded);
-    resultat = true;
+    resultat.connected = true;
+    resultat.role = decoded.role;
 
   });
   return resultat;

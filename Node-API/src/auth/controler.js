@@ -7,14 +7,16 @@ exports.verifyToken = (req, res) => {
         return res.status(403).send({connected : false});
     }
 
-    if(jwt.controllerToken(token))
+    let result=jwt.controllerToken(token);
+
+    if(result.connected)
     {
         // console.log("Token is valid");
-        res.status(200).send({connected : true});
+        res.status(200).send(result);
     }
     else
     {
         // console.log("Token is invalid");
-        res.status(401).send({connected : false});
+        res.status(401).send(result);
     }
 }

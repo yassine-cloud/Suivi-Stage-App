@@ -19,6 +19,31 @@ export class LoginService {
   connected : boolean = false;
 
 
+  role():Observable<string>{
+
+    if(!sessionStorage.getItem("accessToken") || !sessionStorage.getItem('user')) return of("");
+    else
+    return this.http.post<any>(`${this.url}/controle`, { accessToken: sessionStorage.getItem("accessToken") }, this.options).pipe(
+      map( (response) => {
+        console.log(response);
+        if(response.connected){
+          this.connected = true;
+          this.user = JSON.parse(sessionStorage.getItem("user")!);
+          return response.role;
+        }
+        else{
+          this.connected = false;
+          return ""
+        }
+      }),
+      catchError(error => {
+        console.error('Error:', error);
+        return of("");
+      })
+    )
+
+  }
+
   controle():Observable<boolean>{
     if(!sessionStorage.getItem("accessToken") || !sessionStorage.getItem('user')) return of(false);
     else
