@@ -43,6 +43,11 @@ app.post('/signup', sign.signup)
 app.post('/etudiant', etudiant.getEtudiant)
 app.post('/encadrant', encadrant.getEncadrant)
 app.post('/entreprise', entreprise.getEntreprise)
+app.post('/addEntreprise', entreprise.addEntreprise)
+
+app.post('/editEntreprise',entreprise.updateEntreprise);
+
+app.delete('/entreprise',entreprise.deleteEntreprise);
 
 
 ////-----------------------------------------------
