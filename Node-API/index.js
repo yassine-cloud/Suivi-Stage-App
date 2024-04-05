@@ -25,6 +25,8 @@ const etudiant = require('./src/Data/etudiant')
 const entreprise = require('./src/Data/entreprise')
 const encadrant = require('./src/Data/encadrant')
 const offre=require('./src/Data/offre')
+const depot=require('./src/Data/deopotOffre')
+
 ////-----------------------------------------------
 
 
@@ -41,6 +43,7 @@ app.post('/signup', sign.signup)
 app.post('/etudiant', etudiant.getEtudiant)
 app.post('/encadrant', encadrant.getEncadrant)
 app.post('/entreprise', entreprise.getEntreprise)
+app.post('/depotOffre', depot.addDepot)
 
 
 ////-----------------------------------------------
