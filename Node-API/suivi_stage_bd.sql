@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : sam. 16 mars 2024 à 16:01
+-- Généré le : ven. 05 avr. 2024 à 16:57
 -- Version du serveur : 10.4.28-MariaDB
 -- Version de PHP : 8.2.4
 
@@ -42,6 +42,34 @@ CREATE TABLE `condidature_stage` (
 INSERT INTO `condidature_stage` (`id_cs`, `id_etu`, `id_os`, `date`, `status`) VALUES
 (1, 1, 1, '2023-12-20', 'accepter'),
 (2, 2, 2, '2023-12-29', 'accepter');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `depot_stage`
+--
+
+CREATE TABLE `depot_stage` (
+  `id` int(11) NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `phone` varchar(50) NOT NULL,
+  `gender` varchar(50) NOT NULL,
+  `id_etudiant` int(11) NOT NULL,
+  `id_entreprise` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `depot_stage`
+--
+
+INSERT INTO `depot_stage` (`id`, `first_name`, `last_name`, `email`, `phone`, `gender`, `id_etudiant`, `id_entreprise`) VALUES
+(1, 'youssef', 'sighari', 'sighari@gmail.com', '23445555', 'male', 4, 2),
+(2, 'a', 'a', 'a', 'a', 'm', 4, 2),
+(3, 'xx', 'xx', 'xx', 'xx', 'm', 4, 1),
+(4, 'xxx', 'xx', 'xx', 'xx', 'm', 4, 1),
+(5, 'aa', 'aaa', 'a', 'aaaa', 'm', 4, 2);
 
 -- --------------------------------------------------------
 
@@ -154,6 +182,14 @@ ALTER TABLE `condidature_stage`
   ADD KEY `FK_cs_os` (`id_os`);
 
 --
+-- Index pour la table `depot_stage`
+--
+ALTER TABLE `depot_stage`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_etudiant` (`id_etudiant`),
+  ADD KEY `id_entreprise` (`id_entreprise`);
+
+--
 -- Index pour la table `encadrant`
 --
 ALTER TABLE `encadrant`
@@ -189,6 +225,12 @@ ALTER TABLE `condidature_stage`
   MODIFY `id_cs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT pour la table `depot_stage`
+--
+ALTER TABLE `depot_stage`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT pour la table `encadrant`
 --
 ALTER TABLE `encadrant`
@@ -222,6 +264,12 @@ ALTER TABLE `offre_stage`
 ALTER TABLE `condidature_stage`
   ADD CONSTRAINT `FK_cs_etu` FOREIGN KEY (`id_etu`) REFERENCES `etudiant` (`id_etu`),
   ADD CONSTRAINT `FK_cs_os` FOREIGN KEY (`id_os`) REFERENCES `offre_stage` (`id_os`);
+
+--
+-- Contraintes pour la table `depot_stage`
+--
+ALTER TABLE `depot_stage`
+  ADD CONSTRAINT `fg2` FOREIGN KEY (`id_entreprise`) REFERENCES `entreprise` (`id_ent`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `offre_stage`

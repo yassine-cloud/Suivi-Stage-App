@@ -26,7 +26,7 @@
             <p > de {{i.date_debut | date : "d/M/yy"}} jusqu'à {{i.date_fin |  date : "d/M/yy"}} </p>
             <p class="formation-date">{{i.description }}</p>
             <p>Nombre de stagiaires requis : {{i.nombre}}</p>
-            <button class="btn btn-primary" >Soumettre</button>
+            <button class="btn btn-primary" (click)="redirectToDepotOffre(i.id_ent)">Soumettre</button>
         </div>
     </div>
 </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ListeOffresService } from 'src/app/services/etudiant/liste-offres.service';
 
 @Component({
@@ -17,7 +18,11 @@ export class ListeOffresComponent implements OnInit{
 
   offres:any[] = [];
 
-constructor(private list:ListeOffresService){}
+constructor(private list:ListeOffresService,private router:Router){}
+redirectToDepotOffre(entrepriseId: number) {
+  // Redirect to 'depotOffre' route with 'id_entreprise' parameter
+  this.router.navigate(['/depotOffre', { id_entreprise: entrepriseId }]);
+}
 ngOnInit(): void {
   this.list.getListe_Offres().subscribe(data=>{
     this.offres=data; 
