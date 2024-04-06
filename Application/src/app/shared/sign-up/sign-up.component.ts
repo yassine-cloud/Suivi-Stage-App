@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -9,19 +10,19 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 export class SignUpComponent implements OnInit {
   registerForm!: FormGroup;
   
-  constructor(private fb: FormBuilder){}
+  constructor(private fb: FormBuilder , private logS : LoginService){}
 
   
 
   ngOnInit (): void  {
     this.registerForm = this.fb.group({
-      firstname: ['', [Validators.required]],
-      lastname: ['', [Validators.required]],
+      nom: ['', [Validators.required]],
+      prenom: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@isetr.tn$')]],
-      mobile: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]],
-      Departement: ['', Validators.required],
+      contact: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]],
+      departement: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(4)]],
-      confirmPassword: ['', [Validators.required, Validators.minLength(4)]]
+      rpassword: ['', [Validators.required, Validators.minLength(4)]]
     });
     this.registerForm.setValidators(this.matchingPasswords);
 
@@ -38,10 +39,25 @@ export class SignUpComponent implements OnInit {
 
   registerSubmited(){
     if (this.registerForm.valid) {
-      // Submit the form if it's valid
-      console.log('Form submitted successfully');
-      console.log(this.registerForm.value);
+      // // Submit the form if it's valid
+      // console.log('Form submitted successfully');
+      // console.log(this.registerForm.value);
+      this.logS.register(this.registerForm.value).subscribe(
+        (response) => {
+          console.log(response);
+          if(response){
+            
+          }
+          else{
+            alert("Erreur lors de l'inscription");
+          }
+        },
+        (error) => {
+          console.error('Error:', error);
+        }
+      );
       
+
     } else {
       // Mark all fields as touched to display error messages
       this.registerForm.markAllAsTouched();
@@ -51,7 +67,7 @@ export class SignUpComponent implements OnInit {
 
   matchingPasswords(control: AbstractControl): { [key: string]: boolean } | null {
     const password = control.get('password')?.value;
-    const confirmPassword = control.get('confirmPassword')?.value;
+    const confirmPassword = control.get('rpassword')?.value;
     return password === confirmPassword ? null : { mismatch: true };
   }
   

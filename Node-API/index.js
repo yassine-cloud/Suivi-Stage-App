@@ -33,6 +33,7 @@ const depot=require('./src/Data/deopotOffre')
 
 // API request
 app.post('/login', auth.login)
+app.post('/register' , sign.signup)
 app.post('/controle', controle.verifyToken)
 
 app.get('/etudiants', etudiant.getEtudiants)

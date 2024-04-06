@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class LoginComponent {
 
-  constructor(private formBuild : FormBuilder,private login : LoginService) { }
+  constructor(private formBuild : FormBuilder,private login : LoginService,private router : Router) { }
 
   loginForm = this.formBuild.group({
     email : ['', [Validators.required, Validators.email]],
@@ -23,7 +24,15 @@ export class LoginComponent {
   onSubmit(){
     this.login.login(this.loginForm.value.email! , this.loginForm.value.password!).subscribe( (res : any) => {
       // console.log(res);
-      window.location.reload();
+      if(res){
+        window.location.href = '/';
+      }
+      else{
+        alert("Inccorect email ou mot de passe");
+        this.loginForm.patchValue({
+          password : ''
+        })
+      }
       
     })
   }

@@ -6,6 +6,7 @@ import { entrepriseGuard } from './guards/entreprise.guard';
 import { adminGuard } from './guards/admin.guard';
 import { encadreurGuard } from './guards/encadreur.guard';
 import { etudiantGuard } from './guards/etudiant.guard';
+import { LayoutComponent } from './shared/layout/layout.component';
 
 const routes: Routes = [
 
@@ -22,7 +23,7 @@ const routes: Routes = [
   // { path: 'register', loadChildren: () => import('./register/register.module').then(m => m.RegisterModule) },
   // { path: '404', loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundModule) },
 
-
+  {path:'home',component: LayoutComponent},
   { path: 'entreprise', loadChildren: () => import('./entreprise/entreprise.module').then(m => m.EntrepriseModule) ,canActivate: [entrepriseGuard]},
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) , canActivate:[adminGuard] },
   { path: 'encadrant', loadChildren: () => import('./encadreur/encadreur.module').then(m => m.EncadreurModule) , canActivate : [encadreurGuard]},
@@ -31,9 +32,9 @@ const routes: Routes = [
 
   {path : 'register' , component : SignUpComponent},
   {path : 'login' ,component : LoginComponent},
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: '**', redirectTo: '404' },
-  {path:'layout',component: LayoutComponent}
+  { path: '**', redirectTo: 'home', pathMatch: 'full' },
+  // { path: '**', redirectTo: '404' },
+  
 
 ];
 

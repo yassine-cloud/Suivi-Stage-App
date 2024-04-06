@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const jwt = require('./JWTconf');
+// const jwt = require('./JWTconf');
 const connection = require('../Data/Connection');
 
 
@@ -11,24 +11,31 @@ exports.signup = async (req, res) => {
     let pwd=req.body.pwd;
     let rpwd= req.body.rpwd;
     let mobile=req.body.mobile;*/
-    const { firstname, lastname, email, departement, pwd, rpwd, mobile } = req.body;
-    
+    // const { firstname, lastname, email, departement, pwd, rpwd, mobile } = req.body;
+    let data = req.body;
+    // console.log("sign up request", data);
 
     //testing passwosds
-    if(pwd!== rpwd){
+    if(data.password !== data.rpassword){
         return res.status(400).send("Passwors do not match");
     }
     //testing existing user
     try {
-        const [existingUser] = await searchStudent(email);
+        const existingUser = await searchStudent(data.email);
         if(existingUser.length >0){
             return res.status(400).send("User already exists");
         }
         //hash the password
-        const hashedPassword = await bcrypt.hash(pwd,10);
+        data.password = await bcrypt.hash(data.password,10);
+        delete data.rpassword;
+        console.log(data);
         //insert new student
-        const [result] = await connection.query('INSERT INTO etudiant (nom,prenom,email,password,departement,contact) VALUES (?,?,?,?,?,?)',[firstname, lastname, email,departement,hashedPassword,mobile]);
-
+        connection.query('INSERT INTO etudiant SET ?', data, (err, rows) => {
+            if (err) throw err;
+            console.log('Data received from Db:');
+            console.log(rows);
+            res.send(rows);
+        });
 
     }catch (err) {
         console.error("Signup error",err);

@@ -1,57 +1,6 @@
 
-<!DOCTYPE html>
-<html lang="en">
 
-  <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-
-    <title>Suivi de stage</title>
-
-    
-
-    <link href="/src/assets/css/bootstrap.min.css" rel="stylesheet">
-   
-    <link rel="stylesheet" href="layout.component.css">
-    
-
-  </head>
-
-<body>
-
-
-  <!-- ***** Header Area Start ***** -->
-  <header class="header-area header-sticky">
-      <div class="container">
-          <div class="row">
-              <div class="col-12">
-                  <nav class="main-nav">
-                      <!-- ***** Logo Start ***** -->
-                      <a href="index.html" class="logo">
-                          <img src="assets/images/suivi_de_stage.png" alt="SuiviStage">
-                      </a>
-                      <!-- ***** Logo End ***** -->
-                      <!-- ***** Menu Start ***** -->
-                      <ul class="nav">
-                          <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-                          <li class="scroll-to-section"><a href="#services">Services</a></li>
-                          <li class="scroll-to-section"><a href="#about">About US</a></li> 
-                          <li class="scroll-to-section"><a href="#contact-section">Contact Us</a></li>
-                          <a routerLink="/register"><button id="signup-btn" >Sign Up</button></a>
-                          <a routerLink="/login" ><button id="signin-btn">Sign In</button> </a>
-                      </ul>        
-                      
-                      <!-- ***** Menu End ***** -->
-                  </nav>
-              </div>
-          </div>
-      </div>
-  </header>
-  <!-- ***** Header Area End ***** -->
+  
 
   <!-- ***** Main Banner Area Start ***** -->
   <section class="main-banner" id="top">
@@ -62,7 +11,7 @@
             <h6>Welcome To Our App</h6>
             <strong><h1>Best Place For Your Internship</h1></strong>
             <div class="main-button-gradient">
-              <div class="scroll-to-section"><a href="login.html">Join Us Now!</a></div>
+              <div class="scroll-to-section"><a routerLink="/register" >Join Us Now!</a></div>
             </div>
           </div>
         </div>
@@ -121,7 +70,7 @@
     </div>
   </section>
 
-  <section class="about">
+  <section id="about" class="about">
     <section class="page-heading">
       <div class="container">
         <div class="row">
@@ -200,7 +149,7 @@
       </div>
     </section>
   
-    <section class="contact-us our-office">
+    <!-- <section class="contact-us our-office">
       <div class="container">
         <div class="row">
           
@@ -208,11 +157,9 @@
           </div>
           <div class="col-lg-12">
             <ul class="social-icons">
-              <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-              <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-              <li><a href="#"><i class="fa fa-rss"></i></a></li>
-              <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+              <li><a href="#"><img src="assets/icons/facebook.png" alt="facebook"></a></li>
+              <li><a href="#"><img src="assets/icons/twitter.png" alt="twitter"></a></li>
+              <li><a href="#"><img src="assets/icons/linkedin.png" alt="linkedin"></a></li>
             </ul>
           </div>
           <div class="col-lg-12">
@@ -221,7 +168,7 @@
         </div>
       </div>
     </section>
-  </section>
+  </section> -->
   
   <section class="contact-us" id="contact-section">
     <div class="container">
@@ -229,8 +176,7 @@
         <div class="col-lg-8">
           <div id="map">
           
-            <iframe src="https://www.google.com/maps/place/Institut+Sup%C3%A9rieur+des+Etudes+Technologiques+de+Rades/@36.7603,10.2673499,17z/data=!3m1!4b1!4m6!3m5!1s0x12fd49fa15643927:0xad64c8c462b52435!8m2!3d36.7603!4d10.2699248!16s%2Fg%2F12156nc0?authuser=0&entry=ttu" height="420px" frameborder="0" style="border:0; border-radius: 15px; position: relative; z-index: 2;"></iframe>
-            
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1693.2376883319646!2d10.271032088131712!3d36.76080023902849!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12fd49fa15643927%3A0xad64c8c462b52435!2sHigher%20Institute%20of%20Technological%20Studies%20of%20Rades!5e0!3m2!1sen!2stn!4v1712373922056!5m2!1sen!2stn" allowfullscreen="" width="600" referrerpolicy="no-referrer-when-downgrade" loading="lazy" height="450px" frameborder="0" style="border:0; border-radius: 15px; position: relative; z-index: 2;"></iframe>
           </div>
         </div>
         <div class="col-lg-4">
@@ -260,20 +206,21 @@
               </div>
               <div class="col-lg-12">
                 <fieldset>
-                  <button type="submit" id="form-submit" class="main-gradient-button">Send Message</button>
+                  <button type="submit" id="form-submit" class="main-gradient-button btn btn-primary">Send Message</button>
                 </fieldset>
               </div>
             </div>
           </form>
         </div>
         <div class="col-lg-12">
-          <ul class="social-icons">
-            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-            <li><a href="#"><i class="fa fa-rss"></i></a></li>
-            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-          </ul>
+          <!-- <ul class="social-icons">
+            <li><a href="#"><img src="assets/icons/facebook.png" alt="facebook"></a></li>
+            <li><a href="#"><img src="assets/icons/twitter.png" alt="twitter"></a></li>
+            <li><a href="#"><img src="assets/icons/linkedin.png" alt="linkedin"></a></li>
+          </ul> -->
+            <a href="#"><img src="assets/icons/facebook.png" alt="facebook"></a>
+            <a href="#"><img src="assets/icons/twitter.png" alt="twitter"></a>
+            <a href="#"><img src="assets/icons/linkedin.png" alt="linkedin"></a>
         </div>
         <div class="col-lg-12">
             <p class="copyright" style="color: black; text-align: center;">Copyright © 2024 . All Rights Reserved to Suivi-Stage</p>
@@ -282,8 +229,3 @@
       </div>
     </div>
   </section>
-
-  
-</body>
-
-</html>

@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -8,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginService {
 
-  constructor(private http : HttpClient) { }
+  constructor(private http : HttpClient, private router : Router) { }
   private url: string = environment.apiUrl ;
   options = {headers : new HttpHeaders({
     'content-type' : "application/json",
@@ -57,6 +58,7 @@ export class LoginService {
         }
         else{
           this.connected = false;
+          sessionStorage.clear();
           return false
         }
       }),
@@ -98,7 +100,7 @@ export class LoginService {
       .pipe(
         map( (response) => {
           
-  
+          
           // Store login information for successful login
           sessionStorage.setItem("accessToken", response.accessToken);
           sessionStorage.setItem("user", JSON.stringify(response.user));
@@ -114,18 +116,21 @@ export class LoginService {
         catchError(error => {
           // console.error(error);
           console.error('Error:', error);
-          alert("An error occurred during login");
+          // alert("An error occurred during login");
           return of(false); // Return false in case of error
         })
       );
   }
 
-  register(user: any , pass : string): Observable<boolean> {
-    return this.http.post<{ accessToken: string, user: any }>(`${this.url}/register`, {...user , 'password' : pass }).pipe(
+  register(data: any): Observable<boolean> {
+    console.log(data);
+    
+    return this.http.post<{ accessToken: string, user: any }>(`${this.url}/register`, data , this.options).pipe(
       map(
         (response) =>{
-          if(response.accessToken && response.user){return true;}
-          else {return false;}
+          alert("Inscription Reussi");
+          this.router.navigate(['/login']);
+          return true
         }
       ),
       catchError(error => {
