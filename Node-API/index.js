@@ -26,6 +26,8 @@ const etudiant = require('./src/Data/etudiant')
 const entreprise = require('./src/Data/entreprise')
 const encadrant = require('./src/Data/encadrant')
 const offre=require('./src/Data/offre')
+const depot=require('./src/Data/deopotOffre')
+
 ////-----------------------------------------------
 
 
@@ -48,6 +50,8 @@ app.post('/addEntreprise', entreprise.addEntreprise)
 app.post('/editEntreprise',entreprise.updateEntreprise);
 
 app.delete('/entreprise',entreprise.deleteEntreprise);
+
+app.post('/depotOffre', depot.addDepot)
 
 
 ////-----------------------------------------------

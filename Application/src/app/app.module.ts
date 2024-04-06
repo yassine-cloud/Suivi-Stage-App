@@ -17,7 +17,7 @@ import { SignUpComponent } from './shared/sign-up/sign-up.component';
     NavBarComponent,
     FooterComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
   ],
   imports: [
     BrowserModule,
