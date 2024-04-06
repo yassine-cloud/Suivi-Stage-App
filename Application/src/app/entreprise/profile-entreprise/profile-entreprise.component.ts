@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EntrepriseService } from 'src/app/services/entreprise/entreprise.service';
 import { LoginService } from 'src/app/services/login.service';
+import { OffreStageService } from 'src/app/services/offre-stage/offre-stage.service';
 
 @Component({
   selector: 'app-profile-entreprise',
@@ -19,10 +20,18 @@ export class ProfileEntrepriseComponent {
 
 
   openPopup() {
+    this.popform = this.formbuild.group({
+      titre: ['' , Validators.required],
+      description: ['' , Validators.required],
+      date_debut: ['' , Validators.required],
+      date_fin: ['' , Validators.required],
+      id_ent: [this.id_ent , Validators.required],
+      nombre : [0 , Validators.required]
+    });
     this.modalService.open(this.popRef, { backdropClass: 'pop-up-backdrop' });
   }
 
-  constructor(private entre : EntrepriseService , private router : ActivatedRoute , private formbuild : FormBuilder,private logU : LoginService) { }
+  constructor(private formbuild : FormBuilder,private logU : LoginService,private offreS:OffreStageService) { }
 
   entreprise: any;
   id_ent : string ='';
@@ -30,34 +39,25 @@ export class ProfileEntrepriseComponent {
   popform !: FormGroup;
 
   ngOnInit(): void {
-    // this.id_ent = this.router.snapshot.paramMap.get('id') ?? '';
     
-
-    this.id_ent = this.logU.user.id_ent ?? '';
-    if(this.id_ent == ''){
-      alert("Erreur lors de la recuperation de l'identifiant de la societe");
-      return;
-    }
-
-    this.entre.getEntreprise(this.id_ent).subscribe(
-      (res) => {
-        this.entreprise = res[0];
-        this.popform = this.formbuild.group({
-          titre: ['' , Validators.required],
-          description: ['' , Validators.required],
-          date_debut: ['' , Validators.required],
-          date_fin: ['' , Validators.required],
-          id_ent: [this.id_ent , Validators.required],
-          nombre : [0 , Validators.required]
-        });
-      }
-    );
-
+    this.entreprise = this.logU.user;
+    this.id_ent = this.entreprise.id_ent;
+    
   }
 
 onAjout(){
-  alert("Ajout d'offre");
-  console.log(this.popform);
+  this.offreS.ajouterOffreStage(this.popform.value).subscribe(
+    res =>{
+      if(res){
+        alert("Offre ajoutée avec succès");
+        this.modalService.dismissAll();
+      }
+      else{
+        alert("Erreur lors de l'ajout de l'offre");
+        this.modalService.dismissAll();
+      }
+    }
+  )
   
 }
 

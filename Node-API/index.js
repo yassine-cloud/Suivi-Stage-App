@@ -45,12 +45,16 @@ app.post('/signup', sign.signup)
 app.post('/etudiant', etudiant.getEtudiant)
 app.post('/encadrant', encadrant.getEncadrant)
 app.post('/entreprise', entreprise.getEntreprise)
+
+// MOD Entreprise
 app.post('/addEntreprise', entreprise.addEntreprise)
-
 app.post('/editEntreprise',entreprise.updateEntreprise);
-
 app.delete('/entreprise',entreprise.deleteEntreprise);
 
+// Entreprise Ajout Offre
+app.post('/addOffre', offre.addOffre)
+
+// deposer sur une offre
 app.post('/depotOffre', depot.addDepot)
 
 
@@ -59,6 +63,7 @@ app.post('/depotOffre', depot.addDepot)
 app.post('/offresentreprise', offre.getOffresEntreprise)
 
 /////-------------------------------------------
+/*
 // hash code
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -115,7 +120,7 @@ app.post('/test', function (req, res) {
     }
     )
   })
-
+*/
 
 
 

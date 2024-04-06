@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { LoginService } from '../login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +12,15 @@ export class DepotService {
   options = {headers : new HttpHeaders(
     {'content-type' : "application/json"}
   )}
-  constructor(private http: HttpClient) { 
-    this.id_etu = 1;
+  constructor(private http: HttpClient,private loginS : LoginService) { 
+        
   }
 
   id_os ?:number ;
   id_etu ?:number ;
 
   canActivate():boolean{
+    this.id_etu = this.loginS.user.id_etu;
     return this.id_etu!=undefined && this.id_os!=undefined;
   }
 

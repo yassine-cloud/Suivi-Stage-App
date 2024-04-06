@@ -25,10 +25,10 @@
     <div class="modal-body p-5 pt-0">
 
       <form #ff="ngForm" [formGroup]="popform" (ngSubmit)="onAjout()">
-        <label for="nom">Sujet:</label><br>
-        <input type="text" id="sujet" class="form-control" formControlName="titre"><br>
+        <label for="sujet">Sujet:</label><br>
+        <input type="text" id="sujet" name="sujet" class="form-control" formControlName="titre"><br>
 
-        <label for="prenom">Description:</label><br>
+        <label for="Description">Description:</label><br>
          <textarea name="Description" id="Description" class="form-control" cols="30" rows="5" formControlName="description"></textarea><br>
 
          <div class="row">

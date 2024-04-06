@@ -34,6 +34,7 @@ exports.login = async (req, res) => {
             if (await bcrypt.compare(password, hashedPassword)) {
                 const accessToken = jwt.createToken({ name: user.nom, email , role: user.role});
                 console.log("User Connected");
+                user.password = undefined;
                 return res.header('auth-token', accessToken).json({ accessToken, user: user });
             } else {
                 console.log("Invalid password");
