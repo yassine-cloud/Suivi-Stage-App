@@ -10,6 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './shared/login/login.component';
 import { SignUpComponent } from './shared/sign-up/sign-up.component';
+import { LayoutComponent } from './shared/layout/layout.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { SignUpComponent } from './shared/sign-up/sign-up.component';
     NavBarComponent,
     FooterComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,
