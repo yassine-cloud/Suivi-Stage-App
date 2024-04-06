@@ -32,7 +32,8 @@ const routes: Routes = [
   {path : 'register' , component : SignUpComponent},
   {path : 'login' ,component : LoginComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: '**', redirectTo: '404' }
+  { path: '**', redirectTo: '404' },
+  {path:'layout',component: LayoutComponent}
 
 ];
 
