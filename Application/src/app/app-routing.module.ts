@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './shared/login/login.component';
 import { SignUpComponent } from './shared/sign-up/sign-up.component';
-import { DepotOffreComponent } from './depot-offre/depot-offre.component';
 
 const routes: Routes = [
 
@@ -28,7 +27,6 @@ const routes: Routes = [
 
   {path : 'register' , component : SignUpComponent},
   {path : 'login' ,component : LoginComponent},
-  {path : 'depotOffre' ,component : DepotOffreComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: '404' }
 

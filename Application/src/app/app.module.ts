@@ -10,7 +10,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './shared/login/login.component';
 import { SignUpComponent } from './shared/sign-up/sign-up.component';
-import { DepotOffreComponent } from './depot-offre/depot-offre.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +18,6 @@ import { DepotOffreComponent } from './depot-offre/depot-offre.component';
     FooterComponent,
     LoginComponent,
     SignUpComponent,
-    DepotOffreComponent
   ],
   imports: [
     BrowserModule,

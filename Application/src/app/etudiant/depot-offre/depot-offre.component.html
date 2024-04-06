@@ -1,5 +1,5 @@
 
-
+<div class="constainer m-3">
 
 <form [formGroup]="registerForm" (ngSubmit)="registerSubmited()" class="border p-3 rounded-3">
     <div class="row g-0">
@@ -10,21 +10,21 @@
    
    <div class="row">
       <div class="col mb-3">
-       <label for="firstname" class="form-label">First Name</label>
+       <label for="firstname" class="form-label">Nom</label>
        <input type="text" class="form-control" id="firstname "
-       formControlName="firstname">
+       formControlName="nom">
       </div>
    
       <div class="col mb-3">
-       <label for="lastname" class="form-label">Last Name</label>
-       <input type="text" class="form-control" id="lastname " formControlName="lastname" >
+       <label for="lastname" class="form-label">Prénom</label>
+       <input type="text" class="form-control" id="lastname " formControlName="prenom" >
       </div>
    
    </div>
    
    <div class="row">
        <div class="col mb-3">
-           <label for="email" class="form-label">Email adress</label>
+           <label for="email" class="form-label">Email</label>
            <input type="email" class="form-control" id="email "  formControlName="email">
            <div class="form-text"></div>
        </div>
@@ -32,25 +32,24 @@
    </div>
    <div class="row">
        <div class="col mb-3">
-           <label for="mobile" class="form-label">Mobile Number</label>
-           <input type="text" class="form-control" id="mobile"  formControlName="mobile" >
+           <label for="mobile" class="form-label">Numéro Téléphone</label>
+           <input type="text" class="form-control" id="mobile"  formControlName="tel" >
            <div class="form-text"></div>
        </div>
    
    
    
        <div class="col ps-3 mb-3">
-           <div class="m-1">Gender</div>
+           <div class="m-1">Genre</div>
            <div class="form-check form-check-inline">
-               <input type="radio" class="form-check-input" value="m" id="male"
-               formControlName="gender" >
-               <label class="form-check-label" for="male">Male</label>
+               <input type="radio" class="form-check-input" value="m" id="male" formControlName="genre" >
+               <label class="form-check-label" for="male">Masculin</label>
            </div>
    
            <div class="form-check form-check-inline">
                <input type="radio" class="form-check-input" value="f" 
-               id="female" formControlName="gender" >
-               <label class="form-check-label" for="female">female</label>
+               id="female" formControlName="genre" >
+               <label class="form-check-label" for="female">féminin</label>
            </div>
        </div>
    </div>
@@ -61,7 +60,7 @@
        <div class="row">
            <div class="col-6 offset-3">
                <div class="d-grid">
-   <button type="submit" class="btn btn-primary">Submit</button>
+   <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid" >Envoyer</button>
                </div>
            </div>
        </div>
@@ -72,3 +71,5 @@
    
         
    </form>
+
+</div>
