@@ -36,21 +36,40 @@ app.post('/login', auth.login)
 app.post('/register' , sign.signup)
 app.post('/controle', controle.verifyToken)
 
-app.get('/etudiants', etudiant.getEtudiants)
-app.get('/encadrants', encadrant.getEncadrants)
-app.get('/entreprises', entreprise.getEntreprises)
+
+
+
 app.get('/offres',offre.getOffres)
 
 app.post('/signup', sign.signup)
 
-app.post('/etudiant', etudiant.getEtudiant)
-app.post('/encadrant', encadrant.getEncadrant)
-app.post('/entreprise', entreprise.getEntreprise)
+
+
+
 
 // MOD Entreprise
+app.get('/entreprises', entreprise.getEntreprises)
 app.post('/addEntreprise', entreprise.addEntreprise)
 app.post('/editEntreprise',entreprise.updateEntreprise);
-app.delete('/entreprise',entreprise.deleteEntreprise);
+app.delete('/deleteEntreprise',entreprise.deleteEntreprise);
+app.post('/entreprise', entreprise.getEntreprise)
+
+
+//mod Etudiant
+app.post('/etudiant', etudiant.getEtudiant)
+app.get('/etudiants', etudiant.getEtudiants)
+app.post('/addEtudiant', etudiant.addEtudiant)
+app.post('/editEtudiant',etudiant.updateEtudiant);
+app.delete('/deleteEtudiant',etudiant.deleteEtudiant);
+
+
+//mod Encadrant 
+app.get ('/encadrants', encadrant.getEncadrants)
+app.post('/encadrant', encadrant.getEncadrant)
+app.post('/addEncadrant',encadrant.addEncadrant);
+app.post('/editEncadrant',encadrant.updateEncadrant);
+app.delete('/deleteEncadrant',encadrant.deleteEncadrant);
+
 
 // Entreprise Ajout Offre
 app.post('/addOffre', offre.addOffre)

@@ -1,18 +1,18 @@
-import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
+import { Component, TemplateRef, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AdminService } from 'src/app/services/admin/admin.service';
-import { EntrepriseService } from 'src/app/services/entreprise/entreprise.service';
+import { EncadrantService } from 'src/app/services/encadrant/encadrant.service';
 
 @Component({
-  selector: 'app-liste-societes',
-  templateUrl: './liste-societes.component.html',
-  styleUrls: ['./liste-societes.component.css']
+  selector: 'app-liste-encadrants',
+  templateUrl: './liste-encadrants.component.html',
+  styleUrls: ['./liste-encadrants.component.css']
 })
-export class ListeSocietesComponent implements OnInit{
+export class ListeEncadrantsComponent {
+
   x:any;
-  entreprise: any;
+  encadrant: any;
   popform !: FormGroup;
   popform1!:FormGroup;
   private modalService = inject(NgbModal);
@@ -24,56 +24,61 @@ export class ListeSocietesComponent implements OnInit{
     this.modalService.open(this.popRef1, { backdropClass: 'pop-up-backdrop' });
   }
 
-  listeSocietes!:any[];
-  constructor(private entre : EntrepriseService , private router : ActivatedRoute , private formbuild : FormBuilder){}
+  listeEncadrants!:any[];
+  constructor(private encad : EncadrantService , private router : ActivatedRoute , private formbuild : FormBuilder){}
   ngOnInit(): void {
-    this.entre.getEntreprises().subscribe(data=>{
-      this.listeSocietes=data;
+    this.encad.getListeEncadrants().subscribe(data=>{
+      this.listeEncadrants=data;
     })
     this.initForm();
     this.initForm1();
   }
   initForm(){ // edit
     this.popform = this.formbuild.group({
-      id_ent: ['', Validators.required],
+      id_enc: ['', Validators.required],
       nom: ['', Validators.required],
       email: ['', Validators.required],
-      adresse: ['', Validators.required],
+      prenom: ['', Validators.required],
       contact: ['', Validators.required],
-      secteuractivite:['',Validators.required],
       password: ['', [Validators.minLength(4)]],
-      statut:['',[Validators.required]],
-      logo: ['', Validators.required],
+      departement: ['', Validators.required],
+      specialite:['',Validators.required],
     });
   }
   initForm1(){ // add
     this.popform1 = this.formbuild.group({
-      // id_ent: ['', Validators.required],
+      // id_enc: ['', Validators.required],
       nom: ['', Validators.required],
-      email: ['', [ Validators.required, Validators.email]],
-      adresse: ['', Validators.required],
+      email: ['', Validators.required],
+      prenom: ['', Validators.required],
       contact: ['', Validators.required],
-      secteuractivite:['',Validators.required],
-      password: ['', [Validators.required,Validators.minLength(4)]],
-      statut:[1,[Validators.required]],
-      logo: ['', Validators.required],
+      specialite:['',Validators.required],
+      password: ['', [Validators.minLength(4)]],
+      departement: ['', Validators.required],
+      
     });
   }
+  onSupprime(i:any){
+    this.encad.deleteEncadrant(i.id_enc).subscribe((res:any)=>{
+      console.log("supprimé avec succés");
+    })
+    
+  }
+
 
   onModifie(i:any){
-    this.entre.getEntreprise(i.id_ent).subscribe(
+    this.encad.getEncadrant(i.id_enc).subscribe(
       (res: any) => {
-        this.entreprise = res[0];
+        this.encadrant = res[0];
         this.popform.patchValue({
-          id_ent: i.id_ent,
+          id_enc: i.id_enc,
           nom: i.nom,
+          prenom:i.prenom,
           email: i.email,
-          adresse: i.adresse,
+          departement:i.departement,
           contact: i.contact,
-          statut:i.statut,
-          secteuractivite:i.secteuractivite,
+          specialite:i.specialite,
           // password:i.password, //On ne peut pas recupérer le mot de passe (Haché) 
-          logo:i.logo
         });
       }
     );
@@ -83,48 +88,46 @@ export class ListeSocietesComponent implements OnInit{
   onSubmit(){ // submit the edit
   //  const formData=this.popform.value;
   let formData : any = {
-    id_ent: this.popform.value.id_ent,
+    id_enc: this.popform.value.id_enc,
     nom: this.popform.value.nom,
     email: this.popform.value.email,
-    adresse: this.popform.value.adresse,
+    departement:this.popform.value.departement,
     contact: this.popform.value.contact,
-    statut:this.popform.value.statut,
-    secteuractivite: this.popform.value.secteuractivite,
-    logo: this.popform.value.logo,
+    prenom:this.popform.value.prenom,
+    specialite:this.popform.value.specialite,
     // password: this.popform.value.password !== '' ? this.popform.value.password : undefined
   }
   if(this.popform.value.password !== ''){
     formData['password'] = this.popform.value.password;
   }
-   this.entre.editEntreprise(formData).subscribe(()=>{
+   this.encad.editEncadrant(formData).subscribe(()=>{
     // this.popform.reset();
     this.modalService.dismissAll();
     console.log("Mise à Jour avec Succés");
     this.ngOnInit();
    },error=>{
-    console.error('Erreur lors de la mise à jour de l\'entreprise :', error);
-    alert("Erreur lors de la mise à jour de l'entreprise");
+    console.error('Erreur lors de la mise à jour de l\'encadrant :', error);
+    alert("Erreur lors de la mise à jour de l'encadrant");
    })
   //  console.log(formData);
    
   }
-
-  
   onAjout(){ // submit the add
     
     const formData=this.popform1.value;
     if(this.popform1.valid){
-    this.entre.addEntreprise(formData).subscribe(()=>{
+    this.encad.addEncadrant(formData).subscribe(()=>{
       this.modalService.dismissAll();
       console.log("Ajouté avec Succés");
       this.ngOnInit();
      },error=>{
-      console.error('Erreur lors de l\'ajout de l\'entreprise :', error);
-      alert("Erreur lors de l'ajout de l'entreprise");
+      console.error('Erreur lors de l\'ajout de l\'encadrant :', error);
+      alert("Erreur lors de l'ajout de l'encadrant");
      })
     }
     this.modalService.open(this.popRef1, { backdropClass: 'pop-up-backdrop' });
     console.log(formData);
   }
+  
 
 }

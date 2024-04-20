@@ -1,9 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListeSocietesComponent } from './liste-societes/liste-societes.component';
+import { ListeEncadrantsComponent } from './liste-encadrants/liste-encadrants.component';
+import { ListeEtudiantsComponent } from './liste-etudiants/liste-etudiants.component';
 
 const routes: Routes = [
   {path:'liste-societes' , component : ListeSocietesComponent},
+   {path:'liste-encadrants',component: ListeEncadrantsComponent},
+   {path:'liste-etudiants',component:ListeEtudiantsComponent},
 ];
 
 @NgModule({

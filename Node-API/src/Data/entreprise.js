@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const connection = require('../Data/Connection');
 
 exports.getEntreprises = async (req, res) => {
-    connection.query('SELECT * FROM entreprise', (err, rows) => {
+    connection.query('SELECT * FROM entreprise where statut=1', (err, rows) => {
         if (err) throw err;
         console.log('Data received from Db:');
         console.log(rows);
