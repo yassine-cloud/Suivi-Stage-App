@@ -17,7 +17,7 @@
                 
                     <tr *ngFor="let i of listeSocietes; let x = index">
                     <td>{{x+1}}</td>
-                    <td>{{i.nom}}</td>
+                    <td>{{i.nom_ent}}</td>
                     <td>{{i.email}}</td>
                     <td>{{i.adresse}}</td>
                     <td>{{i.contact}}</td>
@@ -45,8 +45,8 @@
           <label for="id_ent">#:</label><br>
             <input type="text" id="id_ent" name="id_ent" formControlName="id_ent" class="form-control" readonly >
 
-            <label for="nom" class="form-label mt-3">Nom:</label><br>
-            <input type="text" id="nom" name="nom" class="form-control" formControlName="nom" >
+            <label for="nom_ent" class="form-label mt-3">Nom d'Entreprise:</label><br>
+            <input type="text" id="nom_ent" name="nom_ent" class="form-control" formControlName="nom_ent" >
 
             <label for="email" class="form-label mt-3"> Email:</label><br>
             <input type="email" id="email" name="email" formControlName="email" class="form-control" >
@@ -108,8 +108,8 @@
           <!-- <label for="id_ent">ID:</label><br>
             <input type="text" id="id_ent" formControlName="id_ent" class="form-control" ><br> -->
 
-            <label for="nom">Nom:</label><br>
-            <input type="text" id="nom" class="form-control" formControlName="nom" >
+            <label for="nom_ent">Nom d'Entreprise:</label><br>
+            <input type="text" id="nom_ent" class="form-control" formControlName="nom_ent" >
 
             <label for="email" class="form-label mt-3"> Email:</label><br>
             <input type="email" id="email" formControlName="email" class="form-control" >

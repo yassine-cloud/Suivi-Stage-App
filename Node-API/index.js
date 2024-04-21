@@ -27,6 +27,7 @@ const entreprise = require('./src/Data/entreprise')
 const encadrant = require('./src/Data/encadrant')
 const offre=require('./src/Data/offre')
 const depot=require('./src/Data/deopotOffre')
+const stage=require("./src/Data/stage")
 
 ////-----------------------------------------------
 
@@ -44,6 +45,11 @@ app.get('/offres',offre.getOffres)
 app.post('/signup', sign.signup)
 
 
+//MOD Stage
+app.get('/stages',stage.getStages);
+app.get('/NAstages',stage.getNAStages);
+app.post('/stage',stage.getStage);
+app.post('/affecteEncadrant',stage.updateStage);
 
 
 

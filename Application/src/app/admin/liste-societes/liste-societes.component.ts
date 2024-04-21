@@ -36,7 +36,7 @@ export class ListeSocietesComponent implements OnInit{
   initForm(){ // edit
     this.popform = this.formbuild.group({
       id_ent: ['', Validators.required],
-      nom: ['', Validators.required],
+      nom_ent: ['', Validators.required],
       email: ['', Validators.required],
       adresse: ['', Validators.required],
       contact: ['', Validators.required],
@@ -49,7 +49,7 @@ export class ListeSocietesComponent implements OnInit{
   initForm1(){ // add
     this.popform1 = this.formbuild.group({
       // id_ent: ['', Validators.required],
-      nom: ['', Validators.required],
+      nom_ent: ['', Validators.required],
       email: ['', [ Validators.required, Validators.email]],
       adresse: ['', Validators.required],
       contact: ['', Validators.required],
@@ -66,7 +66,7 @@ export class ListeSocietesComponent implements OnInit{
         this.entreprise = res[0];
         this.popform.patchValue({
           id_ent: i.id_ent,
-          nom: i.nom,
+          nom_ent: i.nom_ent,
           email: i.email,
           adresse: i.adresse,
           contact: i.contact,
@@ -84,7 +84,7 @@ export class ListeSocietesComponent implements OnInit{
   //  const formData=this.popform.value;
   let formData : any = {
     id_ent: this.popform.value.id_ent,
-    nom: this.popform.value.nom,
+    nom_ent: this.popform.value.nom_ent,
     email: this.popform.value.email,
     adresse: this.popform.value.adresse,
     contact: this.popform.value.contact,

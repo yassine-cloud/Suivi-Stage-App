@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : sam. 06 avr. 2024 à 07:11
+-- Généré le : dim. 21 avr. 2024 à 14:16
 -- Version du serveur : 10.4.28-MariaDB
 -- Version de PHP : 8.2.4
 
@@ -102,23 +102,24 @@ INSERT INTO `encadrant` (`id_enc`, `nom`, `prenom`, `email`, `password`, `depart
 
 CREATE TABLE `entreprise` (
   `id_ent` int(11) NOT NULL,
-  `nom` varchar(255) NOT NULL,
+  `nom_ent` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `secteuractivite` varchar(255) NOT NULL,
   `adresse` varchar(255) NOT NULL,
   `contact` varchar(255) NOT NULL,
-  `logo` text NOT NULL
+  `logo` text NOT NULL,
+  `statut` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `entreprise`
 --
 
-INSERT INTO `entreprise` (`id_ent`, `nom`, `email`, `password`, `secteuractivite`, `adresse`, `contact`, `logo`) VALUES
-(1, 'SAGEM', 'SAGEM@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique, Gestion, Réseau', 'Tunis', '9111', 'https://upload.wikimedia.org/wikipedia/fr/thumb/c/cc/LOGO_SAGEMCOM.png/800px-LOGO_SAGEMCOM.png?20200213095826'),
-(2, 'STAFIM', 'STAFIM@isetr.tn', '$2b$10$QBWhrbyz.s79K2MpiC3yfuocA/htu8xW.Ku64U1znmbe0i3IkIXIW', 'Informatique, Gestion, Voiture', 'Tunis', '19789', 'https://www.taa.tn/wp-content/uploads/2023/08/stafim-1.jpg'),
-(3, 'Rades', 'RAdes@isetr.tn', '$2b$10$KpmGB/DugYn0WDUDQjDpRuOHI4hrkaBIVCKTofHBb8ruu6QdI4ZUK', 'info, gestion', 'Rades', '54879632', 'https://upload.wikimedia.org/wikipedia/commons/c/c9/Graduation_hat.svg');
+INSERT INTO `entreprise` (`id_ent`, `nom_ent`, `email`, `password`, `secteuractivite`, `adresse`, `contact`, `logo`, `statut`) VALUES
+(1, 'SAGEM', 'SAGEM@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique, Gestion, Réseau', 'Tunis', '9111', 'https://upload.wikimedia.org/wikipedia/fr/thumb/c/cc/LOGO_SAGEMCOM.png/800px-LOGO_SAGEMCOM.png?20200213095826', 1),
+(2, 'STAFIM', 'STAFIM@isetr.tn', '$2b$10$QBWhrbyz.s79K2MpiC3yfuocA/htu8xW.Ku64U1znmbe0i3IkIXIW', 'Informatique, Gestion, Voiture', 'Tunis', '19789', 'https://www.taa.tn/wp-content/uploads/2023/08/stafim-1.jpg', 1),
+(3, 'Rades', 'RAdes@isetr.tn', '$2b$10$KpmGB/DugYn0WDUDQjDpRuOHI4hrkaBIVCKTofHBb8ruu6QdI4ZUK', 'info, gestion', 'Rades', '54879632', 'https://upload.wikimedia.org/wikipedia/commons/c/c9/Graduation_hat.svg', 1);
 
 -- --------------------------------------------------------
 
@@ -171,6 +172,31 @@ INSERT INTO `offre_stage` (`id_os`, `titre`, `description`, `date_debut`, `date_
 (2, 'Offre de stage dans SAGEM', 'description2', '2024-01-11', '2024-02-03', 1, 3),
 (3, 'demande de Stagier pour STAFIM', 'Informatique', '2024-01-11', '2024-02-11', 2, 5);
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `stage`
+--
+
+CREATE TABLE `stage` (
+  `id_stg` int(11) NOT NULL,
+  `titre` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `date_debut` date NOT NULL,
+  `date_fin` date NOT NULL,
+  `id_ent` int(11) NOT NULL,
+  `id_etu` int(11) NOT NULL,
+  `id_enc` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `stage`
+--
+
+INSERT INTO `stage` (`id_stg`, `titre`, `description`, `date_debut`, `date_fin`, `id_ent`, `id_etu`, `id_enc`) VALUES
+(1, 'aaaaaa', 'dfccccc', '2024-04-05', '2024-04-22', 1, 3, 1),
+(3, 'egzbhsdg', 'nye,y', '2024-04-06', '2024-04-21', 3, 1, 1);
+
 --
 -- Index pour les tables déchargées
 --
@@ -217,6 +243,15 @@ ALTER TABLE `offre_stage`
   ADD KEY `FK_os_ent` (`id_ent`);
 
 --
+-- Index pour la table `stage`
+--
+ALTER TABLE `stage`
+  ADD PRIMARY KEY (`id_stg`),
+  ADD KEY `fk_stg_enc` (`id_enc`),
+  ADD KEY `fk_stg_ent` (`id_ent`),
+  ADD KEY `fk_stg_etu` (`id_etu`);
+
+--
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
@@ -242,7 +277,7 @@ ALTER TABLE `encadrant`
 -- AUTO_INCREMENT pour la table `entreprise`
 --
 ALTER TABLE `entreprise`
-  MODIFY `id_ent` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_ent` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `etudiant`
@@ -255,6 +290,12 @@ ALTER TABLE `etudiant`
 --
 ALTER TABLE `offre_stage`
   MODIFY `id_os` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT pour la table `stage`
+--
+ALTER TABLE `stage`
+  MODIFY `id_stg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Contraintes pour les tables déchargées
@@ -279,6 +320,14 @@ ALTER TABLE `depot_stage`
 --
 ALTER TABLE `offre_stage`
   ADD CONSTRAINT `FK_os_ent` FOREIGN KEY (`id_ent`) REFERENCES `entreprise` (`id_ent`);
+
+--
+-- Contraintes pour la table `stage`
+--
+ALTER TABLE `stage`
+  ADD CONSTRAINT `fk_stg_enc` FOREIGN KEY (`id_enc`) REFERENCES `encadrant` (`id_enc`) ON DELETE SET NULL ON UPDATE SET NULL,
+  ADD CONSTRAINT `fk_stg_ent` FOREIGN KEY (`id_ent`) REFERENCES `entreprise` (`id_ent`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_stg_etu` FOREIGN KEY (`id_etu`) REFERENCES `etudiant` (`id_etu`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
