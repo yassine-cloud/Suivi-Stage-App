@@ -27,6 +27,7 @@ const entreprise = require('./src/Data/entreprise')
 const encadrant = require('./src/Data/encadrant')
 const offre=require('./src/Data/offre')
 const depot=require('./src/Data/deopotOffre')
+const livret=require('./src/Data/livretStage')
 
 ////-----------------------------------------------
 
@@ -57,6 +58,15 @@ app.post('/addOffre', offre.addOffre)
 
 // deposer sur une offre
 app.post('/depotOffre', depot.addDepot)
+
+///----------------------------------------
+/// livre de stage
+app.post('/livret', livret.getLivretStage)
+app.post('/addlivret', livret.addLivretStage)
+app.post('/editlivret', livret.updateLivretStage)
+app.post('/dellivret', livret.deleteEntreprise)
+
+///----------------------------------------
 
 
 ////-----------------------------------------------

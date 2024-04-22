@@ -1,0 +1,70 @@
+<div class="container mx-auto mt-3 mb-5">
+
+    <button class="btn btn-success mb-2" (click)="openAjout()">Ajouter une nouvelle tache</button>
+
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr class="table-secondary">
+                <th>#</th>
+                <th>Date</th>
+                <th>Taches effectuées</th>
+                <th colspan="2" class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngIf="taches.length!=0">
+                <tr *ngFor="let tache of taches;let i = index">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ tache.date | date : "d/M/yyyy" }}</td>
+                    <td>{{ tache.tache }}</td>
+                    <td class="text-center"><button class="btn btn-primary" (click)="openEdit(tache)" > editer </button></td>
+                    <td class="text-center"><button class="btn btn-danger btn-sm" (click)="supprimerTache(tache.id_ls)" > supprimer </button></td>
+                </tr>
+            </ng-container>
+
+            <ng-container *ngIf="taches.length == 0">
+                <tr>
+                    <td colspan="4" class="text-center">Aucune tache n'est enregistrée</td>
+                </tr>
+            </ng-container>
+        </tbody>
+
+
+
+
+    </table>
+
+</div>
+
+
+
+
+<ng-template #pop let-modal>
+          
+    <div class="modal-content">
+      <div class="modal-header p-5 pb-4 border-bottom-0">
+        <h1 class="fw-bold mb-0 fs-2">Ajouter une nouvelle proposition :</h1>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+    
+      <div class="modal-body p-5 pt-0">
+  
+        <form [formGroup]="tacheForm" (ngSubmit)="submit()">
+
+            <input type="date" id="exampleInput" name="input" formControlName="date" class="form-control col mx-1"
+          placeholder="yyyy-MM-dd" min="2023-01-01"  />
+
+            <label for="tache">Tache:</label><br>
+            <textarea name="tache" class="form-control" id="tache" cols="30" rows="10" formControlName="tache"></textarea><br>
+
+            
+          <input type="submit" class="btn btn-success m-3" value="Enregistrer" [disabled]="tacheForm.invalid" >
+          <input type="button" class="btn btn-secondary" value="Annuler" (click)="closePop()">
+  
+      </form>
+  
+      </div>
+    </div> 
+  </ng-template>
+
+
