@@ -1,0 +1,165 @@
+<div class="container mt-3" >
+    <div class="profile ">
+      <h1 class="mb-2">Liste des Encadrants</h1>
+        <table class="table table-bordered table-hover mt-3">
+            <thead>
+                <tr class="table-secondary">
+                    <th>#</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>E-Mail</th>
+                    <th>Specialité</th>
+                    <th>Département</th>
+                    <th>Contact</th>
+                    <th class="text-center" colspan="2" >Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                    <tr *ngFor="let i of listeEncadrants; let x = index">
+                    <td>{{x+1}}</td>
+                    <td>{{i.nom}}</td>
+                    <td>{{i.prenom}}</td>
+                    <td>{{i.email}}</td>
+                    <td>{{i.specialite}}</td>
+                    <td>{{i.departement}}</td>
+                    <td>{{i.contact}}</td>
+                    <td class="text-center"> <input type="button" value="Editer" (click)="onModifie(i)"  class="btn btn-primary btn-sm ">  </td>
+                    <td class="text-center"><input type="button" value="Supprimer" (click)="onSupprime(i)"  class="btn btn-danger btn-sm  m-1"></td>
+          
+            </tbody>
+        </table>
+        <input type="button" value="Ajouter Un Encadrant" (click)="openAjout()"  class="btn btn-primary">
+    </div>
+  </div>
+  
+
+  <ng-template #pop let-modal>
+          
+    <div class="modal-content">
+      <div class="modal-header p-5 pb-4 border-bottom-0">
+        <h1 class="fw-bold mb-0 fs-2">Modifier encadrant :</h1>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+    
+      <div class="modal-body p-5 pt-0">
+  
+        <form [formGroup]="popform" (ngSubmit)="onSubmit()">
+          <!-- <label for="id_enc">#:</label><br>
+            <input type="text" id="id_enc" name="id_enc" formControlName="id_enc" class="form-control" readonly > -->
+
+            <label for="nom" class="form-label mt-3">Nom:</label><br>
+            <input type="text" id="nom" name="nom" class="form-control" formControlName="nom" >
+
+            <label for="prenom" class="form-label mt-3">Prenom:</label><br>
+            <input type="text" id="prenom" name="prenom" class="form-control" formControlName="prenom" >
+
+            <label for="email" class="form-label mt-3"> Email:</label><br>
+            <input type="email" id="email" name="email" formControlName="email" class="form-control" >
+                
+            <!-- <label for="departement" class="form-label mt-3">Departement:</label><br>
+            <input type="text" id="departement" name="departement" class="form-control" formControlName="departement" > -->
+
+            <div class="mt-3">
+              <label for="Departement" class="form-label">Departement :</label>
+              <select name="Departement" class="form-select" id="Departement" formControlName="departement">
+                  <option value="" selected hidden >Selectionner un department</option>
+                  <option value="Informatique">Informatique</option>
+                  <option value="Gestion">Gestion</option>
+                  <option value="Mécanique">Mécanique</option>
+                  <option value="Eléctrique">Eléctrique</option>
+                  <option value="Civil">Civil</option>
+                  
+              </select>
+            </div>
+
+            <label for="contact" class="form-label mt-3">Contact</label>
+            <input type="text" class="form-control" id="contact" name="contact" formControlName="contact" >
+
+            <label for="specialite" class="form-label mt-3">Specialité</label>
+            <input type="text" class="form-control" id="specialite" name="specialite" formControlName="specialite" >
+
+            <label for="password" class="form-label mt-3">Password</label>
+            <input type="password" class="form-control" id="password" name="password" formControlName="password" >
+  
+          <input type="submit" class="btn btn-success m-3" value="Enregistrer" [disabled]="popform.invalid">
+          <input type="button" class="btn btn-secondary" value="Annuler" (click)="modal.close()">
+  
+      </form>
+  
+      </div>
+    </div> 
+  </ng-template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <ng-template #pop1 let-modal>
+          
+    <div class="modal-content">
+      <div class="modal-header p-5 pb-4 border-bottom-0">
+        <h1 class="fw-bold mb-0 fs-2">Ajouter encadrant :</h1>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+    
+      <div class="modal-body p-5 pt-0">
+  
+        <form [formGroup]="popform1" (ngSubmit)="onAjout()">
+          <!-- <label for="id_ent">ID:</label><br>
+            <input type="text" id="id_ent" formControlName="id_ent" class="form-control" ><br> -->
+
+            <label for="nom">Nom:</label><br>
+            <input type="text" id="nom" class="form-control" formControlName="nom" >
+
+            <label for="prenom" class="form-label mt-3">Prenom:</label><br>
+            <input type="text" id="prenom" name="prenom" class="form-control" formControlName="prenom" >
+
+            <label for="email" class="form-label mt-3"> Email:</label><br>
+            <input type="email" id="email" name="email" formControlName="email" class="form-control" >
+                
+            <!-- <label for="departement" class="form-label mt-3">Departement:</label><br>
+            <input type="text" id="departement" name="departement" class="form-control" formControlName="departement" > -->
+
+            <div class="mt-3">
+              <label for="Departement" class="form-label">Departement :</label>
+              <select name="Departement" class="form-select" id="Departement" formControlName="departement">
+                  <option value="" selected hidden >Selectionner un department</option>
+                  <option value="Informatique">Informatique</option>
+                  <option value="Gestion">Gestion</option>
+                  <option value="Mécanique">Mécanique</option>
+                  <option value="Eléctrique">Eléctrique</option>
+                  <option value="Civil">Civil</option>
+                  
+              </select>
+            </div>
+
+            <label for="contact" class="form-label mt-3">Contact</label>
+            <input type="text" class="form-control" id="contact" name="contact" formControlName="contact" >
+
+            <label for="specialite" class="form-label mt-3">Specialité</label>
+            <input type="text" class="form-control" id="specialite" name="specialite" formControlName="specialite" >
+
+
+            <label for="password" class="form-label mt-3">Password</label>
+            <input type="password" class="form-control" id="password" name="password" formControlName="password" >
+
+  
+          <input type="submit" class="btn btn-success m-3" value="Enregistrer" [disabled]="popform1.invalid">
+          <input type="button" class="btn btn-secondary" value="Annuler" (click)="modal.close()">
+  
+      </form>
+  
+      </div>
+    </div> 
+  </ng-template>
+  
+  
