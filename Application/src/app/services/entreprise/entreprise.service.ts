@@ -45,7 +45,6 @@ export class EntrepriseService {
       })
     );
   }
-
   editEntreprise(i:any):Observable<any>{
     return this.http.post<any>(this.url+"/editEntreprise",i , this.options);
   }

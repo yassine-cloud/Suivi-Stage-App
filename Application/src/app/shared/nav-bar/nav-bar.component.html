@@ -27,6 +27,15 @@
                         <ng-container *ngIf="user && user.role =='admin' ">
                             <li><a class="nav-link" routerLink="/admin/liste-societes" routerLinkActive="actif" >Les Societes</a></li>
                         </ng-container>
+                        <ng-container *ngIf="user && user.role =='admin' ">
+                            <li><a class="nav-link" routerLink="/admin/liste-etudiants" routerLinkActive="actif" >Les Etudiants</a></li>
+                        </ng-container>
+                        <ng-container *ngIf="user && user.role =='admin' ">
+                            <li><a class="nav-link" routerLink="/admin/liste-encadrants" routerLinkActive="actif" >Les Encadrants</a></li>
+                        </ng-container>
+                        <ng-container *ngIf="user && user.role =='admin' ">
+                            <li><a class="nav-link" routerLink="/admin/liste-stages" routerLinkActive="actif" >Les Stages</a></li>
+                        </ng-container>
 
                         <!-- etudiant -->
                         <ng-container *ngIf="user && user.role =='etudiant' ">

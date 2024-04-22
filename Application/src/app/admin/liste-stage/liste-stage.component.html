@@ -1,0 +1,101 @@
+<div class="container mt-3" >
+    <div class="profile ">
+      <h1 class="mb-2">Liste des Stages "Etudiant non Affecté"</h1>
+        <table class="table table-bordered table-hover mt-3">
+            <thead>
+                <tr class="table-secondary">
+                    <th>#</th>
+                    <th>Nom d'étudiant</th>
+                    <th>Prenom d'étudiant</th>
+                    <th>Nom de la Société</th>
+                    
+                    <th>Titre de Stage</th>
+                    <th>Description de Stage</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                    <tr *ngFor="let i of listeNAStages; let x = index">
+                    <td>{{x+1}}</td>
+                    <td>{{i.nom}}</td>
+                    <td>{{i.prenom}}</td>
+                    <td>{{i.nom_ent}}</td>
+                    <td>{{i.titre}}</td>
+                    <td>{{i.description}}</td>
+                    <td> <input type="button" value="Affecter un Professeur" (click)="onModifie(i)"  class="btn btn-primary btn-sm "> </td>
+          
+            </tbody>
+        </table>
+    </div>
+  </div>
+  
+  <div class="container mt-3" >
+    <div class="profile ">
+      <h1 class="mb-2">Liste des Stages "Etudiants Affectés"</h1>
+        <table class="table table-bordered table-hover mt-3">
+            <thead>
+                <tr class="table-secondary">
+                    <th>#</th>
+                    <th>Nom d'étudiant</th>
+                    <th>Prenom d'étudiant</th>
+                    <th>Nom de la Société</th>
+                    
+                    <th>Titre de Stage</th>
+                    <th>Description de Stage</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                    <tr *ngFor="let i of listeStages; let x = index">
+                    <td>{{x+1}}</td>
+                    <td>{{i.nom}}</td>
+                    <td>{{i.prenom}}</td>
+                    <td>{{i.nom_ent}}</td>
+                    <td>{{i.titre}}</td>
+                    <td>{{i.description}}</td>
+          
+            </tbody>
+        </table>
+    </div>
+  </div>
+
+  <ng-template #pop let-modal>
+          
+    <div class="modal-content">
+      <div class="modal-header p-5 pb-4 border-bottom-0">
+        <h1 class="fw-bold mb-0 fs-2">Ajouter une nouvelle proposition :</h1>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+    
+      <div class="modal-body p-5 pt-0">
+  
+        <form [formGroup]="popform" (ngSubmit)="onSubmit()">
+          <label for="id_stg">#:</label><br>
+            <input type="text" id="id_stg" name="id_stg" formControlName="id_stg" class="form-control" readonly >
+
+            <label for="nom" class="form-label mt-3">Nom:</label><br>
+            <input type="text" id="nom" name="nom" class="form-control" formControlName="nom" readonly>
+
+            <label for="prenom" class="form-label mt-3">Prenom:</label><br>
+            <input type="text" id="prenom" name="prenom" class="form-control" formControlName="prenom" readonly>
+
+            <label for="nom_ent" class="form-label mt-3">Nom de la société:</label><br>
+            <input type="text" id="nom_ent" name="nom_ent" class="form-control" formControlName="nom_ent"  readonly>
+
+            <label for="id_enc" class="form-label mt-3">Encadrant à Affecté</label><br>
+            <select name="id_enc" id="id_enc" class="form-control" formControlName="id_enc">
+                <option value="" ></option>
+            <option *ngFor="let i of listeEncadrants" [value]="i.id_enc"> {{i.nom +" "+ i.prenom}} </option>
+
+            </select>
+
+
+          <input type="submit" class="btn btn-success m-3" value="Enregistrer" [disabled]="popform.invalid">
+          <input type="button" class="btn btn-secondary" value="Annuler" (click)="modal.close()">
+  
+      </form>
+  
+      </div>
+    </div> 
+  </ng-template>
