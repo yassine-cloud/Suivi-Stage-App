@@ -58,7 +58,7 @@ exports.login = async (req, res) => {
         await Promise.all(dt.map(async (role) => {
             try {
                 const rows = await new Promise((resolve, reject) => {
-                    connection.query('SELECT * FROM ' + role ,  (err, rows) => {
+                    connection.query('SELECT * FROM ' + role + (role == 'entreprise' ? ' where status != 0' : '') ,  (err, rows) => {
                         if (err) {
                             console.log("There is an error in select: " + err);
                             reject(err);

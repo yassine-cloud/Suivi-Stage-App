@@ -26,6 +26,7 @@ export class NavBarComponent {
   }
 
   logout(){
+    if(confirm("Voulez-vous vraiment vous déconnecter ?"))
     this.log.deconnexion()
 
   }
