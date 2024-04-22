@@ -36,27 +36,27 @@ export class ListeSocietesComponent implements OnInit{
   initForm(){ // edit
     this.popform = this.formbuild.group({
       id_ent: ['', Validators.required],
-      nom_ent: ['', Validators.required],
-      email: ['', Validators.required],
+      nom: ['', Validators.required],
+      email: ['',  [Validators.required, Validators.email]],
       adresse: ['', Validators.required],
       contact: ['', Validators.required],
       secteuractivite:['',Validators.required],
       password: ['', [Validators.minLength(4)]],
-      statut:['',[Validators.required]],
       logo: ['', Validators.required],
+      status:['',[Validators.required]],
     });
   }
   initForm1(){ // add
     this.popform1 = this.formbuild.group({
       // id_ent: ['', Validators.required],
-      nom_ent: ['', Validators.required],
+      nom: ['', Validators.required],
       email: ['', [ Validators.required, Validators.email]],
       adresse: ['', Validators.required],
       contact: ['', Validators.required],
       secteuractivite:['',Validators.required],
       password: ['', [Validators.required,Validators.minLength(4)]],
-      statut:[1,[Validators.required]],
       logo: ['', Validators.required],
+      status:[ true ,[Validators.required]],
     });
   }
 
@@ -66,11 +66,11 @@ export class ListeSocietesComponent implements OnInit{
         this.entreprise = res[0];
         this.popform.patchValue({
           id_ent: i.id_ent,
-          nom_ent: i.nom_ent,
+          nom: i.nom,
           email: i.email,
           adresse: i.adresse,
           contact: i.contact,
-          statut:i.statut,
+          status:i.status,
           secteuractivite:i.secteuractivite,
           // password:i.password, //On ne peut pas recupérer le mot de passe (Haché) 
           logo:i.logo
@@ -84,11 +84,11 @@ export class ListeSocietesComponent implements OnInit{
   //  const formData=this.popform.value;
   let formData : any = {
     id_ent: this.popform.value.id_ent,
-    nom_ent: this.popform.value.nom_ent,
+    nom: this.popform.value.nom,
     email: this.popform.value.email,
     adresse: this.popform.value.adresse,
     contact: this.popform.value.contact,
-    statut:this.popform.value.statut,
+    status:this.popform.value.status,
     secteuractivite: this.popform.value.secteuractivite,
     logo: this.popform.value.logo,
     // password: this.popform.value.password !== '' ? this.popform.value.password : undefined

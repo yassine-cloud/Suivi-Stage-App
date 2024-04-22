@@ -9,19 +9,19 @@
                     <th>E-Mail</th>
                     <th>Adresse</th>
                     <th>Contact</th>
-                    <th>Statut</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 
-                    <tr *ngFor="let i of listeSocietes; let x = index">
+                    <tr *ngFor="let i of listeSocietes; let x = index" [ngClass]="{'table-success': i.status , 'table-danger' : !i.status}" >
                     <td>{{x+1}}</td>
-                    <td>{{i.nom_ent}}</td>
+                    <td>{{i.nom}}</td>
                     <td>{{i.email}}</td>
                     <td>{{i.adresse}}</td>
                     <td>{{i.contact}}</td>
-                    <td >{{i.statut ==1 ?'Activé':'Désactivé'}}</td>
+                    <td >{{i.status ==1 ?'Activé':'Désactivé'}}</td>
                     <td> <input type="button" value="Editer" (click)="onModifie(i)"  class="btn btn-primary btn-sm "></td>
           
             </tbody>
@@ -42,11 +42,9 @@
       <div class="modal-body p-5 pt-0">
   
         <form [formGroup]="popform" (ngSubmit)="onSubmit()">
-          <label for="id_ent">#:</label><br>
-            <input type="text" id="id_ent" name="id_ent" formControlName="id_ent" class="form-control" readonly >
 
-            <label for="nom_ent" class="form-label mt-3">Nom d'Entreprise:</label><br>
-            <input type="text" id="nom_ent" name="nom_ent" class="form-control" formControlName="nom_ent" >
+            <label for="nom" class="form-label mt-3">Nom d'Entreprise:</label><br>
+            <input type="text" id="nom" name="nom" class="form-control" formControlName="nom" >
 
             <label for="email" class="form-label mt-3"> Email:</label><br>
             <input type="email" id="email" name="email" formControlName="email" class="form-control" >
@@ -67,10 +65,12 @@
             <label for="logo" class="form-label mt-3">Logo</label>
             <input type="text" class="form-control" id="logo" name="logo" formControlName="logo" >
 
-            <label for="statut" class="form-label mt-3">statut</label>
-            <input type="number" class="form-control" id="statut" name="statut" formControlName="statut" pattern="[0-1]" maxlength="1" >
-            <mark><strong><sub> *1:Activé 
-            *0:Désactivé</sub></strong> </mark> <br>
+            <div class="form-check">
+              <input class="form-check-input" [checked]="popform.value.status" formControlName="status" type="checkbox" id="status1">
+              <label class="form-check-label" for="status1">
+                Activation du compte
+              </label>
+            </div>
 
   
           <input type="submit" class="btn btn-success m-3" value="Enregistrer" [disabled]="popform.invalid">
@@ -108,8 +108,8 @@
           <!-- <label for="id_ent">ID:</label><br>
             <input type="text" id="id_ent" formControlName="id_ent" class="form-control" ><br> -->
 
-            <label for="nom_ent">Nom d'Entreprise:</label><br>
-            <input type="text" id="nom_ent" class="form-control" formControlName="nom_ent" >
+            <label for="nom">Nom d'Entreprise:</label><br>
+            <input type="text" id="nom" class="form-control" formControlName="nom" >
 
             <label for="email" class="form-label mt-3"> Email:</label><br>
             <input type="email" id="email" formControlName="email" class="form-control" >
@@ -130,10 +130,14 @@
             <label for="logo" class="form-label mt-3">Logo</label>
             <input type="text" class="form-control" id="logo" formControlName="logo" >
 
-            <label for="statut" class="form-label mt-3">statut</label>
-            <input type="number" class="form-control" id="statut" name="statut" formControlName="statut" pattern="[0-1]" maxlength="1" >
-            <mark><strong><sub> *1:Activé 
-            *0:Désactivé</sub></strong> </mark> <br>
+            
+
+            <div class="form-check">
+              <input class="form-check-input" [checked]="popform1.value.status" formControlName="status" type="checkbox" id="status2">
+              <label class="form-check-label" for="status2">
+                Activation du compte
+              </label>
+            </div>
 
   
           <input type="submit" class="btn btn-success m-3" value="Enregistrer" [disabled]="popform1.invalid">

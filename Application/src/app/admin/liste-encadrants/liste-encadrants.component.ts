@@ -37,7 +37,7 @@ export class ListeEncadrantsComponent {
     this.popform = this.formbuild.group({
       id_enc: ['', Validators.required],
       nom: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['',  [Validators.required, Validators.email]],
       prenom: ['', Validators.required],
       contact: ['', Validators.required],
       password: ['', [Validators.minLength(4)]],
@@ -49,27 +49,33 @@ export class ListeEncadrantsComponent {
     this.popform1 = this.formbuild.group({
       // id_enc: ['', Validators.required],
       nom: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['',  [Validators.required, Validators.email]],
       prenom: ['', Validators.required],
       contact: ['', Validators.required],
       specialite:['',Validators.required],
-      password: ['', [Validators.minLength(4)]],
+      password: ['', [Validators.required , Validators.minLength(4)]],
       departement: ['', Validators.required],
       
     });
   }
   onSupprime(i:any){
+    if(confirm("Etes-vous sûr de vouloir supprimer cet encadrant ?"))
     this.encad.deleteEncadrant(i.id_enc).subscribe((res:any)=>{
       console.log("supprimé avec succés");
+      // this.ngOnInit();
+      window.location.reload();
+    },
+    error=>{
+      console.error('Erreur lors de la suppression de l\'encadrant :', error);
+      alert("Erreur lors de la suppression de l'encadrant");
+
     })
     
   }
 
 
   onModifie(i:any){
-    this.encad.getEncadrant(i.id_enc).subscribe(
-      (res: any) => {
-        this.encadrant = res[0];
+    
         this.popform.patchValue({
           id_enc: i.id_enc,
           nom: i.nom,
@@ -79,7 +85,6 @@ export class ListeEncadrantsComponent {
           contact: i.contact,
           specialite:i.specialite,
           // password:i.password, //On ne peut pas recupérer le mot de passe (Haché) 
-        });
       }
     );
     this.modalService.open(this.popRef, { backdropClass: 'pop-up-backdrop' });
@@ -100,11 +105,12 @@ export class ListeEncadrantsComponent {
   if(this.popform.value.password !== ''){
     formData['password'] = this.popform.value.password;
   }
-   this.encad.editEncadrant(formData).subscribe(()=>{
+   this.encad.editEncadrant(formData).subscribe((d)=>{
     // this.popform.reset();
     this.modalService.dismissAll();
     console.log("Mise à Jour avec Succés");
-    this.ngOnInit();
+    // this.ngOnInit();
+    window.location.reload();
    },error=>{
     console.error('Erreur lors de la mise à jour de l\'encadrant :', error);
     alert("Erreur lors de la mise à jour de l'encadrant");
@@ -119,14 +125,16 @@ export class ListeEncadrantsComponent {
     this.encad.addEncadrant(formData).subscribe(()=>{
       this.modalService.dismissAll();
       console.log("Ajouté avec Succés");
-      this.ngOnInit();
+      // this.ngOnInit();
+      window.location.reload();
      },error=>{
       console.error('Erreur lors de l\'ajout de l\'encadrant :', error);
       alert("Erreur lors de l'ajout de l'encadrant");
      })
     }
-    this.modalService.open(this.popRef1, { backdropClass: 'pop-up-backdrop' });
-    console.log(formData);
+    else{
+      alert("Veuillez remplir tous les champs");
+    }
   }
   
 

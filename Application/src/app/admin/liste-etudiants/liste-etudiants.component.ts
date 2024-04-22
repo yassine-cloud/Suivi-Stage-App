@@ -37,7 +37,7 @@ export class ListeEtudiantsComponent {
     this.popform = this.formbuild.group({
       id_etu: ['', Validators.required],
       nom: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['',  [Validators.required, Validators.email]],
       prenom: ['', Validators.required],
       contact: ['', Validators.required],
       password: ['', [Validators.minLength(4)]],
@@ -48,25 +48,30 @@ export class ListeEtudiantsComponent {
     this.popform1 = this.formbuild.group({
       // id_ent: ['', Validators.required],
       nom: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       prenom: ['', Validators.required],
       contact: ['', Validators.required],
-      password: ['', [Validators.minLength(4)]],
+      password: ['', [Validators.required , Validators.minLength(4)]],
       departement: ['', Validators.required],
     });
   }
   onSupprime(i:any){
+    if(confirm("Etes-vous sûr de vouloir supprimer cet étudiant ?"))
     this.etud.deleteEtudiant(i.id_etu).subscribe((res:any)=>{
       console.log("supprimé avec succés");
-    })
+      window.location.reload();
+    },
+    error=>{
+      console.error('Erreur lors de la suppression de l\'entreprise :', error);
+      alert("Erreur lors de la suppression de l'entreprise");
+    }) 
+  
     
   }
 
 
   onModifie(i:any){
-    this.etud.getEtudiant(i.id_etu).subscribe(
-      (res: any) => {
-        this.etudiant = res[0];
+    
         this.popform.patchValue({
           id_etu: i.id_etu,
           nom: i.nom,
@@ -75,7 +80,6 @@ export class ListeEtudiantsComponent {
           departement:i.departement,
           contact: i.contact,
           // password:i.password, //On ne peut pas recupérer le mot de passe (Haché) 
-        });
       }
     );
     this.modalService.open(this.popRef, { backdropClass: 'pop-up-backdrop' });
@@ -99,7 +103,8 @@ export class ListeEtudiantsComponent {
     // this.popform.reset();
     this.modalService.dismissAll();
     console.log("Mise à Jour avec Succés");
-    this.ngOnInit();
+    // this.ngOnInit();
+    window.location.reload();
    },error=>{
     console.error('Erreur lors de la mise à jour de l\'entreprise :', error);
     alert("Erreur lors de la mise à jour de l'entreprise");
@@ -114,14 +119,13 @@ export class ListeEtudiantsComponent {
     this.etud.addEtudiant(formData).subscribe(()=>{
       this.modalService.dismissAll();
       console.log("Ajouté avec Succés");
-      this.ngOnInit();
+      // this.ngOnInit();
+      window.location.reload();
      },error=>{
       console.error('Erreur lors de l\'ajout de l\'entreprise :', error);
       alert("Erreur lors de l'ajout de l'entreprise");
      })
     }
-    this.modalService.open(this.popRef1, { backdropClass: 'pop-up-backdrop' });
-    console.log(formData);
   }
   
 }

@@ -30,7 +30,7 @@ export class EncadrantService {
   }
 
   editEncadrant(i:any):Observable<any>{
-    return this.http.post<any>(this.url+"/editEtudiant",i , this.options);
+    return this.http.post<any>(this.url+"/editEncadrant",i , this.options);
   }
   deleteEncadrant(id: any): Observable<any> {
     const params = new HttpParams().set('id_enc', id);
