@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : dim. 21 avr. 2024 à 14:16
+-- Généré le : lun. 22 avr. 2024 à 21:10
 -- Version du serveur : 10.4.28-MariaDB
 -- Version de PHP : 8.2.4
 
@@ -20,28 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `suivi_stage_bd`
 --
-
--- --------------------------------------------------------
-
---
--- Structure de la table `condidature_stage`
---
-
-CREATE TABLE `condidature_stage` (
-  `id_cs` int(11) NOT NULL,
-  `id_etu` int(11) NOT NULL,
-  `id_os` int(11) NOT NULL,
-  `date` date NOT NULL,
-  `status` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `condidature_stage`
---
-
-INSERT INTO `condidature_stage` (`id_cs`, `id_etu`, `id_os`, `date`, `status`) VALUES
-(1, 1, 1, '2023-12-20', 'accepter'),
-(2, 2, 2, '2023-12-29', 'accepter');
 
 -- --------------------------------------------------------
 
@@ -68,7 +46,8 @@ CREATE TABLE `depot_stage` (
 
 INSERT INTO `depot_stage` (`id_ds`, `nom`, `prenom`, `email`, `tel`, `genre`, `id_etu`, `id_os`, `date`, `status`) VALUES
 (1, 'youssef', 'sighari', 'sighari@gmail.com', '23445555', 'male', 4, 2, '2024-04-05', 'en attent'),
-(10, 'Soltani', 'Wissal', 'Wissa@gmail.com', '54983216', 'f', 2, 2, '2024-04-06', 'En attente');
+(10, 'Soltani', 'Wissal', 'Wissa@gmail.com', '54983216', 'f', 2, 2, '2024-04-06', 'En attente'),
+(11, 'Mesarati', 'Lina', 'Mesaratilina@gmail.com', '54983216', 'f', 7, 1, '2024-04-06', 'En attente');
 
 -- --------------------------------------------------------
 
@@ -92,7 +71,9 @@ CREATE TABLE `encadrant` (
 --
 
 INSERT INTO `encadrant` (`id_enc`, `nom`, `prenom`, `email`, `password`, `departement`, `specialite`, `contact`) VALUES
-(1, 'Mtir', 'Mehdi', 'mehdimtir@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'informatique', 'Web Development', '55698712');
+(1, 'Mtir', 'Mehdi', 'mehdimtir@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'informatique', 'Web Development', '55698712'),
+(2, 'Saadaoui', 'Abdelkader', 'abdelkadersaadaoui@gmail.com', '$2b$10$mRTidf8g5azJGECC8r/MRO4r92XxwWYGfaQjyJBia4TJjQcbL8MX2', 'Informatique', 'System Embarqué', '56987422'),
+(3, 'Mansouri', 'Lamia', 'lamiamansouri@gmail.com', '$2b$10$eOimZUOesebORiWaJEv5rulcvG5oZImRdIMz86G3tAPOJmVnVjCP.', 'Informatique', 'application web', '78945611');
 
 -- --------------------------------------------------------
 
@@ -102,24 +83,26 @@ INSERT INTO `encadrant` (`id_enc`, `nom`, `prenom`, `email`, `password`, `depart
 
 CREATE TABLE `entreprise` (
   `id_ent` int(11) NOT NULL,
-  `nom_ent` varchar(255) NOT NULL,
+  `nom` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `secteuractivite` varchar(255) NOT NULL,
   `adresse` varchar(255) NOT NULL,
   `contact` varchar(255) NOT NULL,
   `logo` text NOT NULL,
-  `statut` int(1) NOT NULL
+  `status` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `entreprise`
 --
 
-INSERT INTO `entreprise` (`id_ent`, `nom_ent`, `email`, `password`, `secteuractivite`, `adresse`, `contact`, `logo`, `statut`) VALUES
-(1, 'SAGEM', 'SAGEM@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique, Gestion, Réseau', 'Tunis', '9111', 'https://upload.wikimedia.org/wikipedia/fr/thumb/c/cc/LOGO_SAGEMCOM.png/800px-LOGO_SAGEMCOM.png?20200213095826', 1),
+INSERT INTO `entreprise` (`id_ent`, `nom`, `email`, `password`, `secteuractivite`, `adresse`, `contact`, `logo`, `status`) VALUES
+(1, 'SAGEM Com', 'SAGEM@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique, Gestion, Réseau', 'Tunis', '9111', 'https://upload.wikimedia.org/wikipedia/fr/thumb/c/cc/LOGO_SAGEMCOM.png/800px-LOGO_SAGEMCOM.png?20200213095826', 1),
 (2, 'STAFIM', 'STAFIM@isetr.tn', '$2b$10$QBWhrbyz.s79K2MpiC3yfuocA/htu8xW.Ku64U1znmbe0i3IkIXIW', 'Informatique, Gestion, Voiture', 'Tunis', '19789', 'https://www.taa.tn/wp-content/uploads/2023/08/stafim-1.jpg', 1),
-(3, 'Rades', 'RAdes@isetr.tn', '$2b$10$KpmGB/DugYn0WDUDQjDpRuOHI4hrkaBIVCKTofHBb8ruu6QdI4ZUK', 'info, gestion', 'Rades', '54879632', 'https://upload.wikimedia.org/wikipedia/commons/c/c9/Graduation_hat.svg', 1);
+(3, 'Rades', 'RAdes@isetr.tn', '$2b$10$KpmGB/DugYn0WDUDQjDpRuOHI4hrkaBIVCKTofHBb8ruu6QdI4ZUK', 'info, gestion', 'Rades', '54879632', 'https://upload.wikimedia.org/wikipedia/commons/c/c9/Graduation_hat.svg', 1),
+(4, 'OACA', 'oaca@isetr.tn', '$2b$10$ekn8FlAJ6JBj8hOnCkpjdOw2P5uFQ/cKL9zw/SJscSfPV4UPF2JZy', 'avion', 'Aeroport', '12345678', 'https://www.oaca.nat.tn/o/landrick-theme/images/logo-light.png', 1),
+(5, 'Mech3al', 'Mech3al@gmail.com', '$2b$10$dcBZzstPbIfcNlgXiZbax.9tjUDdg1SS3NS8dGuT3g7uRlpE7fgUm', 'Management ', 'Sky', '911', 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Fire_in_Ranua.JPG/1200px-Fire_in_Ranua.JPG', 1);
 
 -- --------------------------------------------------------
 
@@ -145,7 +128,31 @@ INSERT INTO `etudiant` (`id_etu`, `nom`, `prenom`, `email`, `password`, `departe
 (1, 'Saadaoui', 'Yassine\r\n', 'yassinesaadaoui@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique', '78541236'),
 (2, 'Soltani', 'Wissal', 'wissalsoltani@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique', '98563214'),
 (3, 'Mechergui', 'Mohamed Aziz', 'azizmechergui@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique', '25983247'),
-(4, 'Sighari', 'Youssef', 'youssefsighari@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique', '55789632');
+(4, 'Sighari', 'Youssef', 'youssefsighari@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique', '55789632'),
+(6, 'Maatoug', 'Aziz', 'azizmaatoug@isetr.tn', '$2b$10$laU.Xo6gocIZl18M3TbZwuaEYDUBh.XrHEFI19FyvUHwvdQHT4ti6', 'Informatique', '56987421'),
+(7, 'Mesarati', 'Lina', 'linamesarati@isetr.tn', '$2b$10$1Iy8PXv2tHfdUAnwirvvT.lb5COFmyJ9Xg.mq9x.PrptI0gQbxBTS', 'Informatique', '69874533');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `livret_stage`
+--
+
+CREATE TABLE `livret_stage` (
+  `id_ls` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `tache` text NOT NULL,
+  `id_etu` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `livret_stage`
+--
+
+INSERT INTO `livret_stage` (`id_ls`, `date`, `tache`, `id_etu`) VALUES
+(1, '2024-01-17', 'Rejoindre le groupe de l\'entreprise', 1),
+(2, '2024-01-12', 'Participer aux différentes taches', 1),
+(4, '2024-04-12', 'fin Stage', 1);
 
 -- --------------------------------------------------------
 
@@ -194,20 +201,12 @@ CREATE TABLE `stage` (
 --
 
 INSERT INTO `stage` (`id_stg`, `titre`, `description`, `date_debut`, `date_fin`, `id_ent`, `id_etu`, `id_enc`) VALUES
-(1, 'aaaaaa', 'dfccccc', '2024-04-05', '2024-04-22', 1, 3, 1),
-(3, 'egzbhsdg', 'nye,y', '2024-04-06', '2024-04-21', 3, 1, 1);
+(1, 'Offre de stage dans STAFIM', 'description', '2024-01-11', '2024-02-03', 2, 1, NULL),
+(3, 'Offre de stage dans SAGEM', 'description2', '2024-01-11', '2024-02-03', 1, 3, 1);
 
 --
 -- Index pour les tables déchargées
 --
-
---
--- Index pour la table `condidature_stage`
---
-ALTER TABLE `condidature_stage`
-  ADD PRIMARY KEY (`id_cs`),
-  ADD KEY `FK_cs_etu` (`id_etu`),
-  ADD KEY `FK_cs_os` (`id_os`);
 
 --
 -- Index pour la table `depot_stage`
@@ -236,6 +235,13 @@ ALTER TABLE `etudiant`
   ADD PRIMARY KEY (`id_etu`);
 
 --
+-- Index pour la table `livret_stage`
+--
+ALTER TABLE `livret_stage`
+  ADD PRIMARY KEY (`id_ls`),
+  ADD KEY `FK_ls_etu` (`id_etu`);
+
+--
 -- Index pour la table `offre_stage`
 --
 ALTER TABLE `offre_stage`
@@ -247,43 +253,43 @@ ALTER TABLE `offre_stage`
 --
 ALTER TABLE `stage`
   ADD PRIMARY KEY (`id_stg`),
-  ADD KEY `fk_stg_enc` (`id_enc`),
-  ADD KEY `fk_stg_ent` (`id_ent`),
-  ADD KEY `fk_stg_etu` (`id_etu`);
+  ADD KEY `FK_stg_ent` (`id_ent`),
+  ADD KEY `FK_stg_enc` (`id_enc`),
+  ADD KEY `FK_stg_etu` (`id_etu`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
--- AUTO_INCREMENT pour la table `condidature_stage`
---
-ALTER TABLE `condidature_stage`
-  MODIFY `id_cs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT pour la table `depot_stage`
 --
 ALTER TABLE `depot_stage`
-  MODIFY `id_ds` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_ds` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT pour la table `encadrant`
 --
 ALTER TABLE `encadrant`
-  MODIFY `id_enc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_enc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `entreprise`
 --
 ALTER TABLE `entreprise`
-  MODIFY `id_ent` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_ent` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `etudiant`
 --
 ALTER TABLE `etudiant`
-  MODIFY `id_etu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_etu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT pour la table `livret_stage`
+--
+ALTER TABLE `livret_stage`
+  MODIFY `id_ls` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `offre_stage`
@@ -302,18 +308,17 @@ ALTER TABLE `stage`
 --
 
 --
--- Contraintes pour la table `condidature_stage`
---
-ALTER TABLE `condidature_stage`
-  ADD CONSTRAINT `FK_cs_etu` FOREIGN KEY (`id_etu`) REFERENCES `etudiant` (`id_etu`),
-  ADD CONSTRAINT `FK_cs_os` FOREIGN KEY (`id_os`) REFERENCES `offre_stage` (`id_os`);
-
---
 -- Contraintes pour la table `depot_stage`
 --
 ALTER TABLE `depot_stage`
   ADD CONSTRAINT `FK_ds_et` FOREIGN KEY (`id_etu`) REFERENCES `etudiant` (`id_etu`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_ds_os` FOREIGN KEY (`id_os`) REFERENCES `offre_stage` (`id_os`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `livret_stage`
+--
+ALTER TABLE `livret_stage`
+  ADD CONSTRAINT `FK_ls_etu` FOREIGN KEY (`id_etu`) REFERENCES `etudiant` (`id_etu`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `offre_stage`
@@ -325,9 +330,9 @@ ALTER TABLE `offre_stage`
 -- Contraintes pour la table `stage`
 --
 ALTER TABLE `stage`
-  ADD CONSTRAINT `fk_stg_enc` FOREIGN KEY (`id_enc`) REFERENCES `encadrant` (`id_enc`) ON DELETE SET NULL ON UPDATE SET NULL,
-  ADD CONSTRAINT `fk_stg_ent` FOREIGN KEY (`id_ent`) REFERENCES `entreprise` (`id_ent`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_stg_etu` FOREIGN KEY (`id_etu`) REFERENCES `etudiant` (`id_etu`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_stg_enc` FOREIGN KEY (`id_enc`) REFERENCES `encadrant` (`id_enc`) ON DELETE SET NULL ON UPDATE SET NULL,
+  ADD CONSTRAINT `FK_stg_ent` FOREIGN KEY (`id_ent`) REFERENCES `entreprise` (`id_ent`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_stg_etu` FOREIGN KEY (`id_etu`) REFERENCES `etudiant` (`id_etu`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
