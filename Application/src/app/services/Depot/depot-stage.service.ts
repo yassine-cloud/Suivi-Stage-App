@@ -29,10 +29,22 @@ export class DepotService {
     const data = {
       id_os: idOffre,
       id_etu: id_etu,
-      status : "En cour",
+      status : "En cours",
       date : new Date()
     };
-    return this.http.post<any>(`${this.url}/postuler`, data, this.httpOptions);
+    return this.http.post<any>(`${this.url}/postuler`, data, this.httpOptions).pipe(
+      map((response) => {
+        console.log('Postulation avec succès:');
+        alert('Postulation réussie !');
+        return response;
+      }),
+      catchError(err=>{
+        console.error('Error Connexion:', err);
+        alert('Erreur lors de la postulation');
+        return of([]);
+      })
+    
+    );
   }
 
   getStagiaires(entrepriseId: number): Observable<any> {

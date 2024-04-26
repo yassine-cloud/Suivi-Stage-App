@@ -1,34 +1,114 @@
-<h1>Liste des stagiaires</h1>
+<div class="container mt-3">
 
+  
 
-<div *ngIf="stagiaires.length > 0 " class="centre">
-  <table border="1">
+<h1>Liste des stagiaires déposés</h1>
+
+  
+
+<div class="centre">
+  
+  <select class="form-select mb-3" [(ngModel)]="selectedOffre" (change)="selectOffre()" >
+    <option value="" selected >Choisir une offre</option>
+    <option *ngFor="let offre of offres" [value]="offre">{{ offre }}</option>
+  </select>
+
+  <table class="table table-bordered table-hover mt-3">
     <thead>
-      <tr>
-        <th>IDetudiant</th>
-        <th>idsociete</th>
-        <th>date</th>
-        <th>status</th>
+      <tr class="table-secondary">
+        <th>#</th>
+        <th>Offre</th>
+        <th>Etudiant</th>
+        <th>Departement</th>
+        <th>Date</th>
+        <th>Status</th>
 
         <!-- Ajoutez d'autres en-têtes si nécessaire -->
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let stagiaire of stagiaires">
-        <td>{{ stagiaire.id_etu }}</td>
-        <td>{{ stagiaire.id_os }}</td>
-        <td>{{ stagiaire.date }}</td>
-        <td>{{ stagiaire.status }}</td>
-        <td>{{ stagiaire.id_ds }}</td>
+      <ng-container *ngIf="stagiaires.length > 0">
+      <tr *ngFor="let stagiaire of selectOffre();let i=index" [ngClass]="{'table-danger': stagiaire.status == 'Refusé' ,'table-success': stagiaire.status == 'Accepté' ,'table-warning': stagiaire.status == 'En cours' }">
+        <td>{{ i+1 }}</td>
+        <td (click)="openDetailOffre(stagiaire)" style="cursor: pointer;" >{{ stagiaire.titre }}</td>
+        <td (click)="openDetailEtudiant(stagiaire)" style="cursor: pointer;" >{{ stagiaire.nom }} {{stagiaire.prenom}}</td>
+        <td> {{stagiaire.departement}} </td>
+        <td>{{ stagiaire.date | date : "d/M/yyyy" }}</td>
         <td>
             <!-- Boutons pour mettre à jour le statut -->
-            
-            <button (click)="Status(stagiaire.id_ds, 'Accepté')">Accepter</button>
-            <button (click)="Status(stagiaire.id_ds, 'Refusé')">Refuser</button>
+            <ng-container *ngIf="stagiaire.status == 'En cours'" >
+              <button class="btn btn-success mx-2"  (click)="Status(stagiaire.id_ds, 'Accepté')">Accepter</button>
+              <button class="btn btn-danger mx-2" (click)="Status(stagiaire.id_ds, 'Refusé')">Refuser</button>
+            </ng-container>
+            <ng-container *ngIf="stagiaire.status != 'En cours'" >
+              {{stagiaire.status}}
+            </ng-container>
           </td>
 
         <!-- Affichez d'autres données si nécessaire -->
       </tr>
+    </ng-container>
+    <ng-container *ngIf="stagiaires.length == 0">
+    <tr>
+      <td colspan="6">Aucun stagiaire trouvé</td>
+    </tr>
+    </ng-container>
     </tbody>
   </table>
 </div>
+</div>
+
+
+
+
+<ng-template #pop let-modal>
+          
+  <div class="modal-content">
+    <div class="modal-header p-5 pb-4 border-bottom-0">
+      <!-- <h1 class="fw-bold mb-0 fs-2">Détail offre :</h1> -->
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+  
+    <div class="modal-body p-5 pt-0">
+
+      <div>
+        <h2>{{ detailOffre.titre }}</h2>
+        <p>{{ detailOffre.description }}</p>
+        <p>Date de début: {{ detailOffre.date_debut | date : "d/M/yyyy" }}</p>
+        <p>Date de fin: {{ detailOffre.date_fin | date : "d/M/yyyy" }}</p>
+        <p>Nombre: {{ detailOffre.nombre }}</p>
+      </div>
+
+
+
+    </div>
+  </div> 
+</ng-template>
+
+
+<ng-template #pop2 let-modal>
+          
+  <div class="modal-content">
+    <div class="modal-header p-5 pb-4 border-bottom-0">
+      <!-- <h1 class="fw-bold mb-0 fs-2">Détail offre :</h1> -->
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+  
+    <div class="modal-body p-5 pt-0">
+
+      <div>
+        <h2>{{ detailOffre.nom }} {{ detailOffre.prenom }}</h2>
+        <p>Email : {{ detailOffre.email }}</p>
+        <p>Departement : {{ detailOffre.departement }}</p>
+        <p>Contact: {{ detailOffre.contact }}</p>
+
+        <button class="btn btn-primary" >CV</button>
+      </div>
+
+
+
+    </div>
+  </div> 
+</ng-template>
+
+

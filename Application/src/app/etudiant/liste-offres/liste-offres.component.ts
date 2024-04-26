@@ -27,7 +27,7 @@ postuler(offreStageId: number) {
   
       this.depotS.postuler(offreStageId).subscribe(
         () => {
-          alert('Postulation réussie !');
+          window.location.reload();
         },
         (error) => {
           console.error('Erreur lors de la postulation : ', error);

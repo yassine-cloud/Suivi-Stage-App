@@ -68,6 +68,8 @@ app.post('/postuler', depot.postuler)
 /// Offres 
 app.post('/offresentreprise', offre.getOffresEntreprise)
 
+// get offres for etudiant
+app.post('/offreetudiant', depot.getOffreEtudiant)
 /////-------------------------------------------
 /*
 // hash code
