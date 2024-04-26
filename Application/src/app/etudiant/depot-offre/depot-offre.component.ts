@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -10,9 +11,39 @@ import { DepotService } from 'src/app/services/Depot/depot-stage.service';
 })
 export class DepotOffreComponent {
 
-
   constructor(private formB:FormBuilder , private depotS : DepotService , private route : Router){}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+/*
   registerForm = this.formB.group({
     nom : ['',Validators.required],
     prenom : ['',Validators.required],
@@ -27,7 +58,7 @@ export class DepotOffreComponent {
     }
 
   }
-
+/*
   registerSubmited(){
     this.depotS.addDepot(this.registerForm.value).subscribe(
       (res) => {
@@ -41,5 +72,9 @@ export class DepotOffreComponent {
     )
 
   }
+
+}
+*/
+
 
 }
