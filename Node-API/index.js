@@ -26,7 +26,7 @@ const etudiant = require('./src/Data/etudiant')
 const entreprise = require('./src/Data/entreprise')
 const encadrant = require('./src/Data/encadrant')
 const offre=require('./src/Data/offre')
-const depot=require('./src/Data/deopotOffre')
+const depot=require('./src/Data/depotOffre')
 
 ////-----------------------------------------------
 
@@ -55,9 +55,14 @@ app.delete('/entreprise',entreprise.deleteEntreprise);
 // Entreprise Ajout Offre
 app.post('/addOffre', offre.addOffre)
 
-// deposer sur une offre
-app.post('/depotOffre', depot.addDepot)
+// get les stagiaires d'une entreprise 
+app.get('/entreprise/:id/stagiaires', depot.getStagiaires)
 
+// Mettre a jour le status du stagiaire
+app.post('/updatestagiaire', depot.Status)
+
+// deposer sur une offre
+app.post('/postuler', depot.postuler)
 
 ////-----------------------------------------------
 /// Offres 

@@ -1,0 +1,34 @@
+<h1>Liste des stagiaires</h1>
+
+
+<div *ngIf="stagiaires.length > 0 " class="centre">
+  <table border="1">
+    <thead>
+      <tr>
+        <th>IDetudiant</th>
+        <th>idsociete</th>
+        <th>date</th>
+        <th>status</th>
+
+        <!-- Ajoutez d'autres en-têtes si nécessaire -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let stagiaire of stagiaires">
+        <td>{{ stagiaire.id_etu }}</td>
+        <td>{{ stagiaire.id_os }}</td>
+        <td>{{ stagiaire.date }}</td>
+        <td>{{ stagiaire.status }}</td>
+        <td>{{ stagiaire.id_ds }}</td>
+        <td>
+            <!-- Boutons pour mettre à jour le statut -->
+            
+            <button (click)="Status(stagiaire.id_ds, 'Accepté')">Accepter</button>
+            <button (click)="Status(stagiaire.id_ds, 'Refusé')">Refuser</button>
+          </td>
+
+        <!-- Affichez d'autres données si nécessaire -->
+      </tr>
+    </tbody>
+  </table>
+</div>

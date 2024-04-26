@@ -18,13 +18,24 @@ export class ListeOffresComponent implements OnInit{
 
 
   offres:any[] = [];
+  
 
 constructor(private list:ListeOffresService,private router:Router,private depotS : DepotService){}
-redirectToDepotOffre(offreStageId: number) {
-  // Redirect to 'depotOffre' route with 'id_entreprise' parameter
-  this.depotS.id_os = offreStageId;
-  this.router.navigate(['/etudiant','depot_offre']);
-}
+
+postuler(offreStageId: number) {
+  // this.depotS.id_os = offreStageId;
+  
+      this.depotS.postuler(offreStageId).subscribe(
+        () => {
+          alert('Postulation réussie !');
+        },
+        (error) => {
+          console.error('Erreur lors de la postulation : ', error);
+        }
+    
+      )}
+
+      
 
 
 ngOnInit(): void {

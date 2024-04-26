@@ -9,7 +9,7 @@ import { LoginService } from '../login.service';
 })
 export class DepotService {
   private url: string = environment.apiUrl ;
-  options = {headers : new HttpHeaders(
+  httpOptions = {headers : new HttpHeaders(
     {'content-type' : "application/json"}
   )}
   constructor(private http: HttpClient,private loginS : LoginService) { 
@@ -24,21 +24,27 @@ export class DepotService {
     return this.id_etu!=undefined && this.id_os!=undefined;
   }
 
-  addDepot(depot: any):Observable<boolean>{
-    depot.id_etu = this.id_etu;
-    depot.id_os = this.id_os;
-    depot.date = new Date();
-    depot.status = "En attente";
-    return this.http.post<any>(`${this.url}/depotOffre`, depot , this.options).pipe(
-      map((res) => {
-        alert("Offre ajoutée avec succès");
-        return true;
-      }),
-      catchError((err) => {
-        console.log("err",err);
-        return of(false);
-      })
-
-    );
+  postuler(idOffre: number): Observable<any> {
+    let id_etu = this.loginS.user.id_etu;
+    const data = {
+      id_os: idOffre,
+      id_etu: id_etu,
+      status : "En cour",
+      date : new Date()
+    };
+    return this.http.post<any>(`${this.url}/postuler`, data, this.httpOptions);
   }
+
+  getStagiaires(entrepriseId: number): Observable<any> {
+    return this.http.get<any>(`${this.url}/entreprise/${entrepriseId}/stagiaires`);
+  }
+
+  Status(depotId: number, newStatus: string) {
+    return this.http.post<any>(`${this.url}/updatestagiaire`, { id_ds : depotId , status : newStatus});
+  }
+
+
+
+
 }
+
