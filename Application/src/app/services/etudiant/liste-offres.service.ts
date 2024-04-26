@@ -9,10 +9,7 @@ import { LoginService } from '../login.service';
 })
 export class ListeOffresService {
   private url: string = environment.apiUrl ;
-  constructor(private http : HttpClient) { }
-  options = {headers : new HttpHeaders(
-    {'content-type' : "application/json"}
-  )}
+  
 
   getListe_Offres():Observable<any[]>{
     const id_etu = this.loginS.user.id_etu;

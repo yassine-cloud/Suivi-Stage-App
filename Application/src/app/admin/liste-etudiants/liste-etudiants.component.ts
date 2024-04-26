@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef, ViewChild, inject } from '@angular/core
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ListeOffresService } from 'src/app/services/etudiant/liste-offres.service';
+import { EtudiantService } from 'src/app/services/etudiant/etudiant.service';
 
 @Component({
   selector: 'app-liste-etudiants',
@@ -25,7 +25,7 @@ export class ListeEtudiantsComponent {
   }
 
   listeEtudiants!:any[];
-  constructor(private etud : ListeOffresService , private router : ActivatedRoute , private formbuild : FormBuilder){}
+  constructor(private etud : EtudiantService , private router : ActivatedRoute , private formbuild : FormBuilder){}
   ngOnInit(): void {
     this.etud.getListeEtudiants().subscribe(data=>{
       this.listeEtudiants=data;

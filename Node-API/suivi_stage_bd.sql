@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 22 avr. 2024 à 21:10
+-- Généré le : sam. 27 avr. 2024 à 01:29
 -- Version du serveur : 10.4.28-MariaDB
 -- Version de PHP : 8.2.4
 
@@ -29,11 +29,6 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `depot_stage` (
   `id_ds` int(11) NOT NULL,
-  `nom` varchar(50) NOT NULL,
-  `prenom` varchar(50) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `tel` varchar(50) NOT NULL,
-  `genre` varchar(50) NOT NULL,
   `id_etu` int(11) NOT NULL,
   `id_os` int(11) NOT NULL,
   `date` date NOT NULL,
@@ -44,10 +39,11 @@ CREATE TABLE `depot_stage` (
 -- Déchargement des données de la table `depot_stage`
 --
 
-INSERT INTO `depot_stage` (`id_ds`, `nom`, `prenom`, `email`, `tel`, `genre`, `id_etu`, `id_os`, `date`, `status`) VALUES
-(1, 'youssef', 'sighari', 'sighari@gmail.com', '23445555', 'male', 4, 2, '2024-04-05', 'en attent'),
-(10, 'Soltani', 'Wissal', 'Wissa@gmail.com', '54983216', 'f', 2, 2, '2024-04-06', 'En attente'),
-(11, 'Mesarati', 'Lina', 'Mesaratilina@gmail.com', '54983216', 'f', 7, 1, '2024-04-06', 'En attente');
+INSERT INTO `depot_stage` (`id_ds`, `id_etu`, `id_os`, `date`, `status`) VALUES
+(12, 1, 1, '2024-04-26', 'Accepté'),
+(13, 1, 2, '2024-04-26', 'En cours'),
+(14, 3, 3, '2024-04-26', 'Refusé'),
+(15, 2, 1, '2024-04-26', 'En cours');
 
 -- --------------------------------------------------------
 
@@ -72,7 +68,7 @@ CREATE TABLE `encadrant` (
 
 INSERT INTO `encadrant` (`id_enc`, `nom`, `prenom`, `email`, `password`, `departement`, `specialite`, `contact`) VALUES
 (1, 'Mtir', 'Mehdi', 'mehdimtir@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'informatique', 'Web Development', '55698712'),
-(2, 'Saadaoui', 'Abdelkader', 'abdelkadersaadaoui@gmail.com', '$2b$10$mRTidf8g5azJGECC8r/MRO4r92XxwWYGfaQjyJBia4TJjQcbL8MX2', 'Informatique', 'System Embarqué', '56987422'),
+(2, 'Saadaoui', 'Abdelkader', 'abdelkadersaadaoui@gmail.com', '$2b$10$Gl2TH9BnFJcvbbPPn3QqKO/5Q8A0QVwz70DSNESh1txhPPODmsehS', 'Informatique', 'System Embarqué', '56987422'),
 (3, 'Mansouri', 'Lamia', 'lamiamansouri@gmail.com', '$2b$10$eOimZUOesebORiWaJEv5rulcvG5oZImRdIMz86G3tAPOJmVnVjCP.', 'Informatique', 'application web', '78945611');
 
 -- --------------------------------------------------------
@@ -129,7 +125,6 @@ INSERT INTO `etudiant` (`id_etu`, `nom`, `prenom`, `email`, `password`, `departe
 (2, 'Soltani', 'Wissal', 'wissalsoltani@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique', '98563214'),
 (3, 'Mechergui', 'Mohamed Aziz', 'azizmechergui@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique', '25983247'),
 (4, 'Sighari', 'Youssef', 'youssefsighari@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique', '55789632'),
-(6, 'Maatoug', 'Aziz', 'azizmaatoug@isetr.tn', '$2b$10$laU.Xo6gocIZl18M3TbZwuaEYDUBh.XrHEFI19FyvUHwvdQHT4ti6', 'Informatique', '56987421'),
 (7, 'Mesarati', 'Lina', 'linamesarati@isetr.tn', '$2b$10$1Iy8PXv2tHfdUAnwirvvT.lb5COFmyJ9Xg.mq9x.PrptI0gQbxBTS', 'Informatique', '69874533');
 
 -- --------------------------------------------------------
@@ -152,7 +147,7 @@ CREATE TABLE `livret_stage` (
 INSERT INTO `livret_stage` (`id_ls`, `date`, `tache`, `id_etu`) VALUES
 (1, '2024-01-17', 'Rejoindre le groupe de l\'entreprise', 1),
 (2, '2024-01-12', 'Participer aux différentes taches', 1),
-(4, '2024-04-12', 'fin Stage', 1);
+(6, '2024-04-12', 'fin Stage', 1);
 
 -- --------------------------------------------------------
 
@@ -177,7 +172,8 @@ CREATE TABLE `offre_stage` (
 INSERT INTO `offre_stage` (`id_os`, `titre`, `description`, `date_debut`, `date_fin`, `id_ent`, `nombre`) VALUES
 (1, 'Offre de stage dans STAFIM', 'description', '2024-01-11', '2024-02-03', 2, 10),
 (2, 'Offre de stage dans SAGEM', 'description2', '2024-01-11', '2024-02-03', 1, 3),
-(3, 'demande de Stagier pour STAFIM', 'Informatique', '2024-01-11', '2024-02-11', 2, 5);
+(3, 'demande de Stagier pour STAFIM', 'Informatique', '2024-01-11', '2024-02-11', 2, 5),
+(4, 'X', 'desc', '2024-04-03', '2024-04-18', 5, 10);
 
 -- --------------------------------------------------------
 
@@ -265,7 +261,7 @@ ALTER TABLE `stage`
 -- AUTO_INCREMENT pour la table `depot_stage`
 --
 ALTER TABLE `depot_stage`
-  MODIFY `id_ds` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_ds` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT pour la table `encadrant`
@@ -289,13 +285,13 @@ ALTER TABLE `etudiant`
 -- AUTO_INCREMENT pour la table `livret_stage`
 --
 ALTER TABLE `livret_stage`
-  MODIFY `id_ls` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_ls` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `offre_stage`
 --
 ALTER TABLE `offre_stage`
-  MODIFY `id_os` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_os` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `stage`
