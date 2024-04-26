@@ -26,7 +26,7 @@ const etudiant = require('./src/Data/etudiant')
 const entreprise = require('./src/Data/entreprise')
 const encadrant = require('./src/Data/encadrant')
 const offre=require('./src/Data/offre')
-const depot=require('./src/Data/deopotOffre')
+const depot=require('./src/Data/depotOffre')
 const livret=require('./src/Data/livretStage')
 const stage=require("./src/Data/stage")
 
@@ -82,8 +82,14 @@ app.delete('/deleteEncadrant',encadrant.deleteEncadrant);
 // Entreprise Ajout Offre
 app.post('/addOffre', offre.addOffre)
 
+// get les stagiaires d'une entreprise 
+app.get('/entreprise/:id/stagiaires', depot.getStagiaires)
+
+// Mettre a jour le status du stagiaire
+app.post('/updatestagiaire', depot.Status)
+
 // deposer sur une offre
-app.post('/depotOffre', depot.addDepot)
+app.post('/postuler', depot.postuler)
 
 ///----------------------------------------
 /// livre de stage
@@ -99,6 +105,8 @@ app.post('/dellivret', livret.deleteEntreprise)
 /// Offres 
 app.post('/offresentreprise', offre.getOffresEntreprise)
 
+// get offres for etudiant
+app.post('/offreetudiant', depot.getOffreEtudiant)
 /////-------------------------------------------
 /*
 // hash code
