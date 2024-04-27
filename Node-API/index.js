@@ -1,5 +1,8 @@
 const express = require('express')
 const app = express()
+const multer = require('multer')
+const fs = require('fs')
+const connection = require('./src/Data/Connection');
 
 // Node JS API initialising
 app.use(express.json())
@@ -29,8 +32,8 @@ const offre=require('./src/Data/offre')
 const depot=require('./src/Data/depotOffre')
 const livret=require('./src/Data/livretStage')
 const stage=require("./src/Data/stage")
-
-
+const profilEtudiant = require('./src/Data/pofilEtudiant')
+const middelware=(req,res,next)=>{ next();};
 ////-----------------------------------------------
 
 
@@ -99,6 +102,68 @@ app.post('/editlivret', livret.updateLivretStage)
 app.post('/dellivret', livret.deleteEntreprise)
 
 ///----------------------------------------
+////-----------------------------------------
+
+const fileStorageEngine = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, './uploads')
+  },
+  filename: (req, file, cb) => {
+      cb(null,'Etudiant'+ Date.now() + '--' + file.originalname)
+  }
+})
+const upload = multer({storage: fileStorageEngine});
+app.post('/upload-cv', upload.single('cv'),(req,res)=> {
+  const cvFile= req.file;
+
+
+  //check if a file was uploaded
+  if(!cvFile ){
+      return res.status(400).send('no cv file uploaded');
+
+  }
+  //read file content as binary data
+  fs.readFile(cvFile.path, (err, data) => {
+      if (err) {
+          console.error('Error reading file:', err);
+          return res.status(500).send('Error reading CV file');
+      }
+
+      //insert binary data into the database
+      const sql='UPDATE etudiant SET  cv = ?  Where id_etu= ? ';
+      connection.query(sql , [cvFile.filename, req.body.id_etu ] , (err, result)=> {
+          if (err){
+              console.error('Error inserting CV into database:', err);
+              return res.status(500).send('Error inserting CV into database');
+          }
+      
+
+       res.send('cv uploaded and stored successfullyyyy');
+  });
+  });
+});
+
+// import file pdf from uploads
+app.post('/download-cv', (req, res) => {
+
+  const sql = 'SELECT cv FROM etudiant WHERE id_etu = ?';
+  connection.query(sql, [req.body.id_etu], (err, result) => {
+      if (err) {
+          console.error('Error getting CV from database:', err);
+          return res.status(500).send('Error getting CV from database');
+      }
+
+      if (result.length === 0) {
+          return res.status(404).send('CV not found');
+      }
+
+      const cvFile = result[0].cv;
+      const path = './uploads/' + cvFile;
+      res.download(path, cvFile);
+  });
+
+})
+
 
 
 ////-----------------------------------------------

@@ -7,6 +7,7 @@ import { adminGuard } from './guards/admin.guard';
 import { encadreurGuard } from './guards/encadreur.guard';
 import { etudiantGuard } from './guards/etudiant.guard';
 import { LayoutComponent } from './shared/layout/layout.component';
+import { ProfilEtudiantComponent } from './etudiant/profil-etudiant/profil-etudiant.component';
 
 const routes: Routes = [
 
@@ -29,6 +30,8 @@ const routes: Routes = [
   { path: 'encadrant', loadChildren: () => import('./encadreur/encadreur.module').then(m => m.EncadreurModule) , canActivate : [encadreurGuard]},
   { path: 'etudiant', loadChildren: () => import('./etudiant/etudiant.module').then(m => m.EtudiantModule) , canActivate : [etudiantGuard]},
 
+
+  {path : 'profil-etudiant', component: ProfilEtudiantComponent},
 
   {path : 'register' , component : SignUpComponent},
   {path : 'login' ,component : LoginComponent},
