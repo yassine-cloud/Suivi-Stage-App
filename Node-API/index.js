@@ -1,5 +1,8 @@
 const express = require('express')
 const app = express()
+const multer = require('multer')
+const fs = require('fs')
+const connection = require('./src/Data/Connection');
 
 // Node JS API initialising
 app.use(express.json())
@@ -27,6 +30,8 @@ const entreprise = require('./src/Data/entreprise')
 const encadrant = require('./src/Data/encadrant')
 const offre=require('./src/Data/offre')
 const depot=require('./src/Data/deopotOffre')
+const profilEtudiant = require('./src/Data/pofilEtudiant')
+const middelware=(req,res,next)=>{ next();};
 
 ////-----------------------------------------------
 
@@ -57,6 +62,43 @@ app.post('/addOffre', offre.addOffre)
 
 // deposer sur une offre
 app.post('/depotOffre', depot.addDepot)
+
+////-----------------------------------------
+const upload = multer({dest: 'uploads/'});
+app.post('/upload-cv', upload.single('cv'),(req,res)=> {
+    const cvFile= req.file;
+
+
+    //check if a file was uploaded
+    if(!cvFile ){
+        return res.status(400).send('no cv file uploaded');
+
+    }
+    //read file content as binary data
+    fs.readFile(cvFile.path, (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err);
+            return res.status(500).send('Error reading CV file');
+        }
+
+        //insert binary data into the database
+        const sql='UPDATE etudiant SET  cv = ?  Where id_etu= ? ';
+        connection.query(sql , [data, req.body.id_etu ] , (err, result)=> {
+            if (err){
+                console.error('Error inserting CV into database:', err);
+                return res.status(500).send('Error inserting CV into database');
+            }
+        //in case i would remove the path file from the server
+         fs.unlink(cvFile.path,(err)=>{
+             if (err){ 
+              console.error('error deleting uploaded file:',err);
+            }
+         });
+
+         res.send('cv uploaded and stored successfullyyyy');
+    });
+    });
+});
 
 
 ////-----------------------------------------------
