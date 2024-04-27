@@ -64,7 +64,16 @@ app.post('/addOffre', offre.addOffre)
 app.post('/depotOffre', depot.addDepot)
 
 ////-----------------------------------------
-const upload = multer({dest: 'uploads/'});
+
+const fileStorageEngine = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null,'Etudiant'+ Date.now() + '--' + file.originalname)
+    }
+})
+const upload = multer({storage: fileStorageEngine});
 app.post('/upload-cv', upload.single('cv'),(req,res)=> {
     const cvFile= req.file;
 
@@ -83,22 +92,38 @@ app.post('/upload-cv', upload.single('cv'),(req,res)=> {
 
         //insert binary data into the database
         const sql='UPDATE etudiant SET  cv = ?  Where id_etu= ? ';
-        connection.query(sql , [data, req.body.id_etu ] , (err, result)=> {
+        connection.query(sql , [cvFile.filename, req.body.id_etu ] , (err, result)=> {
             if (err){
                 console.error('Error inserting CV into database:', err);
                 return res.status(500).send('Error inserting CV into database');
             }
-        //in case i would remove the path file from the server
-         fs.unlink(cvFile.path,(err)=>{
-             if (err){ 
-              console.error('error deleting uploaded file:',err);
-            }
-         });
+        
 
          res.send('cv uploaded and stored successfullyyyy');
     });
     });
 });
+
+// import file pdf from uploads
+app.post('/download-cv', (req, res) => {
+
+    const sql = 'SELECT cv FROM etudiant WHERE id_etu = ?';
+    connection.query(sql, [req.body.id_etu], (err, result) => {
+        if (err) {
+            console.error('Error getting CV from database:', err);
+            return res.status(500).send('Error getting CV from database');
+        }
+
+        if (result.length === 0) {
+            return res.status(404).send('CV not found');
+        }
+
+        const cvFile = result[0].cv;
+        const path = './uploads/' + cvFile;
+        res.download(path, cvFile);
+    });
+
+})
 
 
 ////-----------------------------------------------

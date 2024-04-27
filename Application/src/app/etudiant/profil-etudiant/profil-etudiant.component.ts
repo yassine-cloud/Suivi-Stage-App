@@ -13,8 +13,7 @@ export class ProfilEtudiantComponent {
     const inputCV=event.target as HTMLInputElement;
     if (inputCV && inputCV.files){
       const cvFile= inputCV.files[0];
-      const id_etu =2;
-      this.profilService.uploadCV(cvFile,id_etu).subscribe
+      this.profilService.uploadCV(cvFile).subscribe
       (()=>
         {
           alert('cv uploaded successully');
