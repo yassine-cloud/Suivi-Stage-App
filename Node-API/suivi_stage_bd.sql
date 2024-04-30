@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : sam. 27 avr. 2024 à 01:29
+-- Généré le : mer. 01 mai 2024 à 01:29
 -- Version du serveur : 10.4.28-MariaDB
 -- Version de PHP : 8.2.4
 
@@ -43,7 +43,8 @@ INSERT INTO `depot_stage` (`id_ds`, `id_etu`, `id_os`, `date`, `status`) VALUES
 (12, 1, 1, '2024-04-26', 'Accepté'),
 (13, 1, 2, '2024-04-26', 'En cours'),
 (14, 3, 3, '2024-04-26', 'Refusé'),
-(15, 2, 1, '2024-04-26', 'En cours');
+(15, 2, 1, '2024-04-26', 'Accepté'),
+(16, 1, 3, '2024-04-27', 'En cours');
 
 -- --------------------------------------------------------
 
@@ -94,7 +95,7 @@ CREATE TABLE `entreprise` (
 --
 
 INSERT INTO `entreprise` (`id_ent`, `nom`, `email`, `password`, `secteuractivite`, `adresse`, `contact`, `logo`, `status`) VALUES
-(1, 'SAGEM Com', 'SAGEM@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique, Gestion, Réseau', 'Tunis', '9111', 'https://upload.wikimedia.org/wikipedia/fr/thumb/c/cc/LOGO_SAGEMCOM.png/800px-LOGO_SAGEMCOM.png?20200213095826', 1),
+(1, 'SAGEM Com', 'SAGEM@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique, Gestion, Réseau', 'Tunis', '9111', 'https://upload.wikimedia.org/wikipedia/fr/thumb/c/cc/LOGO_SAGEMCOM.png/800px-LOGO_SAGEMCOM.png?20200213095826', 0),
 (2, 'STAFIM', 'STAFIM@isetr.tn', '$2b$10$QBWhrbyz.s79K2MpiC3yfuocA/htu8xW.Ku64U1znmbe0i3IkIXIW', 'Informatique, Gestion, Voiture', 'Tunis', '19789', 'https://www.taa.tn/wp-content/uploads/2023/08/stafim-1.jpg', 1),
 (3, 'Rades', 'RAdes@isetr.tn', '$2b$10$KpmGB/DugYn0WDUDQjDpRuOHI4hrkaBIVCKTofHBb8ruu6QdI4ZUK', 'info, gestion', 'Rades', '54879632', 'https://upload.wikimedia.org/wikipedia/commons/c/c9/Graduation_hat.svg', 1),
 (4, 'OACA', 'oaca@isetr.tn', '$2b$10$ekn8FlAJ6JBj8hOnCkpjdOw2P5uFQ/cKL9zw/SJscSfPV4UPF2JZy', 'avion', 'Aeroport', '12345678', 'https://www.oaca.nat.tn/o/landrick-theme/images/logo-light.png', 1),
@@ -113,19 +114,20 @@ CREATE TABLE `etudiant` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `departement` varchar(255) NOT NULL,
-  `contact` varchar(255) NOT NULL
+  `contact` varchar(255) NOT NULL,
+  `cv` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `etudiant`
 --
 
-INSERT INTO `etudiant` (`id_etu`, `nom`, `prenom`, `email`, `password`, `departement`, `contact`) VALUES
-(1, 'Saadaoui', 'Yassine\r\n', 'yassinesaadaoui@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique', '78541236'),
-(2, 'Soltani', 'Wissal', 'wissalsoltani@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique', '98563214'),
-(3, 'Mechergui', 'Mohamed Aziz', 'azizmechergui@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique', '25983247'),
-(4, 'Sighari', 'Youssef', 'youssefsighari@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique', '55789632'),
-(7, 'Mesarati', 'Lina', 'linamesarati@isetr.tn', '$2b$10$1Iy8PXv2tHfdUAnwirvvT.lb5COFmyJ9Xg.mq9x.PrptI0gQbxBTS', 'Informatique', '69874533');
+INSERT INTO `etudiant` (`id_etu`, `nom`, `prenom`, `email`, `password`, `departement`, `contact`, `cv`) VALUES
+(1, 'Saadaoui', 'Yassine\r\n', 'yassinesaadaoui@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique', '78541236', ''),
+(2, 'Soltani', 'Wissal', 'wissalsoltani@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique', '98563214', ''),
+(3, 'Mechergui', 'Mohamed Aziz', 'azizmechergui@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique', '25983247', ''),
+(4, 'Sighari', 'Youssef', 'youssefsighari@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique', '55789632', ''),
+(7, 'Mesarati', 'Lina', 'linamesarati@isetr.tn', '$2b$10$1Iy8PXv2tHfdUAnwirvvT.lb5COFmyJ9Xg.mq9x.PrptI0gQbxBTS', 'Informatique', '69874533', '');
 
 -- --------------------------------------------------------
 
@@ -146,7 +148,7 @@ CREATE TABLE `livret_stage` (
 
 INSERT INTO `livret_stage` (`id_ls`, `date`, `tache`, `id_etu`) VALUES
 (1, '2024-01-17', 'Rejoindre le groupe de l\'entreprise', 1),
-(2, '2024-01-12', 'Participer aux différentes taches', 1),
+(2, '2024-01-12', 'Participer aux différentes tache', 1),
 (6, '2024-04-12', 'fin Stage', 1);
 
 -- --------------------------------------------------------
@@ -261,7 +263,7 @@ ALTER TABLE `stage`
 -- AUTO_INCREMENT pour la table `depot_stage`
 --
 ALTER TABLE `depot_stage`
-  MODIFY `id_ds` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_ds` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT pour la table `encadrant`
