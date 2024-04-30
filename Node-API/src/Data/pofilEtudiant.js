@@ -67,7 +67,7 @@ const fileStorageEngine = multer.diskStorage({
                     return res.status(500).send('Error updating database');
                 }
                 console.log('Etudiant cv Updated Successfully');
-                res.status(200).json({ message: 'CV uploaded and stored successfully' });
+                res.status(200).json({ message: 'CV uploaded and stored successfully' , cv : cvFile.filename});
             });
         });
     });

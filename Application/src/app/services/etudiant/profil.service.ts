@@ -19,8 +19,9 @@ export class ProfilService {
     const url = environment.apiUrl + '/upload-cv';
     console.log('POST request URL:', url);
     return this.http.post(url, cvData).pipe(
-      map((response) => {
+      map((response : any) => {
         console.log('Response:', response);
+        this.loginS.setCvEtudiant(response.cv);
         return response;
       }),
       catchError((error) => {

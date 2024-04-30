@@ -19,6 +19,11 @@ export class LoginService {
   acessTocken : string='';
   connected : boolean = false;
 
+  setCvEtudiant(cv : String){
+    this.user.cv = cv;
+    sessionStorage.setItem("user", JSON.stringify(this.user));
+  }
+
 
   role():Observable<string>{
 
