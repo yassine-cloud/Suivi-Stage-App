@@ -1,10 +1,39 @@
-<div class="container mt-3" >
+<div class="container mt-3">
+    <h2>Bienvenue sur votre profil !</h2>
+    <h3>{{ etudiant.nom }} {{ etudiant.prenom }}</h3>
 
-<h2>Welcome to your profile !</h2><br>
+    <ng-container *ngIf="etudiant.cv">
+        <p class="my-4">Votre CV est disponible :</p>
+        <div class="d-flex flex-column align-items-start">
+            <button class="btn btn-info mb-2" (click)="downloadCV()">Télécharger votre CV</button>
+            <button class="btn btn-primary" (click)="openpopup()">Modifier votre CV</button>
+        </div>
+    </ng-container>
 
-<h3>{{etudiant.nom }} {{etudiant.prenom }}</h3>
-
-<p>click here to upload your cv </p>
-<input type="file" name="cv" (change)="onCVSelect($event)">
-
+    <ng-container *ngIf="!etudiant.cv">
+        <p class="my-4">Vous n'avez pas encore ajouté votre CV.</p>
+        <button class="btn btn-primary" (click)="openpopup()">Ajouter votre CV</button>
+    </ng-container>
 </div>
+
+<ng-template #pop let-modal>
+    <div class="modal-content">
+        <div class="modal-header p-3 pb-2 border-bottom-0">
+            <h2 class="fw-bold mb-0 fs-2">CV</h2>
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+
+        <div class="modal-body p-4 pt-0">
+            <form [formGroup]="form" (ngSubmit)="onCVSelect()">
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Choisir un fichier PDF</label>
+                    <input class="form-control" type="file" id="formFile" #filePicker accept="application/pdf" (change)="updatedPDF($event)">
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-success me-2" [disabled]="form.invalid">Enregistrer</button>
+                    <button type="button" class="btn btn-secondary" (click)="closePop()">Annuler</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>
