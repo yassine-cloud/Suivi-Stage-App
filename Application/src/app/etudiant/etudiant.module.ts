@@ -12,7 +12,7 @@ import { LivretStageComponent } from './livret-stage/livret-stage.component';
 @NgModule({
   declarations: [
     ListeOffresComponent,
-    ProfilEtudiantComponent
+    ProfilEtudiantComponent,
     LivretStageComponent
   ],
   imports: [

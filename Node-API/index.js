@@ -32,8 +32,8 @@ const offre=require('./src/Data/offre')
 const depot=require('./src/Data/depotOffre')
 const livret=require('./src/Data/livretStage')
 const stage=require("./src/Data/stage")
-const profilEtudiant = require('./src/Data/pofilEtudiant')
-const middelware=(req,res,next)=>{ next();};
+// const profilEtudiant = require('./src/Data/pofilEtudiant')
+// const middelware=(req,res,next)=>{ next();};
 ////-----------------------------------------------
 
 
