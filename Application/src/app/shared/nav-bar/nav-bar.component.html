@@ -11,11 +11,14 @@
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                        <li><a class="nav-link" routerLink="/layout">Home</a></li>
-                        <li><a class="nav-link" [routerLink]="['/home']" fragment="services">Services</a></li>
-                        <li><a class="nav-link" [routerLink]="['/home']" fragment="about">About US</a></li>
-                        <li><a class="nav-link" [routerLink]="['/home']" fragment="contact-section">Contact Us</a></li>
 
+                        <ng-container *ngIf="!user">
+
+                            <li><a class="nav-link" routerLink="/layout">Home</a></li>
+                            <li><a class="nav-link" [routerLink]="['/home']" fragment="services">Services</a></li>
+                            <li><a class="nav-link" [routerLink]="['/home']" fragment="about">About US</a></li>
+                            <li><a class="nav-link" [routerLink]="['/home']" fragment="contact-section">Contact Us</a></li>
+                        </ng-container>
 
                         <!-- <li class="scroll-to-section"><a href="#services">Services</a></li>
                         <li class="scroll-to-section"><a href="#about">About US</a></li> 

@@ -102,7 +102,8 @@
         <p>Departement : {{ detailOffre.departement }}</p>
         <p>Contact: {{ detailOffre.contact }}</p>
 
-        <button class="btn btn-primary" >CV</button>
+        <button *ngIf="detailOffre.cv" class="btn btn-primary" (click)="downloadCV(detailOffre.id_etu)" >CV</button>
+        <button *ngIf="!detailOffre.cv" class="btn btn-primary" disabled >Pas de CV</button>
       </div>
 
 

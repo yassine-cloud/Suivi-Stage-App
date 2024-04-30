@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DepotService } from 'src/app/services/Depot/depot-stage.service';
 import { LoginService } from 'src/app/services/login.service';
+import { ProfilService } from 'src/app/services/etudiant/profil.service';
 
 @Component({
   selector: 'app-stagiaire',
@@ -22,7 +23,7 @@ selectedOffre = '';
 id_ent ?:number;
 detailOffre : any;
 
-constructor(private loginS : LoginService , private depotS : DepotService) { }
+constructor(private loginS : LoginService , private depotS : DepotService , private profilService : ProfilService) { }
 
 
 ngOnInit(): void {
@@ -38,6 +39,9 @@ ngOnInit(): void {
   openDetailEtudiant(data : any){
     this.detailOffre = data;
     this.modalService.open(this.popRef2, { backdropClass: 'pop-up-backdrop' });   
+  }
+  downloadCV(id_etu: string) {
+    this.profilService.openPdfInNewTab(id_etu)
   }
 
  
