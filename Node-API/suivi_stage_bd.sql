@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 01 mai 2024 à 01:29
+-- Généré le : mer. 01 mai 2024 à 16:04
 -- Version du serveur : 10.4.28-MariaDB
 -- Version de PHP : 8.2.4
 
@@ -132,6 +132,18 @@ INSERT INTO `etudiant` (`id_etu`, `nom`, `prenom`, `email`, `password`, `departe
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `jurie`
+--
+
+CREATE TABLE `jurie` (
+  `id_jur` int(11) NOT NULL,
+  `id_enc` int(11) NOT NULL,
+  `id_stg` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `livret_stage`
 --
 
@@ -139,14 +151,14 @@ CREATE TABLE `livret_stage` (
   `id_ls` int(11) NOT NULL,
   `date` date NOT NULL,
   `tache` text NOT NULL,
-  `id_etu` int(11) NOT NULL
+  `id_stg` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `livret_stage`
 --
 
-INSERT INTO `livret_stage` (`id_ls`, `date`, `tache`, `id_etu`) VALUES
+INSERT INTO `livret_stage` (`id_ls`, `date`, `tache`, `id_stg`) VALUES
 (1, '2024-01-17', 'Rejoindre le groupe de l\'entreprise', 1),
 (2, '2024-01-12', 'Participer aux différentes tache', 1),
 (6, '2024-04-12', 'fin Stage', 1);
@@ -161,6 +173,7 @@ CREATE TABLE `offre_stage` (
   `id_os` int(11) NOT NULL,
   `titre` varchar(255) NOT NULL,
   `description` text NOT NULL,
+  `type` int(11) NOT NULL,
   `date_debut` date NOT NULL,
   `date_fin` date NOT NULL,
   `id_ent` int(11) NOT NULL,
@@ -171,11 +184,11 @@ CREATE TABLE `offre_stage` (
 -- Déchargement des données de la table `offre_stage`
 --
 
-INSERT INTO `offre_stage` (`id_os`, `titre`, `description`, `date_debut`, `date_fin`, `id_ent`, `nombre`) VALUES
-(1, 'Offre de stage dans STAFIM', 'description', '2024-01-11', '2024-02-03', 2, 10),
-(2, 'Offre de stage dans SAGEM', 'description2', '2024-01-11', '2024-02-03', 1, 3),
-(3, 'demande de Stagier pour STAFIM', 'Informatique', '2024-01-11', '2024-02-11', 2, 5),
-(4, 'X', 'desc', '2024-04-03', '2024-04-18', 5, 10);
+INSERT INTO `offre_stage` (`id_os`, `titre`, `description`, `type`, `date_debut`, `date_fin`, `id_ent`, `nombre`) VALUES
+(1, 'Offre de stage dans STAFIM', 'description', 1, '2024-01-11', '2024-02-03', 2, 10),
+(2, 'Offre de stage dans SAGEM', 'description2', 2, '2024-01-11', '2024-02-03', 1, 3),
+(3, 'demande de Stagier pour STAFIM', 'Informatique', 2, '2024-01-11', '2024-02-11', 2, 5),
+(4, 'X', 'desc', 3, '2024-04-03', '2024-04-18', 5, 10);
 
 -- --------------------------------------------------------
 
@@ -187,20 +200,24 @@ CREATE TABLE `stage` (
   `id_stg` int(11) NOT NULL,
   `titre` varchar(255) NOT NULL,
   `description` text NOT NULL,
+  `type` int(11) NOT NULL,
   `date_debut` date NOT NULL,
   `date_fin` date NOT NULL,
   `id_ent` int(11) NOT NULL,
   `id_etu` int(11) NOT NULL,
-  `id_enc` int(11) DEFAULT NULL
+  `id_enc` int(11) DEFAULT NULL,
+  `valide` tinyint(1) DEFAULT NULL,
+  `note` float DEFAULT NULL,
+  `date_sout` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `stage`
 --
 
-INSERT INTO `stage` (`id_stg`, `titre`, `description`, `date_debut`, `date_fin`, `id_ent`, `id_etu`, `id_enc`) VALUES
-(1, 'Offre de stage dans STAFIM', 'description', '2024-01-11', '2024-02-03', 2, 1, NULL),
-(3, 'Offre de stage dans SAGEM', 'description2', '2024-01-11', '2024-02-03', 1, 3, 1);
+INSERT INTO `stage` (`id_stg`, `titre`, `description`, `type`, `date_debut`, `date_fin`, `id_ent`, `id_etu`, `id_enc`, `valide`, `note`, `date_sout`) VALUES
+(1, 'Offre de stage dans STAFIM', 'description', 2, '2024-01-11', '2024-02-03', 2, 1, NULL, NULL, NULL, NULL),
+(3, 'Offre de stage dans SAGEM', 'description2', 1, '2024-01-11', '2024-02-03', 1, 3, 1, NULL, NULL, NULL);
 
 --
 -- Index pour les tables déchargées
@@ -233,11 +250,19 @@ ALTER TABLE `etudiant`
   ADD PRIMARY KEY (`id_etu`);
 
 --
+-- Index pour la table `jurie`
+--
+ALTER TABLE `jurie`
+  ADD PRIMARY KEY (`id_jur`),
+  ADD KEY `FK_jur_enc` (`id_enc`),
+  ADD KEY `FK_jur_stg` (`id_stg`);
+
+--
 -- Index pour la table `livret_stage`
 --
 ALTER TABLE `livret_stage`
   ADD PRIMARY KEY (`id_ls`),
-  ADD KEY `FK_ls_etu` (`id_etu`);
+  ADD KEY `FK_ls_stg` (`id_stg`);
 
 --
 -- Index pour la table `offre_stage`
@@ -284,6 +309,12 @@ ALTER TABLE `etudiant`
   MODIFY `id_etu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT pour la table `jurie`
+--
+ALTER TABLE `jurie`
+  MODIFY `id_jur` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT pour la table `livret_stage`
 --
 ALTER TABLE `livret_stage`
@@ -313,10 +344,17 @@ ALTER TABLE `depot_stage`
   ADD CONSTRAINT `FK_ds_os` FOREIGN KEY (`id_os`) REFERENCES `offre_stage` (`id_os`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Contraintes pour la table `jurie`
+--
+ALTER TABLE `jurie`
+  ADD CONSTRAINT `FK_jur_enc` FOREIGN KEY (`id_enc`) REFERENCES `encadrant` (`id_enc`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_jur_stg` FOREIGN KEY (`id_stg`) REFERENCES `stage` (`id_stg`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Contraintes pour la table `livret_stage`
 --
 ALTER TABLE `livret_stage`
-  ADD CONSTRAINT `FK_ls_etu` FOREIGN KEY (`id_etu`) REFERENCES `etudiant` (`id_etu`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_ls_stg` FOREIGN KEY (`id_stg`) REFERENCES `stage` (`id_stg`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `offre_stage`
