@@ -47,6 +47,7 @@
                     <th>Titre de Stage</th>
                     <th>Encadrant</th>
                     <th colspan="2" class="text-center">Modifier encadreur</th>
+                    <th>Affecter Jurie Et Date De Soutenance</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,6 +62,7 @@
                     <td>{{getEncadrantNom(i.id_enc)}}</td>
                     <td class="text-center"> <input type="button" value="Modifier" (click)="onModifie(i)"  class="btn btn-primary btn-sm "> </td>
                     <td class="text-center">  <input type="button" value="Supprimer Encadrant" (click)="supprimerEncadrant(i.id_stg)"  class="btn btn-danger btn-sm "></td>
+                    <td class="text-center"><input type="button" (click)="affecterJurieEtDate(i)"  class="btn btn-primary btn-sm " value="Affecter Jurie"></td>
                   </ng-container>
                   <ng-container *ngIf="listeStages.length==0">
                     <tr>

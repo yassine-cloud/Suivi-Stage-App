@@ -51,7 +51,7 @@ app.get('/stages',stage.getStages);
 app.get('/NAstages',stage.getNAStages);
 app.post('/stage',stage.getStage);
 app.post('/affecteEncadrant',stage.updateStage);
-
+app.post('/addStage',stage.addStage);
 
 
 // MOD Entreprise
@@ -83,6 +83,9 @@ app.post('/addOffre', offre.addOffre)
 
 // get les stagiaires d'une entreprise 
 app.get('/entreprise/:id/stagiaires', depot.getStagiaires)
+app.get('/depots', depot.getDepots);
+app.delete('/deleteDepot',depot.deleteDepot);
+
 
 // Mettre a jour le status du stagiaire
 app.post('/updatestagiaire', depot.Status)
