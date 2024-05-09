@@ -1,7 +1,7 @@
 const connection = require('../Data/Connection');
 
 exports.getLivretStage = async (req, res) => {
-    connection.query('SELECT * FROM livret_stage where id_etu = ? order by date', [req.body.id_etu] , (err, rows) => {
+    connection.query('SELECT * FROM livret_stage where id_stg = ? order by date', [req.body.id_etu] , (err, rows) => {
         if (err) throw err;
         console.log('Data received from Db:');
         console.log(rows);

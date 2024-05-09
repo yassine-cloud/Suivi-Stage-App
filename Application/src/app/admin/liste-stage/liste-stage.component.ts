@@ -79,6 +79,11 @@ export class ListeStageComponent {
     )
 
   }
+
+  affecterJurieEtDate(i:number){
+    
+
+  }
   onSubmit(){ // submit the edit
   //  const formData=this.popform.value;
   let formData : any = {

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -39,6 +39,10 @@ export class StageService {
 
   editStage(i:any):Observable<any>{
     return this.http.post<any>(this.url+"/affecteEncadrant",i , this.options);
+  }
+
+  addStage(data:any):Observable<any>{
+    return this.http.post<any>(this.url+"/addStage",data , this.options);
   }
 
 }
