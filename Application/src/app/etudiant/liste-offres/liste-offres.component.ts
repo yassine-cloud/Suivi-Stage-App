@@ -22,7 +22,6 @@ export class ListeOffresComponent implements OnInit{
 
 
   offres:any[] = [];
-  depotStage:any[]=[];
   
 
 constructor(private stg:StageService, private list:ListeOffresService,private router:Router,private depotS : DepotService,private lgServ:LoginService){}
@@ -47,12 +46,6 @@ ngOnInit(): void {
   this.list.getListe_Offres().subscribe(data=>{
     this.offres=data; 
     // console.log(data)
-
-    this.depotS.getListeDepots().subscribe(data=>{
-      this.depotStage=data.filter(data1=>{
-        data1.id_etu==this.lgServ.user.id_etu;
-      })
-    })
 
     for(let c of data){
       if( !this.adress.includes(c.adresse!.trim().toUpperCase()) ) { this.adress.push(c.adresse!.trim().toUpperCase()) }
@@ -80,10 +73,17 @@ onConfirme(i:any){
       date_sout:null
 
     }
-    this.stg.addStage(x).subscribe();
-    for (let i = 0; i < this.depotStage.length; i++) {
-      this.depotS.deleteDepot(this.depotStage[i].id_ds).subscribe();
-    }
+    this.stg.addStage(x).subscribe(
+      (data) => {
+        if(data)
+        this.depotS.deleteDepot().subscribe();
+        this.router.navigate(['/etudiant/livret_stage']);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+    
 
   }
 

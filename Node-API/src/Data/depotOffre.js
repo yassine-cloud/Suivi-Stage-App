@@ -76,13 +76,22 @@ exports.getOffreEtudiant = async (req, res) => {
 
         
     });
+}
 
     exports.deleteDepot = async (req, res) => {
-        const id_ds = req.query.id_ds; // Récupérer l'ID de l'étudiant depuis les paramètres de la requête
-        if (!id_ds) {
-            return res.status(400).json({ error: 'ID de depot est requis' });
+        const id_etu = req.body.id_etu; 
+        if (!id_etu) {
+            res.status(400).json({ error: 'id_etu is required' });
+            return;
         }
+        connection.query('DELETE FROM depot_stage WHERE id_etu = ?', [id_etu], (err, result) => {
+            if (err) {
+                res.status(500).json({ error: 'Erreur lors de la suppression du depot' });
+            } else {
+                res.status(200).json({ message: 'Depot supprimé avec succès' });
+            }
+        });
     }
-}
+
     
 

@@ -103,5 +103,8 @@ export class StageService {
     );
   }
 
+  addStage(data:any):Observable<any>{
+    return this.http.post<any>(this.url+"/addStage",data , this.options);
+  }
 
 }

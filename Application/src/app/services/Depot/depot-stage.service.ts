@@ -63,9 +63,18 @@ export class DepotService {
   }
 
 
-  deleteDepot(id: any): Observable<any> {
-    const params = new HttpParams().set('id_ds', id);
-    return this.http.delete<any>(this.url + "/deleteDepot", { params });
+  deleteDepot(): Observable<any> {
+    let id = this.loginS.user.id_etu;
+    return this.http.post<any>(this.url + "/deleteDepot", { id_etu: id }, this.httpOptions).pipe(
+      map((response) => {
+        console.log('Depot supprimé avec succès:');
+        return response;
+      }),
+      catchError(err => {
+        console.error('Error Connexion:', err);
+        return of([]);
+      })
+    );
 }
 
 }

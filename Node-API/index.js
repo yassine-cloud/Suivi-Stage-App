@@ -92,7 +92,7 @@ app.post('/deleteoffre', offre.deleteOffre)
 // get les stagiaires d'une entreprise 
 app.get('/entreprise/:id/stagiaires', depot.getStagiaires)
 app.get('/depots', depot.getDepots);
-app.delete('/deleteDepot',depot.deleteDepot);
+app.post('/deleteDepot',depot.deleteDepot);
 
 
 // Mettre a jour le status du stagiaire
