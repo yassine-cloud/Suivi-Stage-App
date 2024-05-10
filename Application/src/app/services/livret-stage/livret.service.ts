@@ -18,10 +18,10 @@ export class LivretService {
 getLivret(){
   let id = this.login.user.id_etu as number;
   return this.http.post<any[]>(`${this.url}/livret`, { id_etu : +id } ,this.options  ).pipe(
-    map((res)=>{
-      res.sort((a,b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-      return res;
-    }),
+    // map((res)=>{
+    //   res.sort((a,b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    //   return res;
+    // }),
     catchError(err => {
     console.log(err)
     alert("Erreur lors de la recuperation des Livrets");
@@ -31,7 +31,6 @@ getLivret(){
 }
 
 addLivret(data:any){
-  data.id_etu = this.login.user.id_etu;
   return this.http.post<any>(this.url+"/addLivret",data , this.options).pipe(
     map((res)=>{
       return true;
