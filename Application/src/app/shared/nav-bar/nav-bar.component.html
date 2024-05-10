@@ -64,9 +64,16 @@
 
                         <!-- encadrant -->
                         <ng-container *ngIf="user && user.role =='encadrant' ">
+                            <li>
+                                <a class="nav-link" routerLink="/encadrant/stagiaire" routerLinkActive="actif" >Les stagiaires</a>
+                            </li>
+                        
+                        
+                            <li>
+                                <a class="nav-link" routerLink="/encadrant/Jurie-stagiaire" routerLinkActive="actif" >JurieStagiaire</a>
+                            </li>
                         
                         </ng-container>
-                        
                         
                         <ng-container *ngIf="!user">
                         <li>

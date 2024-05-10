@@ -62,6 +62,15 @@ exports.deleteEncadrant = async (req, res) => {
             res.json({ message: 'Encadrant supprimé avec succès' });
         }
     });
+
+
+
+
+
+
+
+
+
 }
 
 

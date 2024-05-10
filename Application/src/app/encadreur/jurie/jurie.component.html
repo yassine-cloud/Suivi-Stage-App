@@ -1,0 +1,19 @@
+
+
+
+<table class="table table-bordered table-hover mt-3">
+    <thead>
+      <tr class="table-secondary">
+        <th>nom</th>
+        <th>prenom</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="stagiaires.length > 0">
+        <tr *ngFor="let stagiaire of stagiaires">
+          <td>{{ stagiaire.nom }}</td>
+          <td>{{ stagiaire.prenom }}</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>

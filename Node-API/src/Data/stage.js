@@ -19,6 +19,7 @@ exports.getNAStages = async (req, res) => {
 }
 
 
+
 exports.getStage = async (req, res) => {
     connection.query('SELECT * FROM stage WHERE id_stg = ?', [req.body.id_stg], (err, rows) => {
         if (err) throw err;
@@ -35,6 +36,32 @@ exports.updateStage = async (req, res) => {
         console.log(rows);
         res.send(rows);
     });
+
 }
+
+    exports.getStagiaire = async (req, res) => {
+        const encadreurId = req.params.id;
+        connection.query(' SELECT e.nom, e.prenom FROM etudiant e JOIN stage st ON e.id_etu = st.id_etu WHERE st.id_enc = ? AND st.valide IS NULL', [encadreurId], (err, rows) => {
+            console.log(encadreurId)
+            if (err) throw err;
+            console.log('Data received from Db:');
+            console.log(rows);
+            res.send(rows);
+        });
+        
+    }
+
+    exports.getStagiaireJur = async (req, res) => {
+        const encadreurId = req.params.id;
+        connection.query(' SELECT e.nom, e.prenom FROM etudiant e JOIN stage st ON e.id_etu = st.id_etu join jurie j on j.id_stg = st.id_stg WHERE st.id_enc = ? AND st.valide IS NULL', [encadreurId], (err, rows) => {
+            console.log(encadreurId)
+            if (err) throw err;
+            console.log('Data received from Db:');
+            console.log(rows);
+            res.send(rows);
+        });
+        
+    }
+
 
 

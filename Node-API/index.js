@@ -51,8 +51,8 @@ app.get('/stages',stage.getStages);
 app.get('/NAstages',stage.getNAStages);
 app.post('/stage',stage.getStage);
 app.post('/affecteEncadrant',stage.updateStage);
-
-
+app.get('/encadrants/:id/stagiaires',stage.getStagiaire);
+app.get('/jurie/:id/stagiaires',stage.getStagiaireJur);
 
 // MOD Entreprise
 app.get('/entreprises', entreprise.getEntreprises)
@@ -76,6 +76,8 @@ app.post('/encadrant', encadrant.getEncadrant)
 app.post('/addEncadrant',encadrant.addEncadrant);
 app.post('/editEncadrant',encadrant.updateEncadrant);
 app.delete('/deleteEncadrant',encadrant.deleteEncadrant);
+
+
 
 
 // Entreprise Ajout Offre
