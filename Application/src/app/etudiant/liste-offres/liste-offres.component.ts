@@ -16,6 +16,8 @@ export class ListeOffresComponent implements OnInit{
   filteradress : string="";
   filtersecteurs : string="";
 
+  selectTypeStage : string = "";
+
 
   offres:any[] = [];
   
@@ -63,7 +65,7 @@ extractSecturs(col : string){
 
 
 filtredOffres = ()=>{
-    if(this.filteradress == "" && this.filtersecteurs == "")
+    if(this.filteradress == "" && this.filtersecteurs == "" && this.selectTypeStage == "")
       return this.offres;
       else{
         let f : any[] =this.offres
@@ -73,11 +75,29 @@ filtredOffres = ()=>{
         if(this.filtersecteurs != ""){
           f=f.filter( c =>  c.secteuractivite?.trim().toUpperCase().includes(this.filtersecteurs)  )
         }
+        if(this.selectTypeStage != ""){
+          f=f.filter( c =>  c.type == this.selectTypeStage  )
+        }
         
         // console.log(f);
         
         return f;
       }
+}
+
+getNomStage(i:number){
+  if( i == 1){
+    return "Stage d'initiation";
+  }
+  else if(i == 2){
+    return "Stage de perfectionnement";
+  }
+  else if(i == 3){
+    return "PFE";
+  }
+  else{
+    return "";
+  }
 }
 
 }
