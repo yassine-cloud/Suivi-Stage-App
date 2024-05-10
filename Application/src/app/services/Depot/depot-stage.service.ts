@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, catchError, map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoginService } from '../login.service';
@@ -55,8 +55,18 @@ export class DepotService {
     return this.http.post<any>(`${this.url}/updatestagiaire`, { id_ds : depotId , status : newStatus});
   }
 
+  getListeDepots():Observable<any[]>{
+    return this.http.get<any[]>(this.url+"/depots", this.httpOptions).pipe(catchError(err=>{
+      console.error('Error Connexion:', err);
+        return of([]);
+    }))
+  }
 
 
+  deleteDepot(id: any): Observable<any> {
+    const params = new HttpParams().set('id_ds', id);
+    return this.http.delete<any>(this.url + "/deleteDepot", { params });
+}
 
 }
 

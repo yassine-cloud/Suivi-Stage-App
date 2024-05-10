@@ -151,6 +151,18 @@ exports.updateStage = async (req, res) => {
     });
 }
 
+exports.addStage = async (req, res) => {
+    let data = req.body;
+    connection.query('INSERT INTO stage SET ?', data, (err, rows) => {
+        if (err) throw err;
+        console.log('Data received from Db:');
+        console.log(rows);
+        res.send(rows);
+    });
+}
+
+
+
 exports.deleteStage = async (req, res) => {
     connection.query('DELETE FROM stage WHERE id_stg = ?', [req.body.id_stg], (err, rows) => {
         if (err) throw err;

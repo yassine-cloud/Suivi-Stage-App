@@ -20,6 +20,16 @@ exports.getStagiaires = async (req, res) => {
     
 }
 
+
+exports.getDepots = async (req, res) => {
+    connection.query('SELECT * FROM depot_stage', (err, rows) => {
+        if (err) throw err;
+        console.log('Data received from Db:');
+        console.log(rows);
+        res.send(rows);
+    });
+}
+
 exports.Status = async (req, res) => {
     const data = req.body;
 
@@ -66,5 +76,13 @@ exports.getOffreEtudiant = async (req, res) => {
 
         
     });
-    
+
+    exports.deleteDepot = async (req, res) => {
+        const id_ds = req.query.id_ds; // Récupérer l'ID de l'étudiant depuis les paramètres de la requête
+        if (!id_ds) {
+            return res.status(400).json({ error: 'ID de depot est requis' });
+        }
+    }
 }
+    
+

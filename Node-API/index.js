@@ -58,6 +58,7 @@ app.post('/supprimerstage',stage.deleteStage)
 app.post('/affecterjury' , stage.affecterJurie);
 app.post('/affecternote' , stage.affecterNoteSout);
 
+app.post('/addStage',stage.addStage);
 
 
 // MOD Entreprise
@@ -90,6 +91,9 @@ app.post('/deleteoffre', offre.deleteOffre)
 
 // get les stagiaires d'une entreprise 
 app.get('/entreprise/:id/stagiaires', depot.getStagiaires)
+app.get('/depots', depot.getDepots);
+app.delete('/deleteDepot',depot.deleteDepot);
+
 
 // Mettre a jour le status du stagiaire
 app.post('/updatestagiaire', depot.Status)

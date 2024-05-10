@@ -37,10 +37,10 @@
             <!-- <p class="formation-date">{{i.description }}</p> -->
             <p><b> {{getNomStage(i.type)}} </b></p>
             <p>Nombre de stagiaires requis : {{i.nombre}}</p>
-            <button class="btn btn-primary" *ngIf="i.canDepos" (click)="postuler(i.id_os)">Postuler</button>
-            <button class="btn btn-success" *ngIf="!i.canDepos && i.depotStatus == 'Accepté'">{{i.depotStatus}}</button>
-            <button class="btn btn-warning" *ngIf="!i.canDepos && i.depotStatus == 'En cours'">{{i.depotStatus}}</button>
-            <button class="btn btn-danger" *ngIf="!i.canDepos && i.depotStatus == 'Refusé'">{{i.depotStatus}}</button>
+            <button class="btn btn-primary" *ngIf="i.canDepos && !depotStage" (click)="postuler(i.id_os)">Postuler</button>
+            <button class="btn btn-success" *ngIf="!i.canDepos && i.depotStatus == 'Accepté' && !depotStage" (click)="onConfirme(i)">{{i.depotStatus}}</button>
+            <button class="btn btn-warning" *ngIf="!i.canDepos && i.depotStatus == 'En cours' && !depotStage">{{i.depotStatus}}</button>
+            <button class="btn btn-danger" *ngIf="!i.canDepos && i.depotStatus == 'Refusé' && !depotStage">{{i.depotStatus}}</button>
 
         </div>
     </div>
