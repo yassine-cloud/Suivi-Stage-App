@@ -1,3 +1,12 @@
 form {
     width: 500px;;
 }
+.btn{
+    background-color: #d47bb0;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+}
