@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 01 mai 2024 à 16:04
+-- Généré le : sam. 11 mai 2024 à 01:58
 -- Version du serveur : 10.4.28-MariaDB
 -- Version de PHP : 8.2.4
 
@@ -35,17 +35,6 @@ CREATE TABLE `depot_stage` (
   `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Déchargement des données de la table `depot_stage`
---
-
-INSERT INTO `depot_stage` (`id_ds`, `id_etu`, `id_os`, `date`, `status`) VALUES
-(12, 1, 1, '2024-04-26', 'Accepté'),
-(13, 1, 2, '2024-04-26', 'En cours'),
-(14, 3, 3, '2024-04-26', 'Refusé'),
-(15, 2, 1, '2024-04-26', 'Accepté'),
-(16, 1, 3, '2024-04-27', 'En cours');
-
 -- --------------------------------------------------------
 
 --
@@ -70,7 +59,12 @@ CREATE TABLE `encadrant` (
 INSERT INTO `encadrant` (`id_enc`, `nom`, `prenom`, `email`, `password`, `departement`, `specialite`, `contact`) VALUES
 (1, 'Mtir', 'Mehdi', 'mehdimtir@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'informatique', 'Web Development', '55698712'),
 (2, 'Saadaoui', 'Abdelkader', 'abdelkadersaadaoui@gmail.com', '$2b$10$Gl2TH9BnFJcvbbPPn3QqKO/5Q8A0QVwz70DSNESh1txhPPODmsehS', 'Informatique', 'System Embarqué', '56987422'),
-(3, 'Mansouri', 'Lamia', 'lamiamansouri@gmail.com', '$2b$10$eOimZUOesebORiWaJEv5rulcvG5oZImRdIMz86G3tAPOJmVnVjCP.', 'Informatique', 'application web', '78945611');
+(3, 'Mansouri', 'Lamia', 'lamiamansouri@gmail.com', '$2b$10$eOimZUOesebORiWaJEv5rulcvG5oZImRdIMz86G3tAPOJmVnVjCP.', 'Informatique', 'application web', '78945611'),
+(4, 'Kacem', 'Souha', 'souhakacem@gmail.com', '$2b$10$eOimZUOesebORiWaJEv5rulcvG5oZImRdIMz86G3tAPOJmVnVjCP.', 'Informatique', 'application web', '78945611'),
+(5, 'Hichri', 'Donia', 'doniahichri@gmail.com', '$2b$10$eOimZUOesebORiWaJEv5rulcvG5oZImRdIMz86G3tAPOJmVnVjCP.', 'Informatique', 'application web', '78945611'),
+(6, 'Lassoued', 'Mohamed', 'mohamedlassoued@gmail.com', '$2b$10$eOimZUOesebORiWaJEv5rulcvG5oZImRdIMz86G3tAPOJmVnVjCP.', 'Informatique', 'application web', '78945611'),
+(7, 'Bjaoui', 'Feteh', 'fetehbjaoui@gmail.com', '$2b$10$eOimZUOesebORiWaJEv5rulcvG5oZImRdIMz86G3tAPOJmVnVjCP.', 'Informatique', 'IOT', '78945611'),
+(8, 'Ghlala', 'Riadh', 'riadhghlala@gmail.com', '$2b$10$eOimZUOesebORiWaJEv5rulcvG5oZImRdIMz86G3tAPOJmVnVjCP.', 'Informatique', 'BI ,Big Data', '78945611');
 
 -- --------------------------------------------------------
 
@@ -95,11 +89,16 @@ CREATE TABLE `entreprise` (
 --
 
 INSERT INTO `entreprise` (`id_ent`, `nom`, `email`, `password`, `secteuractivite`, `adresse`, `contact`, `logo`, `status`) VALUES
-(1, 'SAGEM Com', 'SAGEM@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique, Gestion, Réseau', 'Tunis', '9111', 'https://upload.wikimedia.org/wikipedia/fr/thumb/c/cc/LOGO_SAGEMCOM.png/800px-LOGO_SAGEMCOM.png?20200213095826', 0),
+(1, 'SAGEM Com', 'SAGEM@isetr.tn', '$2b$10$QBWhrbyz.s79K2MpiC3yfuocA/htu8xW.Ku64U1znmbe0i3IkIXIW', 'Informatique, Gestion, Réseau', 'Tunis', '9111', 'https://upload.wikimedia.org/wikipedia/fr/thumb/c/cc/LOGO_SAGEMCOM.png/800px-LOGO_SAGEMCOM.png?20200213095826', 1),
 (2, 'STAFIM', 'STAFIM@isetr.tn', '$2b$10$QBWhrbyz.s79K2MpiC3yfuocA/htu8xW.Ku64U1znmbe0i3IkIXIW', 'Informatique, Gestion, Voiture', 'Tunis', '19789', 'https://www.taa.tn/wp-content/uploads/2023/08/stafim-1.jpg', 1),
 (3, 'Rades', 'RAdes@isetr.tn', '$2b$10$KpmGB/DugYn0WDUDQjDpRuOHI4hrkaBIVCKTofHBb8ruu6QdI4ZUK', 'info, gestion', 'Rades', '54879632', 'https://upload.wikimedia.org/wikipedia/commons/c/c9/Graduation_hat.svg', 1),
 (4, 'OACA', 'oaca@isetr.tn', '$2b$10$ekn8FlAJ6JBj8hOnCkpjdOw2P5uFQ/cKL9zw/SJscSfPV4UPF2JZy', 'avion', 'Aeroport', '12345678', 'https://www.oaca.nat.tn/o/landrick-theme/images/logo-light.png', 1),
-(5, 'Mech3al', 'Mech3al@gmail.com', '$2b$10$dcBZzstPbIfcNlgXiZbax.9tjUDdg1SS3NS8dGuT3g7uRlpE7fgUm', 'Management ', 'Sky', '911', 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Fire_in_Ranua.JPG/1200px-Fire_in_Ranua.JPG', 1);
+(5, 'Mech3al', 'Mech3al@gmail.com', '$2b$10$dcBZzstPbIfcNlgXiZbax.9tjUDdg1SS3NS8dGuT3g7uRlpE7fgUm', 'Management ', 'Sky', '911', 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Fire_in_Ranua.JPG/1200px-Fire_in_Ranua.JPG', 1),
+(6, 'Tunisie Telecom', 'tunisietelecom@gmail.com', '$2b$10$dcBZzstPbIfcNlgXiZbax.9tjUDdg1SS3NS8dGuT3g7uRlpE7fgUm', 'Télécommunications', 'Avenue de la République, Tunis, Tunisie', '71 130 000', 'https://upload.wikimedia.org/wikipedia/fr/f/f9/LOGO_TT_.jpg', 1),
+(7, 'Société Tunisienne de Banque (STB)', 'stb@gmail.com', '$2b$10$dcBZzstPbIfcNlgXiZbax.9tjUDdg1SS3NS8dGuT3g7uRlpE7fgUm', 'Services bancaires', 'Avenue Habib Bourguiba, Tunis, Tunisie', ' 71 341 000', 'https://upload.wikimedia.org/wikipedia/commons/0/06/Logo_STB.png', 1),
+(8, 'Groupe Poulina', 'poulina@gmail.com', '$2b$10$dcBZzstPbIfcNlgXiZbax.9tjUDdg1SS3NS8dGuT3g7uRlpE7fgUm', 'Agroalimentaire', 'Rue de l\'Industrie, Monastir, Tunisie', '73 460 000', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaelt9Ge1GvsKSjJWzjyRxff6U00iXAy5vaTS1-ohCJw&s', 1),
+(9, 'Carthage Cement', 'cement@gmail.com', '$2b$10$dcBZzstPbIfcNlgXiZbax.9tjUDdg1SS3NS8dGuT3g7uRlpE7fgUm', 'Industrie du ciment', 'Route de Gafsa, Djebel Ressas, Tunisie', '71 390 888', 'https://carthagecement.com.tn/sites/default/files/2021-02/cc1.jpg', 1),
+(10, 'Orange Tunisie', 'orange@gmail.com', '$2b$10$dcBZzstPbIfcNlgXiZbax.9tjUDdg1SS3NS8dGuT3g7uRlpE7fgUm', 'Télécommunications', 'Rue du Lac Constance, Les Berges du Lac, Tunisie', '71 101 010', 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Orange_logo.svg/2048px-Orange_logo.svg.png', 1);
 
 -- --------------------------------------------------------
 
@@ -123,11 +122,16 @@ CREATE TABLE `etudiant` (
 --
 
 INSERT INTO `etudiant` (`id_etu`, `nom`, `prenom`, `email`, `password`, `departement`, `contact`, `cv`) VALUES
-(1, 'Saadaoui', 'Yassine\r\n', 'yassinesaadaoui@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique', '78541236', ''),
+(1, 'Saadaoui', 'Yassine\r\n', 'yassinesaadaoui@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique', '78541236', 'Etudiant1714734093312--Chapitre-1-2021.pdf'),
 (2, 'Soltani', 'Wissal', 'wissalsoltani@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique', '98563214', ''),
 (3, 'Mechergui', 'Mohamed Aziz', 'azizmechergui@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique', '25983247', ''),
 (4, 'Sighari', 'Youssef', 'youssefsighari@isetr.tn', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique', '55789632', ''),
-(7, 'Mesarati', 'Lina', 'linamesarati@isetr.tn', '$2b$10$1Iy8PXv2tHfdUAnwirvvT.lb5COFmyJ9Xg.mq9x.PrptI0gQbxBTS', 'Informatique', '69874533', '');
+(7, 'Mesarati', 'Lina', 'linamesarati@isetr.tn', '$2b$10$1Iy8PXv2tHfdUAnwirvvT.lb5COFmyJ9Xg.mq9x.PrptI0gQbxBTS', 'Informatique', '69874533', ''),
+(9, 'Ben Ahmed', 'Amira', 'amira.benahmed@example.com', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Informatique', '22 333 444', ''),
+(10, 'Khedher', 'Anis', 'anis.khedher@example.com', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Génie Civil', '71 555 666', ''),
+(11, 'Mejri', 'Samia', 'samia.mejri@example.com', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Gestion', '98 777 888', ''),
+(12, 'Chaabani', 'Yassine', 'yassine.chaabani@example.com', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Mécanique', '71 999 000', ''),
+(13, 'Bouazizi', 'Fatma', 'fatma.bouazizi@example.com', '$2b$10$dHFdSUsjvLywnNr/8M9e8ueCmvOnL67D5dMEyg7hKdG50sScFsqHC', 'Electrique', '98 111 222', '');
 
 -- --------------------------------------------------------
 
@@ -154,15 +158,6 @@ CREATE TABLE `livret_stage` (
   `id_stg` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Déchargement des données de la table `livret_stage`
---
-
-INSERT INTO `livret_stage` (`id_ls`, `date`, `tache`, `id_stg`) VALUES
-(1, '2024-01-17', 'Rejoindre le groupe de l\'entreprise', 1),
-(2, '2024-01-12', 'Participer aux différentes tache', 1),
-(6, '2024-04-12', 'fin Stage', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -188,7 +183,11 @@ INSERT INTO `offre_stage` (`id_os`, `titre`, `description`, `type`, `date_debut`
 (1, 'Offre de stage dans STAFIM', 'description', 1, '2024-01-11', '2024-02-03', 2, 10),
 (2, 'Offre de stage dans SAGEM', 'description2', 2, '2024-01-11', '2024-02-03', 1, 3),
 (3, 'demande de Stagier pour STAFIM', 'Informatique', 2, '2024-01-11', '2024-02-11', 2, 5),
-(4, 'X', 'desc', 3, '2024-04-03', '2024-04-18', 5, 10);
+(5, 'Développement Web Full Stack', 'Ce stage consiste à développer des applications web complètes en utilisant les technologies front-end et back-end modernes.', 3, '2024-06-01', '2024-09-01', 10, 3),
+(6, 'Marketing Digital', 'Ce stage vise à mettre en pratique les techniques de marketing digital, y compris la gestion des réseaux sociaux, le référencement et la publicité en ligne.', 2, '2024-07-15', '2024-08-30', 7, 2),
+(7, 'Conception Assistée par Ordinateur (CAO)', 'Ce stage permettra aux stagiaires d\'acquérir des compétences pratiques dans l\'utilisation de logiciels de CAO pour la conception de produits et de pièces mécaniques.', 1, '2024-05-10', '2024-06-30', 8, 1),
+(8, 'Analyse Financière', 'Ce stage offre une expérience pratique dans l\'analyse des états financiers, la modélisation financière et l\'évaluation d\'entreprises.', 3, '2024-08-01', '2024-11-30', 9, 2),
+(9, 'Développement Mobile avec Flutter', 'Ce stage permettra aux stagiaires de développer des applications mobiles multiplateformes en utilisant le framework Flutter de Google.', 2, '2024-06-20', '2024-08-15', 10, 3);
 
 -- --------------------------------------------------------
 
@@ -216,8 +215,13 @@ CREATE TABLE `stage` (
 --
 
 INSERT INTO `stage` (`id_stg`, `titre`, `description`, `type`, `date_debut`, `date_fin`, `id_ent`, `id_etu`, `id_enc`, `valide`, `note`, `date_sout`) VALUES
-(1, 'Offre de stage dans STAFIM', 'description', 2, '2024-01-11', '2024-02-03', 2, 1, NULL, NULL, NULL, NULL),
-(3, 'Offre de stage dans SAGEM', 'description2', 1, '2024-01-11', '2024-02-03', 1, 3, 1, NULL, NULL, NULL);
+(12, 'Développement Web Full Stack', 'Ce stage consiste à développer des applications web complètes en utilisant les technologies front-end et back-end modernes.', 3, '2024-06-01', '2024-09-01', 10, 7, NULL, NULL, NULL, NULL),
+(13, 'Développement Web Full Stack', 'Ce stage consiste à développer des applications web complètes en utilisant les technologies front-end et back-end modernes.', 3, '2024-06-01', '2024-09-01', 10, 1, NULL, NULL, NULL, NULL),
+(14, 'Marketing Digital', 'Ce stage vise à mettre en pratique les techniques de marketing digital, y compris la gestion des réseaux sociaux, le référencement et la publicité en ligne.', 2, '2024-07-15', '2024-08-30', 7, 3, NULL, NULL, NULL, NULL),
+(15, 'Marketing Digital', 'Ce stage vise à mettre en pratique les techniques de marketing digital, y compris la gestion des réseaux sociaux, le référencement et la publicité en ligne.', 2, '2024-07-15', '2024-08-30', 7, 4, NULL, NULL, NULL, NULL),
+(16, 'Conception Assistée par Ordinateur (CAO)', 'Ce stage permettra aux stagiaires d\'acquérir des compétences pratiques dans l\'utilisation de logiciels de CAO pour la conception de produits et de pièces mécaniques.', 1, '2024-05-10', '2024-06-30', 8, 2, NULL, NULL, NULL, NULL),
+(17, 'Analyse Financière', 'Ce stage offre une expérience pratique dans l\'analyse des états financiers, la modélisation financière et l\'évaluation d\'entreprises.', 3, '2024-08-01', '2024-11-30', 9, 9, NULL, NULL, NULL, NULL),
+(18, 'Développement Mobile avec Flutter', 'Ce stage permettra aux stagiaires de développer des applications mobiles multiplateformes en utilisant le framework Flutter de Google.', 2, '2024-06-20', '2024-08-15', 10, 13, NULL, NULL, NULL, NULL);
 
 --
 -- Index pour les tables déchargées
@@ -288,49 +292,49 @@ ALTER TABLE `stage`
 -- AUTO_INCREMENT pour la table `depot_stage`
 --
 ALTER TABLE `depot_stage`
-  MODIFY `id_ds` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_ds` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT pour la table `encadrant`
 --
 ALTER TABLE `encadrant`
-  MODIFY `id_enc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_enc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `entreprise`
 --
 ALTER TABLE `entreprise`
-  MODIFY `id_ent` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_ent` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT pour la table `etudiant`
 --
 ALTER TABLE `etudiant`
-  MODIFY `id_etu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_etu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT pour la table `jurie`
 --
 ALTER TABLE `jurie`
-  MODIFY `id_jur` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_jur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT pour la table `livret_stage`
 --
 ALTER TABLE `livret_stage`
-  MODIFY `id_ls` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_ls` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT pour la table `offre_stage`
 --
 ALTER TABLE `offre_stage`
-  MODIFY `id_os` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_os` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT pour la table `stage`
 --
 ALTER TABLE `stage`
-  MODIFY `id_stg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_stg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Contraintes pour les tables déchargées
