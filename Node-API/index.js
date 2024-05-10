@@ -56,6 +56,7 @@ app.post('/affecteEncadrant',stage.updateStage);
 app.get('/encadrants/:id/stagiaires',stage.getStagiaire);
 app.get('/jurie/:id/stagiaires',stage.getStagiaireJur);
 app.post('/supprimerstage',stage.deleteStage)
+app.post('/detailstageenc',stage.getLivretStage)
 
 app.post('/affecterjury' , stage.affecterJurie);
 app.post('/affecternote' , stage.affecterNoteSout);
@@ -69,6 +70,7 @@ app.post('/addEntreprise', entreprise.addEntreprise)
 app.post('/editEntreprise',entreprise.updateEntreprise);
 app.delete('/deleteEntreprise',entreprise.deleteEntreprise);
 app.post('/entreprise', entreprise.getEntreprise)
+app.post('/stagiaireactiveent', entreprise.getStagiaireActiveEnt)
 
 
 //mod Etudiant

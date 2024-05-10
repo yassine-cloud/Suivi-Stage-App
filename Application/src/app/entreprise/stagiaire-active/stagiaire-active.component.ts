@@ -1,23 +1,21 @@
 import { Component, TemplateRef, ViewChild, inject } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EncadrantService } from 'src/app/services/encadrant/encadrant.service';
+import { EntrepriseService } from 'src/app/services/entreprise/entreprise.service';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
-  selector: 'app-jurie',
-  templateUrl: './jurie.component.html',
-  styleUrls: ['./jurie.component.css']
+  selector: 'app-stagiaire-active',
+  templateUrl: './stagiaire-active.component.html',
+  styleUrls: ['./stagiaire-active.component.css']
 })
-export class JurieComponent {
-
+export class StagiaireActiveComponent {
   stagiaires: any[] = [];
-  id_enc ?: number;
-
   private modalService = inject(NgbModal);
   @ViewChild('pop') pop!: TemplateRef<any>;
-
-  constructor(private loginS : LoginService,private encadrantService : EncadrantService ) {
+  constructor(private loginS : LoginService,private encadrantService : EncadrantService , private entrepriseService : EntrepriseService) {
   }
+
   listeEncadrants :any[]=[];
   selectedStage :any; 
 
@@ -53,27 +51,21 @@ export class JurieComponent {
     );
   }
 
+
   ngOnInit(): void {
-    this.id_enc = this.loginS.user.id_enc;
-    this.getStagiairesJurie(this.id_enc!);
+    this.entrepriseService.getStagiairesEnt().subscribe(
+      (data) => {
+        this.stagiaires = data;
+        console.log(data);
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des stagiaires actifs', error);
+      }
+    );
     this.encadrantService.getListeEncadrants().subscribe(data=>{
       this.listeEncadrants=data;
     })
   
     }
   
-
-    getStagiairesJurie(id_enc: number)   {
-  this.encadrantService.getStagiairesJurie(id_enc).subscribe(
-    (data) => {
-      this.stagiaires = data;
-      console.log(data);
-    },
-    (error) => {
-      console.error('Erreur lors de la récupération des stagiaires non valides', error);
-    }
-  );
-}
-
-
 }

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { LoginService } from '../login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class EntrepriseService {
 
   
 
-  constructor(private http : HttpClient) { }
+  constructor(private http : HttpClient , private loginS : LoginService) { }
   private url: string = environment.apiUrl ;
   options = {headers : new HttpHeaders(
     {'content-type' : "application/json"}
@@ -72,5 +73,14 @@ export class EntrepriseService {
     );
   }
 
+
+  getStagiairesEnt(): Observable<any> {
+    const id_ent = this.loginS.user.id_ent;
+    return this.http.post<any>(`${this.url}/stagiaireactiveent` , {id_ent :id_ent} , this.options);
+  }
+
+  getDetailStage(id: number): Observable<any> {
+    return this.http.post<any>(`${this.url}/detailstageenc` , {id_stg : id} , this.options);
+  }
   
 }

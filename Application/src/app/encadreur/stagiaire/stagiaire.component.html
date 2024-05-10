@@ -4,16 +4,44 @@
 <table class="table table-bordered table-hover mt-3">
     <thead>
       <tr class="table-secondary">
+        <th>#</th>
         <th>nom</th>
         <th>prenom</th>
+        <th>titre</th>
       </tr>
     </thead>
     <tbody>
       <ng-container *ngIf="stagiaires.length > 0">
-        <tr *ngFor="let stagiaire of stagiaires">
+        <tr *ngFor="let stagiaire of stagiaires;let i = index" (click)="sectingStage(stagiaire)" style="cursor: pointer;" >
+          <td>{{ i+1 }}</td>
           <td>{{ stagiaire.nom }}</td>
           <td>{{ stagiaire.prenom }}</td>
+          <td>{{ stagiaire.titre }}</td>
         </tr>
       </ng-container>
     </tbody>
   </table>
+  <ng-template #pop let-modal>
+            
+    <div class="alert alert-primary"  role="alert">
+      <h5>{{ selectedStage.titre }}</h5>
+      <p>Etudiant : {{selectedStage.nom}} {{selectedStage.prenom}} </p>
+      <p>Entreprise : {{selectedStage.nom_ent}} </p>
+      <p>{{ selectedStage.description }}</p>
+      <p><b> {{getNomStage(selectedStage.type)}} </b></p>
+      <p *ngIf="selectedStage.id_enc != null">Encadrant : <b>{{ getEncadrantNom(selectedStage.id_enc) }}</b></p>
+      <p>Date de soutenance: <b>{{ selectedStage.date_sout | date : "d/M/yyyy" }}</b></p>
+  
+      <dl *ngIf="selectedStage.juries.length != 0">
+          <dt>Jurie(s)</dt>
+          <dd *ngFor="let j of selectedStage.juries" class="mx-3">{{ getEncadrantNom(j) }}</dd>
+      </dl>
+  
+      <dl *ngIf="selectedStage.livret_stage.length != 0">
+          <dt>Les taches effectuées</dt>
+          <dd *ngFor="let tache of selectedStage.livret_stage" class="mx-3">{{ tache.date | date : "d/M/yyyy" }} : {{ tache.tache }}</dd>
+      </dl>
+  
+  </div>
+  </ng-template>
+  

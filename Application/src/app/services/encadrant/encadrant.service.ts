@@ -43,12 +43,18 @@ export class EncadrantService {
  
 
   getStagiairesNonValides(encadreurId: number): Observable<any> {
-    return this.http.get<any>(`${this.url}/encadrants/${encadreurId}/stagiaires?valide=null`);
+    return this.http.get<any>(`${this.url}/encadrants/${encadreurId}/stagiaires`);
   }
 
   getStagiairesJurie(encadreurId: number): Observable<any> {
-    return this.http.get<any>(`${this.url}/jurie/${encadreurId}/stagiaires?valide=null`);
+    return this.http.get<any>(`${this.url}/jurie/${encadreurId}/stagiaires`);
   }
+
+  getDetailStage(id: number): Observable<any> {
+    return this.http.post<any>(`${this.url}/detailstageenc` , {id_stg : id} , this.options);
+  }
+
+
   
 
 }

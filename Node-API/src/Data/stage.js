@@ -173,13 +173,27 @@ exports.deleteStage = async (req, res) => {
     });
 }
 
-}
+
 
     exports.getStagiaire = async (req, res) => {
         const encadreurId = req.params.id;
-        connection.query(' SELECT e.nom, e.prenom FROM etudiant e JOIN stage st ON e.id_etu = st.id_etu WHERE st.id_enc = ? AND st.valide IS NULL', [encadreurId], (err, rows) => {
+        connection.query(' SELECT e.nom, e.prenom , st.* FROM etudiant e JOIN stage st ON e.id_etu = st.id_etu WHERE st.id_enc = ? AND st.valide IS NULL', [encadreurId], (err, rows) => {
             console.log(encadreurId)
             if (err) throw err;
+            const uniqueRows = [];
+            for (let i = 0; i < rows.length; i++) {
+                let isDuplicate = false;
+                for (let j = i + 1; j < rows.length; j++) {
+                    if (rows[i].id_stg === rows[j].id_stg) {
+                        isDuplicate = true;
+                        break;
+                    }
+                }
+                if (!isDuplicate) {
+                    uniqueRows.push(rows[i]);
+                }
+            }
+            rows = uniqueRows;
             console.log('Data received from Db:');
             console.log(rows);
             res.send(rows);
@@ -189,9 +203,23 @@ exports.deleteStage = async (req, res) => {
 
     exports.getStagiaireJur = async (req, res) => {
         const encadreurId = req.params.id;
-        connection.query(' SELECT e.nom, e.prenom FROM etudiant e JOIN stage st ON e.id_etu = st.id_etu join jurie j on j.id_stg = st.id_stg WHERE st.id_enc = ? AND st.valide IS NULL', [encadreurId], (err, rows) => {
+        connection.query(' SELECT e.nom, e.prenom , st.* FROM etudiant e JOIN stage st ON e.id_etu = st.id_etu join jurie j on j.id_stg = st.id_stg WHERE j.id_enc = ? AND st.valide IS NULL', [encadreurId], (err, rows) => {
             console.log(encadreurId)
             if (err) throw err;
+            const uniqueRows = [];
+            for (let i = 0; i < rows.length; i++) {
+                let isDuplicate = false;
+                for (let j = i + 1; j < rows.length; j++) {
+                    if (rows[i].id_stg === rows[j].id_stg) {
+                        isDuplicate = true;
+                        break;
+                    }
+                }
+                if (!isDuplicate) {
+                    uniqueRows.push(rows[i]);
+                }
+            }
+            rows = uniqueRows;
             console.log('Data received from Db:');
             console.log(rows);
             res.send(rows);
@@ -199,5 +227,42 @@ exports.deleteStage = async (req, res) => {
         
     }
 
-
+    exports.getLivretStage = async (req, res) => {
+        try {
+            let data = req.body;
+            let rows = await new Promise((resolve, reject) => {
+                connection.query('SELECT et.nom , et.prenom , s.*, ent.*, ent.nom as nom_ent FROM etudiant et join stage s on et.id_etu=s.id_etu JOIN entreprise ent ON s.id_ent = ent.id_ent WHERE s.id_stg = ? ', [data.id_stg], (err, rows) => {
+                    if (err) reject(err);
+                    resolve(rows);
+                });
+            });
+    
+            for (let i = 0; i < rows.length; i++) {
+                let [juries, livret_stage] = await Promise.all([
+                    new Promise((resolve, reject) => {
+                        connection.query("SELECT id_enc FROM jurie WHERE id_stg = ?", [rows[i].id_stg], (err, result) => {
+                            if (err) reject(err);
+                            resolve(result.map(jury => jury.id_enc));
+                        });
+                    }),
+                    new Promise((resolve, reject) => {
+                        connection.query("SELECT * FROM livret_stage WHERE id_stg = ? ORDER BY date", [rows[i].id_stg], (err, result) => {
+                            if (err) reject(err);
+                            resolve(result);
+                        });
+                    })
+                ]);
+    
+                rows[i].juries = juries;
+                rows[i].livret_stage = livret_stage;
+            }
+    
+            console.log('Data received from Db:');
+            console.log(rows);
+            res.send(rows);
+        } catch (err) {
+            console.error('Error fetching data:', err);
+            res.status(500).send('Internal Server Error');
+        }
+    };
 

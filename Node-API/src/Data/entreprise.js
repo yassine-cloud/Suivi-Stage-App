@@ -54,6 +54,16 @@ exports.deleteEntreprise = async (req, res) => {
 }
 
 
+exports.getStagiaireActiveEnt = async (req, res) => {
+    connection.query('SELECT e.nom, e.prenom , st.* FROM etudiant e JOIN stage st ON e.id_etu = st.id_etu WHERE id_ent = ? AND valide is null', [req.body.id_ent], (err, rows) => {
+        if (err) throw err;
+        console.log('Data received from Db:');
+        console.log(rows);
+        res.send(rows);
+    });
+}
+
+
 
 
 
