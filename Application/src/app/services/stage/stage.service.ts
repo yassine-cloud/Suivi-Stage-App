@@ -93,5 +93,15 @@ export class StageService {
     );
   }
 
+  supprimerStage(id:number):Observable<any>{
+    return this.http.post<any>(this.url+"/supprimerstage",{id_stg:id} , this.options).pipe(
+      catchError(err => {
+      console.log(err)
+      alert("Erreur lors de la suppression du stage");
+      return of([]);
+      })
+    );
+  }
+
 
 }

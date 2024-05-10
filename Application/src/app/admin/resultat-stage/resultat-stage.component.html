@@ -1,0 +1,89 @@
+<div class="container mt-3">
+    <select class="form-select mb-3" [(ngModel)]="selectTypeStage" (change)="filtrerStage()" >
+      <option selected value="1">Stage d'initiation</option>
+      <option value="2">Stage de perfectionnement</option>
+      <option value="3"> PFE </option>
+    </select>
+  </div>
+
+<div class="container mt-3">
+
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr class="table-secondary">
+            <th>#</th>
+            <th>Etudiant</th>
+            <th>Entreprise</th>
+            <th>Titre Stage</th>
+            <th>Date de début</th>
+            <th>Date de fin</th>
+            <th>Date Soutenance</th>
+            <th class="text-center" colspan="2">Note</th>
+            <th class="text-center">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngIf="filtrerStage().length > 0">
+        <tr *ngFor="let stage of filtrerStage();let i=index" [ngClass]="{'table-danger': !stage.valide ,'table-success': stage.valide }">
+            <td>{{ i+1 }}</td>
+            <td>{{ stage.nom }} {{stage.prenom}}</td>
+            <td>{{ stage.nom_ent }}</td>
+            <td>{{ stage.titre }}</td>
+            <td>{{ stage.date_debut | date : "d/M/yyyy" }}</td>
+            <td>{{ stage.date_fin | date : "d/M/yyyy" }}</td>
+            <td>{{ stage.date_sout | date : "d/M/yyyy" }}</td>
+            <td class="text-center"> {{stage.note}}  </td>
+            <td class="text-center"> <button (click)="openPopAffectationNoteStage(stage)" class="btn btn-primary btn-sm" >Modifier Note</button> </td>
+            <td class="text-center"> <button (click)="supprimerStage(stage.id_stg)" class="btn btn-danger btn-sm" >Supprimer Stage</button> </td>
+        </tr>
+        </ng-container>
+        <ng-container *ngIf="filtrerStage().length == 0">
+        <tr>
+        <td colspan="10">Aucun stage trouvé</td>
+        </tr>
+        </ng-container>
+        </tbody>
+    </table>
+
+</div>
+
+
+
+<ng-template #popAffectationNote let-modal>
+
+    <div class="modal-content">
+      <div class="modal-header p-5 pb-4 border-bottom-0">
+        <h1 class="fw-bold mb-0 fs-2">Affectation Note:</h1>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+  
+      <div class="modal-body p-5 pt-0">
+  
+        <form [formGroup]="popformNote" (ngSubmit)="affectationNoteStage()">
+  
+          <label for="nom" class="form-label mt-3">Nom etudiant:</label><br>
+          <input type="text" id="nom" name="nom" class="form-control" formControlName="nom" readonly>
+  
+          <label for="prenom" class="form-label mt-3">Prenom etudiant:</label><br>
+          <input type="text" id="prenom" name="prenom" class="form-control" formControlName="prenom" readonly>
+  
+          <label for="nom_ent" class="form-label mt-3">Nom de la société:</label><br>
+          <input type="text" id="nom_ent" name="nom_ent" class="form-control" formControlName="nom_ent"  readonly>
+  
+          <label for="date_sout" class="form-label mt-3">Date Soutenance</label><br>
+          <input type="date" id="date_sout" name="date_sout" formControlName="date_sout" class="form-control "
+          placeholder="yyyy-MM-dd" min="2023-01-01" readonly /> 
+  
+  
+  
+          <label for="note" class="form-label mt-3">Note (0-20):</label><br>
+          <input type="number" id="note" name="note" class="form-control" formControlName="note" min="0" max="20" required>
+  
+          <input type="submit" class="btn btn-success m-3" value="Enregistrer" [disabled]="popformNote.invalid">
+          <input type="button" class="btn btn-secondary" value="Annuler" (click)="modal.close()">
+  
+        </form>
+  
+      </div>
+    </div>
+    </ng-template>

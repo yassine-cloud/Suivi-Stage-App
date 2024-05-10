@@ -95,21 +95,31 @@ exports.getStagesNonNote = async (req, res) => {
     });
 }
 
+// exports.getStagesNote = async (req, res) => {
+//     connection.query('SELECT s.*,e.*,e.nom as nom_ent,et.* FROM entreprise e join stage s on e.id_ent=s.id_ent join etudiant et on s.id_etu=et.id_etu where note is not null', (err, rows) => {
+//         if (err) throw err;
+//         for (let i = 0; i < rows.length; i++) {
+
+//             connection.query("select id_enc from jurie where id_stg = ?", [rows[i].id_stg], (err, result) => {
+//                 if (err) throw err;
+//                 rows[i].juries = result.map(jury => jury.id_enc);            
+//                 console.log('Data received from Db:');
+//                 console.log(rows);
+//                 if (i === rows.length - 1) {
+//                     res.send(rows);
+//                 }
+//             });
+//         }
+//     });
+// }
+
 exports.getStagesNote = async (req, res) => {
     connection.query('SELECT s.*,e.*,e.nom as nom_ent,et.* FROM entreprise e join stage s on e.id_ent=s.id_ent join etudiant et on s.id_etu=et.id_etu where note is not null', (err, rows) => {
         if (err) throw err;
-        for (let i = 0; i < rows.length; i++) {
-
-            connection.query("select id_enc from jurie where id_stg = ?", [rows[i].id_stg], (err, result) => {
-                if (err) throw err;
-                rows[i].juries = result.map(jury => jury.id_enc);            
-                console.log('Data received from Db:');
-                console.log(rows);
-                if (i === rows.length - 1) {
-                    res.send(rows);
-                }
-            });
-        }
+        console.log('Data received from Db:');
+        console.log(rows);
+        res.send(rows);
+        
     });
 }
 
@@ -138,6 +148,15 @@ exports.updateStage = async (req, res) => {
         console.log('Data received from Db:');
         console.log(rows);
         res.send(rows);
+    });
+}
+
+exports.deleteStage = async (req, res) => {
+    connection.query('DELETE FROM stage WHERE id_stg = ?', [req.body.id_stg], (err, rows) => {
+        if (err) throw err;
+        console.log('Data received from Db:');
+        console.log(rows);
+        res.status(200).json({ message : 'deleted successfully'});
     });
 }
 

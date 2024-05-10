@@ -72,7 +72,7 @@ selectTypeStage : number = 1;
 
   listeStages!:any[];
   listeEncadrants!:any[];
-  constructor(private stg : StageService,private enc:EncadrantService, private router : ActivatedRoute , private formbuild : FormBuilder){}
+  constructor(private stg : StageService,private enc:EncadrantService,  private formbuild : FormBuilder){}
 
   getEncadrantNom(id:number){
     let encadrant = this.listeEncadrants.find(encadrant => encadrant.id_enc == id);
