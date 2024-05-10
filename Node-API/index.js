@@ -53,6 +53,8 @@ app.get('/stagesnote',stage.getStagesNote);
 // app.get('/NAstages',stage.getNAStages);
 app.post('/stage',stage.getStage);
 app.post('/affecteEncadrant',stage.updateStage);
+app.get('/encadrants/:id/stagiaires',stage.getStagiaire);
+app.get('/jurie/:id/stagiaires',stage.getStagiaireJur);
 app.post('/supprimerstage',stage.deleteStage)
 
 app.post('/affecterjury' , stage.affecterJurie);
@@ -83,6 +85,8 @@ app.post('/encadrant', encadrant.getEncadrant)
 app.post('/addEncadrant',encadrant.addEncadrant);
 app.post('/editEncadrant',encadrant.updateEncadrant);
 app.delete('/deleteEncadrant',encadrant.deleteEncadrant);
+
+
 
 
 // Entreprise Ajout Offre

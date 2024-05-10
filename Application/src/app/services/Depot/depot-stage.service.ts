@@ -51,6 +51,8 @@ export class DepotService {
     return this.http.get<any>(`${this.url}/entreprise/${entrepriseId}/stagiaires`);
   }
 
+  
+
   Status(depotId: number, newStatus: string) {
     return this.http.post<any>(`${this.url}/updatestagiaire`, { id_ds : depotId , status : newStatus});
   }
