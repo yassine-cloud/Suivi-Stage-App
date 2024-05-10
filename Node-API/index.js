@@ -86,6 +86,7 @@ app.delete('/deleteEncadrant',encadrant.deleteEncadrant);
 
 // Entreprise Ajout Offre
 app.post('/addOffre', offre.addOffre)
+app.post('/deleteoffre', offre.deleteOffre)
 
 // get les stagiaires d'une entreprise 
 app.get('/entreprise/:id/stagiaires', depot.getStagiaires)

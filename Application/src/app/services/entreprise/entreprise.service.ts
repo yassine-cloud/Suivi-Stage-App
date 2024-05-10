@@ -27,6 +27,16 @@ export class EntrepriseService {
     );
   }
 
+  supprimerOffre(id : string){
+    return this.http.post<any[]>(`${this.url}/deleteoffre`, { id :+id } ,this.options  ).pipe(
+      catchError(err => {
+      console.log(err)
+      alert("Erreur lors de la suppression de l'offre");
+      return of([]);
+      })
+    );
+  }
+
   // Entreprise
   getEntreprises():Observable<any[]>{
     return this.http.get<any[]>(this.url+"/entreprises", this.options).pipe(catchError(err=>{

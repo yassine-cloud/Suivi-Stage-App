@@ -8,7 +8,9 @@
                     <th>Sujet</th>
                     <th>Date</th>
                     <th>Description</th>
+                    <th>Type de stage</th>
                     <th>Nombre d'étudiants</th>
+                    <th class="text-center">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -18,7 +20,11 @@
                     <td>{{i.titre}}</td>
                     <td>{{i.date_debut | date : "d/M/y"}} - {{i.date_fin | date : "d/M/y"}}</td>
                     <td>{{i.description}}</td>
+                    <td>{{ typeStage(i.type) }}</td>
                     <td>{{i.nombre}}</td>
+                    <td class="text-center">
+                        <button class="btn btn-danger btn-sm" (click)="supprimerOffre(i.id_os)">Supprimer</button>
+                    </td>
                 </ng-container>
                 <ng-container *ngIf="offres.length == 0 ">
                     <tr><td colspan="5" class="text-center">Aucune proposition publiée</td></tr>

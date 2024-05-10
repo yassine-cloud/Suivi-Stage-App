@@ -35,4 +35,28 @@ export class ListeOffresComponent {
   
   }
 
+  supprimerOffre(id : string){
+    if(confirm("Voulez-vous vraiment supprimer cette offre ?"))
+    this.entre.supprimerOffre(id).subscribe(val=>{
+      console.log("Suppression avec Succés");
+      this.ngOnInit();
+    })
+  }
+
+  typeStage(type : number){
+    if(type == 1){
+      return "Stage d'initiation";
+    }
+    else if(type == 2){
+      return "Stage de perfectionnement";
+    }
+    else if(type == 3){
+      return "PFE";
+    }
+    else{
+      return "";
+    }
+    
+  }
+
 }

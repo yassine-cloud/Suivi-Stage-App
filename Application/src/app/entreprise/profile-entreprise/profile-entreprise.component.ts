@@ -26,7 +26,8 @@ export class ProfileEntrepriseComponent {
       date_debut: ['' , Validators.required],
       date_fin: ['' , Validators.required],
       id_ent: [this.id_ent , Validators.required],
-      nombre : [0 , Validators.required]
+      nombre : [0 , Validators.required],
+      type: ['' , Validators.required],
     });
     this.modalService.open(this.popRef, { backdropClass: 'pop-up-backdrop' });
   }

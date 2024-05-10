@@ -51,7 +51,7 @@ exports.deleteOffre = async (req, res) => {
         if (err) throw err;
         console.log('Data received from Db:');
         console.log(rows);
-        res.send(rows);
+        res.status(200).json({ message: 'Offre supprimée avec succès' });
     });
 }
 
