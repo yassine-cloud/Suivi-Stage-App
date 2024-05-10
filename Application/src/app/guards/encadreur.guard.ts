@@ -8,7 +8,7 @@ export const encadreurGuard: CanActivateFn = (route, state) => {
   const loginService = inject(LoginService);
 
   return loginService.role().pipe( map((val)=>{
-    if(val == "encadreur") return true;
+    if(val == "encadrant") return true;
     else{
       router.navigate(['/accueil'])
       alert("Vous n'avez pas les droits pour accéder à cette page")

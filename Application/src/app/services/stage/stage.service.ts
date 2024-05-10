@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -14,19 +14,36 @@ export class StageService {
   )}
 
 
-  getListeStages():Observable<any[]>{
-    return this.http.get<any[]>(this.url+"/stages", this.options).pipe(catchError(err=>{
+  // getListeStages():Observable<any[]>{
+  //   return this.http.get<any[]>(this.url+"/stages", this.options).pipe(
+  //     catchError(err=>{
+  //     console.error('Error Connexion:', err);
+  //       return of([]);
+  //   }))
+  // }
+
+  getListeStagesNonNote():Observable<any[]>{
+    return this.http.get<any[]>(this.url+"/stagesnonnote", this.options).pipe(
+      catchError(err=>{
       console.error('Error Connexion:', err);
         return of([]);
     }))
   }
 
-  getListeNAStages():Observable<any[]>{
-    return this.http.get<any[]>(this.url+"/NAstages", this.options).pipe(catchError(err=>{
+  getListeStagesNote():Observable<any[]>{
+    return this.http.get<any[]>(this.url+"/stagesnote", this.options).pipe(
+      catchError(err=>{
       console.error('Error Connexion:', err);
         return of([]);
     }))
   }
+
+  // getListeNAStages():Observable<any[]>{
+  //   return this.http.get<any[]>(this.url+"/NAstages", this.options).pipe(catchError(err=>{
+  //     console.error('Error Connexion:', err);
+  //       return of([]);
+  //   }))
+  // }
   getStage(id:string):Observable<any[]>{
     return this.http.post<any[]>(`${this.url}/stage`, { id_stg : +id } ,this.options  ).pipe(
       catchError(err => {
@@ -38,7 +55,43 @@ export class StageService {
   }
 
   editStage(i:any):Observable<any>{
-    return this.http.post<any>(this.url+"/affecteEncadrant",i , this.options);
+    return this.http.post<any>(this.url+"/affecteEncadrant",i , this.options).pipe(
+      catchError(err => {
+      console.log(err)
+      alert("Erreur lors de l'affectation de l'encadrant");
+      return of([]);
+      })
+    );
+    
   }
+
+
+  affecterJuries(data : any):Observable<any>{
+    return this.http.post<any>(this.url+"/affecterjury",data , this.options).pipe(
+      map((val)=>{
+        return val;
+      }),
+      catchError(err => {
+      console.log(err)
+      alert("Erreur lors de l'affectation du jury");
+      return of([]);
+      })
+    );
+    
+  }
+
+  affecterNoteStage(data : any):Observable<any>{
+    return this.http.post<any>(this.url+"/affecternote",data , this.options).pipe(
+      map((val)=>{
+        return val;
+      }),
+      catchError(err => {
+      console.log(err)
+      alert("Erreur lors de l'affectation de la note");
+      return of([]);
+      })
+    );
+  }
+
 
 }

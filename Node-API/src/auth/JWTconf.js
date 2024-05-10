@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const secretKey = "shhhhh"
 // Options for the token (optional)
 const options = {
-    expiresIn: '1h' // Token expiration time
+    expiresIn: '4h' // Token expiration time
 };
 ////-----------------------------------------------
 

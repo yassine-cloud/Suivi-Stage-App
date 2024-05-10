@@ -48,9 +48,14 @@ app.post('/signup', sign.signup)
 
 //MOD Stage
 app.get('/stages',stage.getStages);
-app.get('/NAstages',stage.getNAStages);
+app.get('/stagesnonnote',stage.getStagesNonNote);
+app.get('/stagesnote',stage.getStagesNote);
+// app.get('/NAstages',stage.getNAStages);
 app.post('/stage',stage.getStage);
 app.post('/affecteEncadrant',stage.updateStage);
+
+app.post('/affecterjury' , stage.affecterJurie);
+app.post('/affecternote' , stage.affecterNoteSout);
 
 
 

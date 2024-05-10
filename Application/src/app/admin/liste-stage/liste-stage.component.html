@@ -1,6 +1,98 @@
+
+<div class="container mt-3">
+  <select class="form-select mb-3" [(ngModel)]="selectTypeStage" (change)="filtrerStage()" >
+    <option selected value="1">Stage d'initiation</option>
+    <option value="2">Stage de perfectionnement</option>
+    <option value="3"> PFE </option>
+  </select>
+</div>
+
+
+<!-- etudiant d'initiation et perfectionnement -->
+<ng-container *ngIf="selectTypeStage == 1 || selectTypeStage == 2">
+<div class="container mt-3" >
+  <div class="profile ">
+    <h1 class="mb-2">Liste des Stages "Etudiant non Affecté"</h1>
+      <table class="table table-bordered table-hover mt-3">
+          <thead>
+              <tr class="table-secondary">
+                  <th>#</th>
+                  <th>Nom d'étudiant</th>
+                  <th>Prenom d'étudiant</th>
+                  <th>Nom de la Société</th>
+                  
+                  <th>Titre de Stage</th>
+                  <th class="text-center">Action</th>
+              </tr>
+          </thead>
+          <tbody>
+                <ng-container *ngIf="filtrerStageNA().length!=0">
+                  <tr *ngFor="let i of filtrerStageNA(); let x = index">
+                  <td>{{x+1}}</td>
+                  <td>{{i.nom}}</td>
+                  <td>{{i.prenom}}</td>
+                  <td>{{i.nom_ent}}</td>
+                  <td>{{i.titre}}</td>
+                  <td class="text-center"> <input type="button" value="Affecter Jurie" (click)="openPopAffectationJuries(i)"  class="btn btn-primary btn-sm "> </td>
+                </ng-container>
+                <ng-container *ngIf="filtrerStageNA().length==0">
+                  <tr>
+                    <td colspan="7" class="text-center">Aucun stage</td>
+                  </tr>
+                </ng-container>
+          </tbody>
+      </table>
+  </div>
+</div>
+
+<div class="container mt-3" >
+  <div class="profile ">
+    <h1 class="mb-2">Liste des Stages "Etudiants Affectés"</h1>
+      <table class="table table-bordered table-hover mt-3">
+          <thead>
+              <tr class="table-secondary">
+                  <th>#</th>
+                  <th>Nom d'étudiant</th>
+                  <th>Prenom d'étudiant</th>
+                  <th>Nom de la Société</th>                  
+                  <th>Titre de Stage</th>
+                  <th>Date Soutenance</th>
+                  <th colspan="2" class="text-center" >Action</th>
+              </tr>
+          </thead>
+          <tbody>
+
+                <ng-container *ngIf="filterStageNNote().length!=0">
+                  <tr *ngFor="let i of filterStageNNote(); let x = index">
+                  <td>{{x+1}}</td>
+                  <td>{{i.nom}}</td>
+                  <td>{{i.prenom}}</td>
+                  <td>{{i.nom_ent}}</td>
+                  <td>{{i.titre}}</td>
+                  <td>{{i.date_sout | date : "d/M/yyyy" }}</td>
+                    <td class="text-center">  <input type="button" value="Affecter une note" (click)="openPopAffectationNoteStage(i)"  class="btn btn-success btn-sm "></td>
+                    <td class="text-center">  <input type="button" value="Modifier Jurie" (click)="openPopAffectationJuries(i)"  class="btn btn-primary btn-sm "></td>
+                </ng-container>
+                <ng-container *ngIf="filterStageNNote().length==0">
+                  <tr>
+                    <td colspan="7" class="text-center">Aucun stage</td>
+                  </tr>
+                </ng-container>
+          </tbody>
+      </table>
+  </div>
+</div>
+
+</ng-container>
+
+
+<!-- Etudiant PFE -->
+
+
+<ng-container *ngIf="selectTypeStage == 3">
 <div class="container mt-3" >
     <div class="profile ">
-      <h1 class="mb-2">Liste des Stages "Etudiant non Affecté"</h1>
+      <h1 class="mb-2">Liste des Stages "Etudiant non Affecté à un Encadrant"</h1>
         <table class="table table-bordered table-hover mt-3">
             <thead>
                 <tr class="table-secondary">
@@ -14,18 +106,18 @@
                 </tr>
             </thead>
             <tbody>
-                  <ng-container *ngIf="listeNAStages.length!=0">
-                    <tr *ngFor="let i of listeNAStages; let x = index">
+                  <ng-container *ngIf="filtrerStageNAPFE().length!=0">
+                    <tr *ngFor="let i of filtrerStageNAPFE(); let x = index">
                     <td>{{x+1}}</td>
                     <td>{{i.nom}}</td>
                     <td>{{i.prenom}}</td>
                     <td>{{i.nom_ent}}</td>
                     <td>{{i.titre}}</td>
-                    <td class="text-center"> <input type="button" value="Affecter un Professeur" (click)="onModifie(i)"  class="btn btn-primary btn-sm "> </td>
+                    <td class="text-center"> <input type="button" value="Affecter un encadrant" (click)="onModifie(i)"  class="btn btn-primary btn-sm "> </td>
                   </ng-container>
-                  <ng-container *ngIf="listeNAStages.length==0">
+                  <ng-container *ngIf="filtrerStageNAPFE().length==0">
                     <tr>
-                      <td colspan="7" class="text-center">Aucun stage non affecté</td>
+                      <td colspan="7" class="text-center">Aucun stage </td>
                     </tr>
                   </ng-container>
             </tbody>
@@ -35,7 +127,7 @@
   
   <div class="container mt-3" >
     <div class="profile ">
-      <h1 class="mb-2">Liste des Stages "Etudiants Affectés"</h1>
+      <h1 class="mb-2">Liste des Stages "Etudiants Affectés à un Encadrant"</h1>
         <table class="table table-bordered table-hover mt-3">
             <thead>
                 <tr class="table-secondary">
@@ -46,25 +138,26 @@
                     
                     <th>Titre de Stage</th>
                     <th>Encadrant</th>
-                    <th colspan="2" class="text-center">Modifier encadreur</th>
+                    <th colspan="3" class="text-center">Actions</th>
                 </tr>
             </thead>
             <tbody>
 
-                  <ng-container *ngIf="listeStages.length!=0">
-                    <tr *ngFor="let i of listeStages; let x = index">
+                  <ng-container *ngIf="filtrerStageNDS().length!=0">
+                    <tr *ngFor="let i of filtrerStageNDS(); let x = index">
                     <td>{{x+1}}</td>
                     <td>{{i.nom}}</td>
                     <td>{{i.prenom}}</td>
                     <td>{{i.nom_ent}}</td>
                     <td>{{i.titre}}</td>
                     <td>{{getEncadrantNom(i.id_enc)}}</td>
-                    <td class="text-center"> <input type="button" value="Modifier" (click)="onModifie(i)"  class="btn btn-primary btn-sm "> </td>
+                    <td class="text-center">  <input type="button" value="Affecter Juries" (click)="openPopAffectationJuries(i)"  class="btn btn-success btn-sm "></td>
+                    <td class="text-center"> <input type="button" value="Modifier Encadrant" (click)="onModifie(i)"  class="btn btn-primary btn-sm "> </td>
                     <td class="text-center">  <input type="button" value="Supprimer Encadrant" (click)="supprimerEncadrant(i.id_stg)"  class="btn btn-danger btn-sm "></td>
                   </ng-container>
-                  <ng-container *ngIf="listeStages.length==0">
+                  <ng-container *ngIf="filtrerStageNDS().length==0">
                     <tr>
-                      <td colspan="7" class="text-center">Aucun stage affecté</td>
+                      <td colspan="7" class="text-center">Aucun stage</td>
                     </tr>
                   </ng-container>
             </tbody>
@@ -72,7 +165,49 @@
     </div>
   </div>
 
-  <ng-template #pop let-modal>
+  <div class="container mt-3" >
+    <div class="profile ">
+      <h1 class="mb-2">Liste des Stages "Etudiant non Noté"</h1>
+        <table class="table table-bordered table-hover mt-3">
+            <thead>
+                <tr class="table-secondary">
+                    <th>#</th>
+                    <th>Nom d'étudiant</th>
+                    <th>Prenom d'étudiant</th>
+                    <th>Nom de la Société</th>
+                    <th>Encadrant</th>
+                    <th>Titre de Stage</th>
+                  <th>Date Soutenance</th>
+
+                    <th colspan="2" class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                  <ng-container *ngIf="filterStageNNote().length!=0">
+                    <tr *ngFor="let i of filterStageNNote(); let x = index">
+                    <td>{{x+1}}</td>
+                    <td>{{i.nom}}</td>
+                    <td>{{i.prenom}}</td>
+                    <td>{{i.nom_ent}}</td>
+                    <td>{{getEncadrantNom(i.id_enc)}}</td>
+                    <td>{{i.titre}}</td>
+                    <td>{{i.date_sout | date : "d/M/yyyy" }}</td>
+                    <td class="text-center"> <input type="button" value="Modifier Juries" (click)="openPopAffectationJuries(i)"  class="btn btn-primary btn-sm "> </td>
+                    <td class="text-center"> <input type="button" value="Affecter Note" (click)="openPopAffectationNoteStage(i)"  class="btn btn-success btn-sm "> </td>
+                  </ng-container>
+                  <ng-container *ngIf="filterStageNNote().length==0">
+                    <tr>
+                      <td colspan="8" class="text-center">Aucun stage</td>
+                    </tr>
+                  </ng-container>
+            </tbody>
+        </table>
+    </div>
+  </div>
+
+</ng-container>
+
+  <ng-template #popAffectationEncadreur let-modal>
           
     <div class="modal-content">
       <div class="modal-header p-5 pb-4 border-bottom-0">
@@ -110,4 +245,196 @@
   
       </div>
     </div> 
+  </ng-template>
+
+  <!-- initiation -->
+  <ng-template #popAffectationJuries1 let-modal>
+          
+    <div class="modal-content">
+      <div class="modal-header p-5 pb-4 border-bottom-0">
+        <h1 class="fw-bold mb-0 fs-2">Affectation :</h1>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+    
+      <div class="modal-body p-5 pt-0">
+  
+        <form [formGroup]="popformInitiation" (ngSubmit)="onSubmitFormInitiation()">
+          <!-- <label for="id_stg">#:</label><br>
+            <input type="text" id="id_stg" name="id_stg" formControlName="id_stg" class="form-control" readonly > -->
+
+            <label for="nom" class="form-label mt-3">Nom etudiant:</label><br>
+            <input type="text" id="nom" name="nom" class="form-control" formControlName="nom" readonly>
+
+            <label for="prenom" class="form-label mt-3">Prenom etudiant:</label><br>
+            <input type="text" id="prenom" name="prenom" class="form-control" formControlName="prenom" readonly>
+
+            <label for="nom_ent" class="form-label mt-3">Nom de la société:</label><br>
+            <input type="text" id="nom_ent" name="nom_ent" class="form-control" formControlName="nom_ent"  readonly>
+
+            <label for="id_jurie" class="form-label mt-3">Jurie</label><br>
+
+            <select name="id_jurie" id="id_jurie" class="form-control" formControlName="id_jurie">
+              <option value="" hidden selected >Choisir-jurie</option>
+          <option *ngFor="let i of listeEncadrants" [value]="i.id_enc"> {{i.nom +" "+ i.prenom}} </option>
+          </select>            
+
+            <label for="date_sout" class="form-label mt-3">Date Soutenance</label><br>
+            <input type="date" id="date_sout" name="date_sout" formControlName="date_sout" class="form-control "
+            placeholder="yyyy-MM-dd" min="2023-01-01"  /> 
+
+          <input type="submit" class="btn btn-success m-3" value="Enregistrer" [disabled]="popformInitiation.invalid">
+          <input type="button" class="btn btn-secondary" value="Annuler" (click)="modal.close()">
+  
+      </form>
+  
+      </div>
+    </div> 
+  </ng-template>
+
+
+  <!-- perfectionnement -->
+  <ng-template #popAffectationJuries2 let-modal>
+          
+    <div class="modal-content">
+      <div class="modal-header p-5 pb-4 border-bottom-0">
+        <h1 class="fw-bold mb-0 fs-2">Affectation :</h1>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+    
+      <div class="modal-body p-5 pt-0">
+  
+        <form [formGroup]="popformPerfectionnement" (ngSubmit)="onSubmitFormPerfectionnement()">
+          <!-- <label for="id_stg">#:</label><br>
+            <input type="text" id="id_stg" name="id_stg" formControlName="id_stg" class="form-control" readonly > -->
+
+            <label for="nom" class="form-label mt-3">Nom etudiant:</label><br>
+            <input type="text" id="nom" name="nom" class="form-control" formControlName="nom" readonly>
+
+            <label for="prenom" class="form-label mt-3">Prenom etudiant:</label><br>
+            <input type="text" id="prenom" name="prenom" class="form-control" formControlName="prenom" readonly>
+
+            <label for="nom_ent" class="form-label mt-3">Nom de la société:</label><br>
+            <input type="text" id="nom_ent" name="nom_ent" class="form-control" formControlName="nom_ent"  readonly>
+
+            <label for="id_jurie1" class="form-label mt-3">Jurie</label><br>
+
+            <select name="id_jurie1" id="id_jurie1" class="form-control" formControlName="id_jurie1">
+              <option value="" hidden selected >Choisir-jurie 1</option>
+          <option *ngFor="let i of listeEncadrants" [value]="i.id_enc"> {{i.nom +" "+ i.prenom}} </option>
+          </select>            
+
+          <select name="id_jurie2" id="id_jurie2" class="form-control" formControlName="id_jurie2">
+            <option value="" hidden selected >Choisir-jurie 2</option>
+        <option *ngFor="let i of listeEncadrants" [value]="i.id_enc"> {{i.nom +" "+ i.prenom}} </option>
+        </select>            
+
+        
+            <label for="date_sout" class="form-label mt-3">Date Soutenance</label><br>
+            <input type="date" id="date_sout" name="date_sout" formControlName="date_sout" class="form-control "
+            placeholder="yyyy-MM-dd" min="2023-01-01"  /> 
+
+          <input type="submit" class="btn btn-success m-3" value="Enregistrer" [disabled]="popformPerfectionnement.invalid">
+          <input type="button" class="btn btn-secondary" value="Annuler" (click)="modal.close()">
+  
+      </form>
+  
+      </div>
+    </div> 
+  </ng-template>
+
+  <!-- PFE -->
+  <ng-template #popAffectationJuries3 let-modal>
+          
+    <div class="modal-content">
+      <div class="modal-header p-5 pb-4 border-bottom-0">
+        <h1 class="fw-bold mb-0 fs-2">Affectation :</h1>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+    
+      <div class="modal-body p-5 pt-0">
+  
+        <form [formGroup]="popformPFE" (ngSubmit)="onSubmitFormPFE()">
+          <!-- <label for="id_stg">#:</label><br>
+            <input type="text" id="id_stg" name="id_stg" formControlName="id_stg" class="form-control" readonly > -->
+
+            <label for="nom" class="form-label mt-3">Nom etudiant:</label><br>
+            <input type="text" id="nom" name="nom" class="form-control" formControlName="nom" readonly>
+
+            <label for="prenom" class="form-label mt-3">Prenom etudiant:</label><br>
+            <input type="text" id="prenom" name="prenom" class="form-control" formControlName="prenom" readonly>
+
+            <label for="nom_ent" class="form-label mt-3">Nom de la société:</label><br>
+            <input type="text" id="nom_ent" name="nom_ent" class="form-control" formControlName="nom_ent"  readonly>
+
+            <label for="id_enc" class="form-label mt-3">Encadrant</label><br>
+            <input type="text" id="nom_enc" name="nom_enc" class="form-control" formControlName="nom_enc"  readonly>
+
+            <label for="id_jurie1" class="form-label mt-3">Jurie</label><br>
+
+            <select name="id_jurie1" id="id_jurie1" class="form-control" formControlName="id_jurie1">
+              <option value="" hidden selected >Choisir-jurie 1</option>
+          <option *ngFor="let i of listeEncadrants" [value]="i.id_enc"> {{i.nom +" "+ i.prenom}} </option>
+          </select> 
+
+          <select name="id_jurie2" id="id_jurie2" class="form-control" formControlName="id_jurie2">
+            <option value="" hidden selected >Choisir-jurie 2</option>
+        <option *ngFor="let i of listeEncadrants" [value]="i.id_enc"> {{i.nom +" "+ i.prenom}} </option>
+        </select> 
+
+        <select name="id_jurie3" id="id_jurie3" class="form-control" formControlName="id_jurie3">
+          <option value="" hidden selected >Choisir-jurie 3</option>
+      <option *ngFor="let i of listeEncadrants" [value]="i.id_enc"> {{i.nom +" "+ i.prenom}} </option>
+      </select> 
+
+            <label for="date_sout" class="form-label mt-3">Date Soutenance</label><br>
+            <input type="date" id="date_sout" name="date_sout" formControlName="date_sout" class="form-control "
+            placeholder="yyyy-MM-dd" min="2023-01-01"  /> 
+
+          <input type="submit" class="btn btn-success m-3" value="Enregistrer" [disabled]="popformPFE.invalid">
+          <input type="button" class="btn btn-secondary" value="Annuler" (click)="modal.close()">
+  
+      </form>
+  
+      </div>
+    </div> 
+  </ng-template>
+
+
+  <ng-template #popAffectationNote let-modal>
+
+  <div class="modal-content">
+    <div class="modal-header p-5 pb-4 border-bottom-0">
+      <h1 class="fw-bold mb-0 fs-2">Affectation Note:</h1>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+
+    <div class="modal-body p-5 pt-0">
+
+      <form [formGroup]="popformNote" (ngSubmit)="affectationNoteStage()">
+
+        <label for="nom" class="form-label mt-3">Nom etudiant:</label><br>
+        <input type="text" id="nom" name="nom" class="form-control" formControlName="nom" readonly>
+
+        <label for="prenom" class="form-label mt-3">Prenom etudiant:</label><br>
+        <input type="text" id="prenom" name="prenom" class="form-control" formControlName="prenom" readonly>
+
+        <label for="nom_ent" class="form-label mt-3">Nom de la société:</label><br>
+        <input type="text" id="nom_ent" name="nom_ent" class="form-control" formControlName="nom_ent"  readonly>
+
+        <label for="date_sout" class="form-label mt-3">Date Soutenance</label><br>
+        <input type="date" id="date_sout" name="date_sout" formControlName="date_sout" class="form-control "
+        placeholder="yyyy-MM-dd" min="2023-01-01" readonly /> 
+
+
+
+        <label for="note" class="form-label mt-3">Note (0-20):</label><br>
+        <input type="number" id="note" name="note" class="form-control" formControlName="note" min="0" max="20" required>
+
+        <input type="submit" class="btn btn-success m-3" value="Enregistrer" [disabled]="popformNote.invalid">
+        <input type="button" class="btn btn-secondary" value="Annuler" (click)="modal.close()">
+
+      </form>
+
+    </div>
+  </div>
   </ng-template>
